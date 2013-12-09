@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}/{% endblock %} - Social Crowd</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet"></link>
+        <link type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.css" rel="stylesheet"></link>
+
+        {% block extrahead %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block body %}
+            <h1>Hello, world!</h1>
+        {% endblock %}
+
+        <script src="{{ STATIC_URL }}js/jquery.js"></script>
+        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+
+        {% block extrabody %}
+        {% endblock %}
+    </body>
+</html>
