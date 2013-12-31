@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block top %}
+    <p>{{ user.email }}</p>
+    <a href="{% url 'logout' %}">logout</a>
+{% endblock %}
+

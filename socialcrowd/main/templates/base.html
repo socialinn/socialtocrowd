@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,12 +9,48 @@
         <link type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.css" rel="stylesheet"></link>
 
         {% block extrahead %}
+            <link type="text/css" href="{{ STATIC_URL }}css/base.css" rel="stylesheet"></link>
         {% endblock %}
     </head>
 
     <body>
         {% block body %}
-            <h1>Hello, world!</h1>
+            <div class="container">
+              <div class="header">
+                <ul class="nav nav-pills pull-right">
+                  <li><a href="{% url "landing_index" %}">{% trans "landing" %}</a></li>
+                  <li class="active"><a href="{% url "profile" %}">{% trans "Profile" %}</a></li>
+                  <li><a href="{% url "logout" %}">{% trans "Logout" %}</a></li>
+                </ul>
+                <h3 class="text-muted">Social Crowd</h3>
+              </div>
+
+              {% include "messages.html" %}
+
+              {% block pretop %}
+              <div class="jumbotron">
+                {% block top %}
+                    <h1>Jumbotron heading</h1>
+                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                    <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+                {% endblock %}
+              </div>
+              {% endblock %}
+
+              <div class="footer">
+                {% block foot %}
+                    <p>
+                    <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
+                    <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
+                        ©
+                    </span>
+                    <!--[if lte IE 8]></span><![endif]-->
+                    Wadobo 2013</p>
+                {% endblock %}
+              </div>
+
+            </div>
+
         {% endblock %}
 
         <script src="{{ STATIC_URL }}js/jquery.js"></script>

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block extrahead %}
+    <link href="{{ STATIC_URL }}css/register.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% include "messages.html" %}
+
+        <form class="form" role="form" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+            <h2 class="form-signin-heading">{% trans "Register" %}</h2>
+
+            <div class="form-fields">
+            {{ form|bootstrap }}
+            </div>
+
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="{% trans "Register" %}" />
+            {% trans "Do you have an account yet?" %} <a href="{% url "login" %}">{% trans "Login" %}</a>
+        </form>
+    </div> <!-- /container -->
+{% endblock %}
+
+{% block extrabody %}
+    <script src="{{ STATIC_URL }}js/register.js"></script>
+{% endblock %}
