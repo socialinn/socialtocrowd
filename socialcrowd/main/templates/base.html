@@ -19,13 +19,14 @@
               <div class="header">
                 <ul class="nav nav-pills pull-right">
                   <li><a href="{% url "landing_index" %}">{% trans "landing" %}</a></li>
-                  <li class="active"><a href="{% url "profile" %}">{% trans "Profile" %}</a></li>
-                  <li><a href="{% url "logout" %}">{% trans "Logout" %}</a></li>
+                  <li><a href="{% url "account_logout" %}">{% trans "Logout" %}</a></li>
                 </ul>
                 <h3 class="text-muted">Social Crowd</h3>
               </div>
 
               {% include "messages.html" %}
+
+              {% block content %}
 
               {% block pretop %}
               <div class="jumbotron">
@@ -36,6 +37,8 @@
                 {% endblock %}
               </div>
               {% endblock %}
+
+            {% endblock %}
 
               <div class="footer">
                 {% block foot %}
