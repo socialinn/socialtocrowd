@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     # custom apps
     'main',
     'landing',
-    #'accounts',
+    'project',
 
     'allauth',
     'allauth.account',

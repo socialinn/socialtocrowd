@@ -1,0 +1,24 @@
+{% load i18n %}
+  <div class="bigbuttons row">
+    <div class="col-lg-4">
+        <a href="{% url 'near' %}" class="bigbutton btn btn-primary">
+            <span class="glyphicon glyphicon-globe"></span>
+            {% trans "Near to you" %}
+        </a>
+    </div>
+
+    <div class="col-lg-4">
+        <a href="#" class="bigbutton btn btn-primary">
+            <span class="glyphicon glyphicon-tint"></span>
+            {% trans "What do you have?" %}
+        </a>
+    </div>
+
+    <div class="col-lg-4">
+        <a href="#" class="bigbutton btn btn-primary">
+            <span class="glyphicon glyphicon-user"></span>
+            {% trans "Who wants to?" %}
+        </a>
+    </div>
+  </div>
+
