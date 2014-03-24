@@ -6,24 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.css" rel="stylesheet"></link>
-        <link type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap-theme.css" rel="stylesheet"></link>
+        <link type="text/css" href="{{ STATIC_URL }}css/base.css" rel="stylesheet"></link>
 
         {% block extrahead %}
-            <link type="text/css" href="{{ STATIC_URL }}css/base.css" rel="stylesheet"></link>
         {% endblock %}
     </head>
 
     <body>
         {% block body %}
-            <div class="container">
-              <div class="header">
-                <ul class="nav nav-pills pull-right">
-                  <li><a href="{% url "landing_index" %}">{% trans "landing" %}</a></li>
-                  <li><a href="{% url "account_logout" %}">{% trans "Logout" %}</a></li>
-                </ul>
-                <h3 class="text-muted">Social Crowd</h3>
-              </div>
+            {% include "menu.html" %}
 
+            {% block precont %}
+            {% endblock %}
+
+            <div class="container">
               {% include "messages.html" %}
 
               {% block content %}
@@ -42,13 +38,14 @@
 
               <div class="footer">
                 {% block foot %}
-                    <p>
-                    <!--[if lte IE 8]><span style="filter: FlipH; -ms-filter: "FlipH"; display: inline-block;"><![endif]-->
-                    <span style="-moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
-                        ©
-                    </span>
-                    <!--[if lte IE 8]></span><![endif]-->
-                    Wadobo 2013</p>
+                    <!-- FOOTER -->
+                    <footer>
+                      <p class="text-center">
+                          <a href="https://bitbucket.org/danigm/socialcrowd">{% trans "Source code" %}</a> &middot;
+                          <a href="#">{% trans "Privacy" %}</a> &middot;
+                          <a href="#">{% trans "Terms" %}</a>
+                      </p>
+                    </footer>
                 {% endblock %}
               </div>
 
