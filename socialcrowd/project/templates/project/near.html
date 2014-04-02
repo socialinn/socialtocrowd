@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+{% block title %}{% trans "Near to you" %}{% endblock %}
+
 {% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
     <link type="text/css" href="{{ STATIC_URL }}css/near.css" rel="stylesheet"></link>
 {% endblock %}
 
@@ -14,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="searchloc input-group">
+    <div class="searchbar input-group">
       <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
       <span class="input-group-btn">
         <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="Near.codeAddress()">
