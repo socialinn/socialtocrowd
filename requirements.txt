@@ -4,3 +4,4 @@ ipdb
 ipython
 django-bootstrap-form
 django-allauth
+pillow
