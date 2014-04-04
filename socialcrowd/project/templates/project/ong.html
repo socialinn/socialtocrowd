@@ -1,0 +1,32 @@
+{% load i18n %}
+<div class="ong">
+    <div class="row">
+        <div class="col-sm-2">
+            {% if ong.img %}
+                <img src="{{ MEDIA_URL }}{{ ong.img }}" class="img-responsive" alt="{{ ong.name }}"/>
+            {% else %}
+                <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ ong.name }}"/>
+            {% endif %}
+        </div>
+        <div class="col-sm-5">
+            <a href=""><h3>{{ ong.name }}</h3></a>
+            <p>{{ ong.description|truncatewords:40 }}</p>
+            <span class="label label-default">{{ ong.province }}</span>
+            <span class="label label-success">{{ ong.city }}</span>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>{% trans "Our projects" %}</h3>
+            <ul>
+                {% for p in ong.projects.all %}
+                {% if forloop.counter < 5 %}
+                    <li>{{ p.name }} ({{ p.created|timesince }})</li>
+                {% elif forloop.counter == 5 %}
+                    <li>{% trans "And more..." %}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+

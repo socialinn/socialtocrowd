@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="project">
+    <div class="row">
+        <div class="col-sm-2">
+            {% if project.img %}
+            {% else %}
+                <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.name }}"/>
+            {% endif %}
+        </div>
+        <div class="col-sm-5">
+            <a href=""><h3>{{ project.name }}</h3></a>
+            <p>{{ project.description|truncatewords:40 }}</p>
+            <span class="pull-right">
+            {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}
+            </span>
+            <a href="" class="label label-success">{{ project.ong.name }}</a>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>{% trans "What do we need?" %}</h3>
+            <a href="" class="btn btn-success pull-right">{% trans "Donate" %}</a>
+            <ul>
+                {% for thing in project.things.all %}
+                {% if forloop.counter < 5 %}
+                    <li>{{ thing.name }} ({{ thing.ndonations }}/{{ thing.quantity }})</li>
+                {% elif forloop.counter == 5 %}
+                    <li>{% trans "And more..." %}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

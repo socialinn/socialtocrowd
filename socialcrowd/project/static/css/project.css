@@ -2,3 +2,33 @@
     width: 50%;
     margin: 10px auto;
 }
+
+.project {
+    border: 1px solid #888;
+    margin: 20px 0 20px 0;
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.project .row {
+    padding: 20px;
+}
+
+.project:hover {
+    background-color: #fff;
+}
+
+.ong {
+    border: 1px solid #888;
+    margin: 20px 0 20px 0;
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+.ong .row {
+    padding: 20px;
+}
+
+.ong:hover {
+    background-color: #fff;
+}

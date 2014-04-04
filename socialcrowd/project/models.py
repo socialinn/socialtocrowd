@@ -18,7 +18,7 @@ class Project(models.Model):
     description = models.TextField()
     img = models.ImageField(upload_to="projects", blank=True, null=True)
     ong = models.ForeignKey(Organization, related_name='projects')
-    shipping_addres = models.TextField()
+    shipping_address = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -30,6 +30,9 @@ class Thing(models.Model):
     description = models.TextField(blank=True, null=True)
     project = models.ForeignKey(Project, related_name='things')
     quantity = models.IntegerField(default=1)
+
+    def ndonations(self):
+        return self.donations.count()
 
     def __unicode__(self):
         return self.name

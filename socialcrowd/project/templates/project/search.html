@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block content %}
-    <form method="" action="POST">
-    {% csrf_token %}
+    <form method="GET" action="">
         <div class="searchbar input-group">
           <input type="text" class="form-control" name="search" placeholder="{{ placeholder }}">
           <span class="input-group-btn">
-            <input type="button" class="btn btn-primary" value="{% trans "Go" %}"/>
+            <input type="submit" class="btn btn-primary" value="{% trans "Go" %}"/>
           </span>
         </div>
     </form>
 
     <div class="list">
+        {% include listtemplate %}
     </div>
 
     {% include "landing/bigbuttons.html" %}
