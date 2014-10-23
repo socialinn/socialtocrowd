@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     # third party apps
-    'south',
     'bootstrapform',
 
     # custom apps
