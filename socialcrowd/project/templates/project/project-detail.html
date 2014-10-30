@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block content %}
+    <div class="project-detail">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                {% if project.img %}
+                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.name }}"/>
+                {% else %}
+                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.name }}"/>
+                {% endif %}
+
+                </br>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <a href=""><h3>{{ project.name }}</h3></a>
+                        <p>{{ project.description }}</p>
+                        <span class="pull-right">
+                        {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}
+                        </span>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4">
+                                {% if project.ong.img %}
+                                    <img src="{{ MEDIA_URL }}{{ project.ong.img }}" class="img-responsive" alt="{{ project.ong.name }}"/>
+                                {% else %}
+                                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.ong.name }}"/>
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-8 col-sm-8">
+                                {% trans "ONG" %}: {{ project.ong.name }}.</br>
+                                {% trans "Projects" %}: 
+                                    {% for p in project.ong.projects.all %}
+                                        {% if forloop.counter < 5 %}
+                                            {{ p.name }},
+                                        {% elif forloop.counter == 5 %}
+                                            {% trans "and more..." %}
+                                        {% endif %}
+                                    {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <h3>{% trans "List equipment" %}</h3>
+                <!-- #TODO -->
+                <ul>
+                    {% for thing in project.things.all %}
+                        <li>{{ thing.name }} ({{ thing.ndonations }}/{{ thing.quantity }})</li>
+                    {% endfor %}
+                </ul>
+                <a href="" class="btn btn-success w90">{% trans "Donate" %}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -8,7 +8,7 @@
             {% endif %}
         </div>
         <div class="col-sm-5">
-            <a href=""><h3>{{ project.name }}</h3></a>
+            <a href="/project/detail/{{ project.id }}"><h3>{{ project.name }}</h3></a>
             <p>{{ project.description|truncatewords:40 }}</p>
             <span class="pull-right">
             {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}

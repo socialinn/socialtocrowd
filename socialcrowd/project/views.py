@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.views.generic.base import TemplateView
 from django.utils.translation import ugettext as _
+from django.shortcuts import get_object_or_404
 
 from .models import Project
 from .models import Organization
@@ -68,3 +69,14 @@ class ONGs(TemplateView):
         ctx['listtemplate'] = 'project/ongs.html'
         return ctx
 ongs = ONGs.as_view()
+
+
+class Detail(TemplateView):
+    template_name = 'project/project-detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(Detail, self).get_context_data(*args, **kwargs)
+        project = get_object_or_404(Project, pk=self.args[0])
+        ctx['project'] = project
+        return ctx
+detail = Detail.as_view()
