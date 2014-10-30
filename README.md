@@ -9,6 +9,5 @@ donations or work to do.
 1. Create a new virtualenv: mkvirtualenv -p /usr/bin/python2 socialcrowd
 1. Install requirements: pip install -r requirements.txt
 1. Create the database:
-    * python manage.py syncdb
     * python manage.py migrate
 1. Run the application: python manage.py runserver
