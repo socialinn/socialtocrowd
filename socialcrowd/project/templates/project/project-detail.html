@@ -51,13 +51,43 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-4">
-                <h3>{% trans "List equipment" %}</h3>
-                <!-- #TODO -->
-                <ul>
-                    {% for thing in project.things.all %}
-                        <li>{{ thing.name }} ({{ thing.ndonations }}/{{ thing.quantity }})</li>
-                    {% endfor %}
-                </ul>
+                <h3 class="center">{% trans "Achieved" %}</h3>
+                <progress value="{{ project.percent_donate }}" max="100"></progress>
+                <h3 class="center">{% trans "List equipment" %}</h3>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>{% trans "thing" %}</th>
+                                <th class="center">{% trans "amount" %}</th>
+                                <th>{% trans "status" %}</th>
+                            </tr>
+                        </thead>
+                        {% for thing in project.things.all %}
+                            {% if thing.ndonations.received > 0 %}
+                                <tr>
+                                    <td>{{ thing.name }}</td>
+                                    <td class="center">{{ thing.ndonations.received }}</td>
+                                    <td>{% trans "received" %}</td>
+                                </tr>
+                            {% endif %}
+                            {% if thing.ndonations.sent > 0 %}
+                                <tr>
+                                    <td>{{ thing.name }}</td>
+                                    <td class="center">{{ thing.ndonations.sent }}</td>
+                                    <td>{% trans "sent" %}</td>
+                                </tr>
+                            {% endif %}
+                            {% if thing.ndonations.nodonate > 0 %}
+                                <tr>
+                                    <td>{{ thing.name }}</td>
+                                    <td class="center">{{ thing.ndonations.nodonate }}</td>
+                                    <td>necessaries <input type="checkbox" value="{{ thing.id }}"/></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
                 <a href="" class="btn btn-success w90">{% trans "Donate" %}</a>
             </div>
         </div>

@@ -35,4 +35,24 @@
 
 .project-detail .w90 {
     width: 90%;
+    margin: auto;
+    display: block;
+}
+
+.project-detail progress {
+    width: 90%;
+    height: 20px;
+    border: 1px;
+    margin: auto;
+    display: block;
+}
+
+.project-detail .table-responsive {
+    border: 1px solid;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.project-detail .center {
+    text-align: center;
 }

@@ -24,6 +24,14 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+    def percent_donate(self):
+        total = 0
+        donate = 0
+        for thing in self.things.all():
+            total += thing.quantity
+            donate += thing.ndonations().get('total')
+        return donate * 100.0 / total
+
 
 class Thing(models.Model):
     name = models.CharField(max_length=255)
@@ -32,7 +40,17 @@ class Thing(models.Model):
     quantity = models.IntegerField(default=1)
 
     def ndonations(self):
-        return self.donations.count()
+        total = 0
+        sent = 0
+        received = 0
+        for donation in self.donations.all():
+            if donation.status == 'sent':
+                sent += donation.quantity
+            elif donation.status == 'received':
+                sent += donation.quantity
+            total += donation.quantity
+        return {'received': received, 'sent': sent, 'total': total,
+                'nodonate': self.quantity - total }
 
     def __unicode__(self):
         return self.name

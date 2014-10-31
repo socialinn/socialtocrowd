@@ -22,7 +22,7 @@
             <ul>
                 {% for thing in project.things.all %}
                 {% if forloop.counter < 5 %}
-                    <li>{{ thing.name }} ({{ thing.ndonations }}/{{ thing.quantity }})</li>
+                    <li>{{ thing.name }} ({{ thing.ndonations.total }}/{{ thing.quantity }})</li>
                 {% elif forloop.counter == 5 %}
                     <li>{% trans "And more..." %}</li>
                 {% endif %}
