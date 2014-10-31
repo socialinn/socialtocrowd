@@ -30,7 +30,11 @@ class Project(models.Model):
         for thing in self.things.all():
             total += thing.quantity
             donate += thing.ndonations().get('total')
-        return donate * 100.0 / total
+        if total <= 0:
+            res = 0
+        else:
+            res = donate * 100.0 / total
+        return res
 
 
 class Thing(models.Model):
