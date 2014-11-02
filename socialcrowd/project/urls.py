@@ -6,4 +6,5 @@ urlpatterns = patterns('',
     url(r'^things/$', views.things, name="things"),
     url(r'^ongs/$', views.ongs, name="ongs"),
     url(r'^detail/(\d+)/$', views.detail, name="detail"),
+    url(r'^donate/(\d+)/$', views.donate, name="donate"),
 )

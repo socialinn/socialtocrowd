@@ -33,13 +33,13 @@
     background-color: #fff;
 }
 
-.project-detail .w90 {
+.w90 {
     width: 90%;
     margin: auto;
     display: block;
 }
 
-.project-detail progress {
+progress.achieved {
     width: 90%;
     height: 20px;
     border: 1px;
@@ -47,12 +47,15 @@
     display: block;
 }
 
-.project-detail .table-responsive {
-    border: 1px solid;
+table.list-equipment {
+    width: 95%;
+    margin: auto;
+    border: 1px solid #ddd;
     margin-top: 5px;
     margin-bottom: 5px;
+    overflow-x: scroll;
 }
 
-.project-detail .center {
+.center {
     text-align: center;
 }

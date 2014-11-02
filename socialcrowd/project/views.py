@@ -1,10 +1,12 @@
+from django.db import models
 from django.db.models import Q
 from django.views.generic.base import TemplateView
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from .models import Project
 from .models import Organization
+from .models import Thing, Shipping, Donation
 
 
 class Near(TemplateView):
@@ -80,3 +82,18 @@ class Detail(TemplateView):
         ctx['project'] = project
         return ctx
 detail = Detail.as_view()
+
+
+def donate(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    checks = []
+    for c in request.GET.getlist('checks[]'):
+        checks.append(int(c))
+    ship_project = Shipping(project=project, user=request.user)
+    ship_project.save()
+    ctx = {}
+    ctx['project'] = project
+    ctx['things_checks'] = checks
+    ctx['ship'] = ship_project
+    ctx['sendtypes'] = Donation.SENDTYPE
+    return render(request, 'project/donate-t1.html', ctx)
