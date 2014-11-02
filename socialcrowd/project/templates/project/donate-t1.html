@@ -1,1 +1,94 @@
-#TODO
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block content %}
+    <div class="project">
+        <div class="row">
+            <div class="col-sm-4">
+                {% if project.img %}
+                <img src="{{ MEDIA_URL }}{{ project.img }}" class="img-responsive" alt="{{ project.name }}"/>
+                {% else %}
+                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.name }}"/>
+                {% endif %}
+            </div>
+            <div class="col-sm-8">
+                <a href="/project/detail/{{ project.id }}/"><h3>{{ project.name }}</h3></a>
+                <p>{{ project.description }}</p>
+                <span class="pull-right">
+                {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}
+                </span>
+                <a href="" class="label label-success">{{ project.ong.name }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="donate-t1">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="center">{% trans "Achieved" %}</h3>
+                <progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress>
+                <h3>{% trans "Shipping number" %}: {{ ship.id }}</h3>
+                <form class="donate" action="{% url 'shipping' ship.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-hover list-equipment">
+                                <thead>
+                                    <tr>
+                                        <th>{% trans "Items" %}</th>
+                                        <th>{% trans "Description" %}</th>
+                                        <th class="center">{% trans "Necessaries" %}</th>
+                                        <th>{% trans "Quantity" %}</th>
+                                        <th>{% trans "Type Send" %}</th>
+                                        <th>{% trans "Delivery date (aprox.)" %}</th>
+                                    </tr>
+                                </thead>
+                                {% for thing in project.things.all %}
+                                    {% if thing.ndonations.nodonate > 0 %}
+                                        <tr>
+                                            <td>{{ thing.name }}</td>
+                                            <td>{{ thing.description|truncatechars:30 }}</td>
+                                            <td class="center">{{ thing.ndonations.nodonate }}</td>
+                                            <td>
+                                                <input name="quantity[{{ thing.id }}]"
+                                                    type="number" min="0" max="{{ thing.ndonations.nodonate }}"
+                                                    value="{% if thing.id in things_checks %}1{% else %}0{% endif %}">
+                                                </input>
+                                            </td>
+                                            <td>
+                                                <select type="text" name="sendtype[{{ thing.id }}]">
+                                                    {% for type in sendtypes %}
+                                                        <option value="{{ type.0 }}">{{ type.1 }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="date" id="delivery" name="delivery[{{ thing.id }}]"></input>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <div class="col-md-12">
+                            <textarea type="text" class="w90" name="comment" placeholder="{% trans "Commentary about shipping" %}"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" name="show">
+                                {% trans "Show in donate page" %}
+                            </input>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-success w90" value="{% trans "Accept" %}"></input>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

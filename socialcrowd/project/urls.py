@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^ongs/$', views.ongs, name="ongs"),
     url(r'^detail/(\d+)/$', views.detail, name="detail"),
     url(r'^donate/(\d+)/$', views.donate, name="donate"),
+    url(r'^shipping/(\d+)/$', views.shipping, name="shipping"),
 )

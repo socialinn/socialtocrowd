@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.views.generic.base import TemplateView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render
+from datetime import datetime
 
 from .models import Project
 from .models import Organization
@@ -89,11 +90,47 @@ def donate(request, pk):
     checks = []
     for c in request.GET.getlist('checks[]'):
         checks.append(int(c))
-    ship_project = Shipping(project=project, user=request.user)
-    ship_project.save()
+    ships_project = Shipping.objects.filter(project=project, user=request.user)
+    for ship_project in ships_project:
+        if not ship_project.donations.all():
+            break
+        ship_project = None
+    if not ship_project:
+        ship_project = Shipping(project=project, user=request.user)
+        ship_project.save()
     ctx = {}
     ctx['project'] = project
     ctx['things_checks'] = checks
     ctx['ship'] = ship_project
     ctx['sendtypes'] = Donation.SENDTYPE
     return render(request, 'project/donate-t1.html', ctx)
+
+
+def shipping(request, pk):
+    if request.POST:
+        ship_project = get_object_or_404(Shipping, pk=pk)
+        some_donate = False
+        for thing in ship_project.project.things.all():
+            strid = str(thing.id)
+            if request.POST.get('quantity[' + strid + ']') and\
+                    int(request.POST.get('quantity[' + strid + ']')) > 0:
+                quantity = request.POST.get('quantity[' + strid + ']')
+                sendtype = request.POST.get('sendtype[' + strid + ']')
+                date = request.POST.get('delivery[' + strid + ']')
+                if date:
+                    delivery = datetime(int(date[:4]), int(date[5:7]), int(date[8:]))
+                else:
+                    delivery = None
+                donation = Donation(thing=thing, shipping=ship_project,
+                        sendtype=sendtype, quantity=quantity, delivery=delivery)
+                donation.save()
+                some_donate = True
+        if some_donate:
+            ship_project.comment = request.POST.get('comment')
+            if request.POST.get('show') == 'on':
+                ship_project.show = True
+            else:
+                ship_project.show = False
+            ship_project.save()
+        ctx = {}
+    return render(request, 'project/shipping.html', ctx)
