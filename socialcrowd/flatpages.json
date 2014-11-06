@@ -1,0 +1,32 @@
+[
+{
+    "fields": {
+        "registration_required": false,
+        "title": "Condiciones Legales",
+        "url": "/legal/",
+        "template_name": "",
+        "sites": [
+            1
+        ],
+        "content": "<p>Aqu\u00ed van las condiciones legales</p>",
+        "enable_comments": false
+    },
+    "model": "flatpages.flatpage",
+    "pk": 1
+},
+{
+    "fields": {
+        "registration_required": false,
+        "title": "Preguntas Frecuentes",
+        "url": "/faq/",
+        "template_name": "",
+        "sites": [
+            1
+        ],
+        "content": "<p>Preguntas frecuentes de social to crowd</p>",
+        "enable_comments": false
+    },
+    "model": "flatpages.flatpage",
+    "pk": 2
+}
+]
