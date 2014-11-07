@@ -8,4 +8,5 @@ urlpatterns = patterns('',
     url(r'^detail/(\d+)/$', views.detail, name="detail"),
     url(r'^donate/(\d+)/$', views.donate, name="donate"),
     url(r'^shipping/(\d+)/$', views.shipping, name="shipping"),
+    url(r'^create/ong/$', views.CreateONG.as_view(), name="create_ong"),
 )

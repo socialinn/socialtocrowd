@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render
 from datetime import datetime
@@ -72,6 +73,12 @@ class ONGs(TemplateView):
         ctx['listtemplate'] = 'project/ongs.html'
         return ctx
 ongs = ONGs.as_view()
+
+
+class CreateONG(CreateView):
+    model = Organization
+    fields = ['name', 'description', 'img', 'city', 'province']
+    success_url = '/'
 
 
 class Detail(TemplateView):
