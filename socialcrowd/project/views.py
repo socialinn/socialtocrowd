@@ -95,7 +95,7 @@ def donate(request, pk):
         if not ship_project.donations.all():
             break
         ship_project = None
-    if not ship_project:
+    if not ships_project or not ship_project:
         ship_project = Shipping(project=project, user=request.user)
         ship_project.save()
     ctx = {}
