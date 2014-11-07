@@ -1,6 +1,51 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load account %}
 
 {% block content %}
-    {% user_display user %}
+    <h1>{{shippings|length }} {% trans "donations done" %}</h1>
+    {% for shipping in shippings %}
+        <div class="shipping">
+            <div class="row">
+                <div class="col-sm-2">
+                    {% if shipping.project.img %}
+                    <img src="{{ MEDIA_URL }}{{ shipping.project.img }}" class="img-responsive"
+                    alt="{{ shipping.project.name }}"/>
+                    {% else %}
+                        <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{
+                        shipping.project.name }}"/>
+                    {% endif %}
+                    <span>{{ shipping.status }}</span>
+                </div>
+                <div class="col-sm-5">
+                    <a href="/project/detail/{{ shipping.project.id }}/"><h3>{{ shipping.project.name }}</h3></a>
+                    <p>{{ shipping.project.description|truncatewords:40 }}</p>
+                    <span class="pull-right">
+                        {{shipping.created }}
+                    </span>
+                    <a href="" class="label label-success">{{ shipping.project.ong.name }}</a>
+                </div>
+
+                <div class="col-sm-5">
+                    <h3>{% trans "Donated" %}</h3>
+                    {% if shipping.show %}
+                        <span class="pull-right">{% trans "Public" %}</span>
+                    {% else %}
+                        <span class="pull-right">{% trans "Private" %}</span>
+                    {% endif %}
+                    <ul>
+                        {% for donation in shipping.donations.all %}
+                            <li>{{ donation.quantity }} {{ donation.thing }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr>
+
+    <div class="center">
+        <a href="/accounts/password/change/">{% trans "change password" %}</a>
+    </div>
 {% endblock %}
