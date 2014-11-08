@@ -19,7 +19,7 @@
 
         <div class="col-sm-5">
             <h3>{% trans "What do we need?" %}</h3>
-            <a href="" class="btn btn-success pull-right">{% trans "Donate" %}</a>
+            <a href="/project/donate/{{ project.id }}/" class="btn btn-success pull-right">{% trans "Donate" %}</a>
             <ul>
                 {% for thing in project.things.all %}
                 {% if forloop.counter < 5 %}
