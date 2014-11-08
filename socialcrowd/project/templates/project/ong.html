@@ -20,7 +20,7 @@
             <ul>
                 {% for p in ong.projects.all %}
                 {% if forloop.counter < 5 %}
-                    <li>{{ p.name }} ({{ p.created|timesince }})</li>
+                    <li><a href="/project/detail/{{ p.id }}">{{ p.name }}</a> ({{ p.created|timesince }})</li>
                 {% elif forloop.counter == 5 %}
                     <li>{% trans "And more..." %}</li>
                 {% endif %}
