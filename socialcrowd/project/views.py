@@ -3,9 +3,10 @@ from django.db.models import Q
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from datetime import datetime
 
+from .forms import ThingFormSet
 from .models import Project
 from .models import Organization
 from .models import Thing, Shipping, Donation
@@ -90,6 +91,31 @@ class Detail(TemplateView):
         ctx['project'] = project
         return ctx
 detail = Detail.as_view()
+
+
+class CreateProject(CreateView):
+    model = Project
+    fields = ['name', 'description', 'img', 'ong', 'shipping_address']
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateProject, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['thing_form'] = ThingFormSet(self.request.POST)
+        else:
+            context['thing_form'] = ThingFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        thing_form = context['thing_form']
+        if thing_form.is_valid():
+            self.object = form.save()
+            thing_form.instance = self.object
+            thing_form.save()
+            return redirect(self.success_url)
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
 
 
 def donate(request, pk):
