@@ -1,1 +1,56 @@
-#TODO
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block content %}
+    <h2>{% trans "Accepted Shipping Number" %}: {{ ship.id }}</h2>
+
+    <div class="project">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>{{ ship.project.name }}</h3>
+            </div>
+            <div class="col-sm-8">
+                <p>{{ ship.project.description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover list-equipment">
+            <thead>
+                <tr>
+                    <th>{% trans "Items" %}</th>
+                    <th>{% trans "Address to shipping" %}</th>
+                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "Info" %}</th>
+                </tr>
+            </thead>
+            {% for donation in donations %}
+                <tr>
+                    <td>{{ donation.thing.name }}</td>
+                    <!-- TODO: link to map -->
+                    <td><a href="">{{ ship.project.shipping_address|truncatechars:30 }}</a></td>
+                    <td>{{ donation.delivery.hour }}</td>
+                    <td>{{ donation.info }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <input class="btn btn-success" value="{% trans "Print address" %}"></input>
+        <input class="btn btn-success" value="{% trans "Download QR" %}"></input>
+    </div>
+
+    <form action="">
+        <input type="radio" name="company" value="correos">correos</input><br>
+        <input type="radio" name="company" value="seur">seur</input>
+    </form>
+    <input class="btn btn-success" value="{% trans "Order shipping" %}"></input>
+
+{% endblock %}

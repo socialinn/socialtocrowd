@@ -143,6 +143,7 @@ def shipping(request, pk):
     if request.POST:
         ship_project = get_object_or_404(Shipping, pk=pk)
         some_donate = False
+        donations = []
         for thing in ship_project.project.things.all():
             strid = str(thing.id)
             if request.POST.get('quantity[' + strid + ']') and\
@@ -157,6 +158,7 @@ def shipping(request, pk):
                 donation = Donation(thing=thing, shipping=ship_project,
                         sendtype=sendtype, quantity=quantity, delivery=delivery)
                 donation.save()
+                donations.append(donation)
                 some_donate = True
         if some_donate:
             ship_project.comment = request.POST.get('comment')
@@ -166,4 +168,6 @@ def shipping(request, pk):
                 ship_project.show = False
             ship_project.save()
         ctx = {}
+        ctx['ship'] = ship_project
+        ctx['donations'] = donations
     return render(request, 'project/shipping.html', ctx)
