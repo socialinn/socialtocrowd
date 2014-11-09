@@ -118,3 +118,12 @@ class Donation(models.Model):
 
     def __unicode__(self):
         return self.thing.name
+
+
+class ShippingCompany(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)
+    info = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name

@@ -10,6 +10,7 @@ from .forms import ThingFormSet
 from .models import Project
 from .models import Organization
 from .models import Thing, Shipping, Donation
+from .models import ShippingCompany
 
 
 class Near(TemplateView):
@@ -170,4 +171,5 @@ def shipping(request, pk):
         ctx = {}
         ctx['ship'] = ship_project
         ctx['donations'] = donations
+        ctx['companies'] = ShippingCompany.objects.all()
     return render(request, 'project/shipping.html', ctx)

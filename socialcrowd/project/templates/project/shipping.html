@@ -47,10 +47,17 @@
         <input class="btn btn-success" value="{% trans "Download QR" %}"></input>
     </div>
 
-    <form action="">
-        <input type="radio" name="company" value="correos">correos</input><br>
-        <input type="radio" name="company" value="seur">seur</input>
-    </form>
-    <input class="btn btn-success" value="{% trans "Order shipping" %}"></input>
+    {% if companies|length > 0 %}
+        {% for company in companies %}
+            <input type="radio" name="company" value="{{ company.url }}">{{ company.name }}</input><br>
+        {% endfor %}
+        <input class="btn btn-success" value="{% trans "Order shipping" %}" onclick=orderShipping()></input>
+    {% endif %}
+
+    <script type="text/javascript">
+        function orderShipping() {
+            window.open(document.querySelector('input[name="company"]:checked').value);
+        }
+    </script>
 
 {% endblock %}
