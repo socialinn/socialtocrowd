@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block content %}
+    <div class="ong-detail">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                {% if ong.img %}
+                    <img src="{{ MEDIA_URL }}{{ ong.img }}" class="img-responsive" alt="{{ ong.name }}"/>
+                {% else %}
+                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ ong.name }}"/>
+                {% endif %}
+
+                </br>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h3>{{ ong.name }}</h3>
+                        <p>{{ ong.description }}</p>
+                        <span class="pull-left">
+                            <p>{{ ong.city }}/{{ ong.province }}</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <h3 class="center">{% trans "Projects" %}</h3>
+
+
+                {% if ong.projects.all|length == 0  %}
+                    <h4 class="center">{% trans "Exist nothing project" %}</h4>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table table-hover table-projects">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "project" %}</th>
+                                    <th>{% trans "created" %}</th>
+                                    <th>{% trans "achieved" %}</th>
+                                </tr>
+                            </thead>
+                            {% for project in ong.projects.all %}
+                                <tr>
+                                    <td><a href="/project/detail/{{ project.id }}">{{ project.name }}</a></td>
+                                    <td>{{ project.created.date }}</td>
+                                    <td><progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

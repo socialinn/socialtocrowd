@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.contrib import messages
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.utils.translation import ugettext as _
@@ -29,7 +30,7 @@ class Things(TemplateView):
 
         q = self.request.GET.get('search', '')
         # default
-        query = Project.objects.all()
+        query = Project.objects.filter(ong__status="actived")
         complexq = Q()
         if q:
             complexq = complexq & Q(name__icontains=q)
@@ -87,6 +88,21 @@ class CreateONG(CreateView):
         obj.user = self.request.user
         obj.save()
         return redirect(self.success_url)
+
+
+class ONG(TemplateView):
+    template_name = 'project/ong-detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(ONG, self).get_context_data(*args, **kwargs)
+        ong = get_object_or_404(Organization, pk=self.args[0])
+        if ong.status == "actived" or self.request.user == ong.user:
+            ctx['ong'] = ong
+        else:
+            messages.add_message(self.request, messages.ERROR,
+                'Organization deleted or not actived')
+        return ctx
+ong = ONG.as_view()
 
 
 class Detail(TemplateView):

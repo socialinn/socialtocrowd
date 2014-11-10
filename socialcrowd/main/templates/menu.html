@@ -27,7 +27,7 @@
                   {% if user.is_authenticated %}
                       <li><a href="{% url 'profile' %}"> {{ user }} </a></li>
                       {% if user.organizations.all|length == 1 %}
-                          <li><a href="#"> {{ user.organizations.all.0.name }} </a></li>
+                          <li><a href="/project/ong/{{ user.organizations.all.0.id }}/"> {{ user.organizations.all.0.name }} </a></li>
                       {% elif user.organizations.all|length > 1 %}
                           <li role="presentation" class="dropdown">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -36,7 +36,7 @@
                               </a>
                               <ul class="dropdown-menu" role="menu">
                                   {% for ong in user.organizations.all %}
-                                      <li><a href="#"> {{ ong.name }} </a></li>
+                                      <li><a href="/project/ong/{{ ong.id }}/"> {{ ong.name }} </a></li>
                                   {% endfor %}
                               </ul>
                           </li>
