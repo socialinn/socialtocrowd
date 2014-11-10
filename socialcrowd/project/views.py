@@ -6,11 +6,12 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import datetime
 
-from .forms import ThingFormSet
+from .forms import ThingFormSet, DirectionFormSet
 from .models import Project
 from .models import Organization
 from .models import Thing, Shipping, Donation
 from .models import ShippingCompany
+from .models import Direction
 
 
 class Near(TemplateView):
@@ -35,7 +36,6 @@ class Things(TemplateView):
             complexq = complexq | Q(description__icontains=q)
             complexq = complexq | Q(ong__name__icontains=q)
             complexq = complexq | Q(ong__description__icontains=q)
-            complexq = complexq | Q(shipping_address__icontains=q)
             complexq = complexq | Q(things__name__icontains=q)
             complexq = complexq | Q(things__description__icontains=q)
 
@@ -96,24 +96,29 @@ detail = Detail.as_view()
 
 class CreateProject(CreateView):
     model = Project
-    fields = ['name', 'description', 'img', 'ong', 'shipping_address']
+    fields = ['name', 'description', 'img', 'ong']
     success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super(CreateProject, self).get_context_data(**kwargs)
         if self.request.POST:
             context['thing_form'] = ThingFormSet(self.request.POST)
+            context['direction_form'] = DirectionFormSet(self.request.POST)
         else:
             context['thing_form'] = ThingFormSet()
+            context['direction_form'] = DirectionFormSet()
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         thing_form = context['thing_form']
-        if thing_form.is_valid():
+        direction_form = context['direction_form']
+        if thing_form.is_valid() and direction_form.is_valid():
             self.object = form.save()
             thing_form.instance = self.object
             thing_form.save()
+            direction_form.instance = self.object
+            direction_form.save()
             return redirect(self.success_url)
         else:
             return self.render_to_response(self.get_context_data(form=form))
@@ -150,13 +155,15 @@ def shipping(request, pk):
             if request.POST.get('quantity[' + strid + ']') and\
                     int(request.POST.get('quantity[' + strid + ']')) > 0:
                 quantity = request.POST.get('quantity[' + strid + ']')
+                id_direction = request.POST.get('direction[' + strid + ']')
+                direction = get_object_or_404(Direction, pk=id_direction)
                 sendtype = request.POST.get('sendtype[' + strid + ']')
                 date = request.POST.get('delivery[' + strid + ']')
                 if date:
                     delivery = datetime(int(date[:4]), int(date[5:7]), int(date[8:]))
                 else:
                     delivery = None
-                donation = Donation(thing=thing, shipping=ship_project,
+                donation = Donation(thing=thing, shipping=ship_project, direction=direction,
                         sendtype=sendtype, quantity=quantity, delivery=delivery)
                 donation.save()
                 donations.append(donation)

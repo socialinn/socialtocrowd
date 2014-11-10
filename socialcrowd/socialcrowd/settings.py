@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django.contrib.gis',
 
     # third party apps
     'bootstrapform',
@@ -74,8 +75,12 @@ WSGI_APPLICATION = 'socialcrowd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'stc',
+        'USER': 'stc',
+        'PASSWORD': 'stc',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

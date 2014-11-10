@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.gis.db import models
 
 
 class Organization(models.Model):
@@ -18,7 +19,6 @@ class Project(models.Model):
     description = models.TextField()
     img = models.ImageField(upload_to="projects", blank=True, null=True)
     ong = models.ForeignKey(Organization, related_name='projects')
-    shipping_address = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -58,6 +58,19 @@ class Thing(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Direction(models.Model):
+    project = models.ForeignKey(Project, related_name='directions')
+    description = models.CharField(max_length=255)
+    #pos = models.GeoManager()
+    pos = models.PointField(blank=True, null=True, help_text="Represented as (longitude, latitude)")
+
+    timetable = models.CharField(max_length=255)
+    phone = models.IntegerField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.description
 
 
 class Shipping(models.Model):
@@ -101,6 +114,7 @@ class Donation(models.Model):
     )
     thing = models.ForeignKey(Thing, related_name='donations')
     shipping = models.ForeignKey(Shipping, related_name='donations')
+    direction = models.ForeignKey(Direction, related_name='donations')
     info = models.TextField(blank=True)
     status = models.CharField(choices=STATUS, max_length=10, default="sent")
     sendtype = models.CharField(choices=SENDTYPE, max_length=10, default="free")

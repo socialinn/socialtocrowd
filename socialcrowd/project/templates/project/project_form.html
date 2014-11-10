@@ -6,6 +6,9 @@
         {% csrf_token %}
         <h2>{% trans "New Project" %}</h2>
         {{ form.as_p }}
+        <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
+        {{ direction_form.management_form }}
+        {{ direction_form.as_p }}
         <h2>{% trans "Add things" %}</h2>
         {{ thing_form.management_form }}
         {{ thing_form.as_p }}

@@ -4,3 +4,4 @@ ipython
 django-bootstrap-form
 django-allauth
 pillow
+psycopg2

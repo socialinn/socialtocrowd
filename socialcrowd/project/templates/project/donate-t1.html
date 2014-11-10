@@ -44,6 +44,7 @@
                                         <th>{% trans "Description" %}</th>
                                         <th class="center">{% trans "Necessaries" %}</th>
                                         <th>{% trans "Quantity" %}</th>
+                                        <th>{% trans "Shipping direction" %}</th>
                                         <th>{% trans "Type Send" %}</th>
                                         <th>{% trans "Delivery date (aprox.)" %}</th>
                                     </tr>
@@ -59,6 +60,13 @@
                                                     type="number" min="0" max="{{ thing.ndonations.nodonate }}"
                                                     value="{% if thing.id in things_checks %}1{% else %}0{% endif %}">
                                                 </input>
+                                            </td>
+                                            <td>
+                                                <select type="text" name="direction[{{ thing.id }}]">
+                                                    {% for dir in project.directions.all %}
+                                                        <option value="{{ dir.id }}">{{ dir }}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </td>
                                             <td>
                                                 <select type="text" name="sendtype[{{ thing.id }}]">
