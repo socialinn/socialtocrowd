@@ -14,7 +14,7 @@
             <span class="pull-right">
             {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}
             </span>
-            <a href="/project/detail/{{ project.id }}/" class="label label-success">{{ project.ong.name }}</a>
+            <a href="/project/ong/{{ project.ong.id }}/" class="label label-success">{{ project.ong.name }}</a>
         </div>
 
         <div class="col-sm-5">
