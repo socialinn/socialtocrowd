@@ -58,7 +58,7 @@ class ONGs(TemplateView):
 
         q = self.request.GET.get('search', '')
         # default
-        query = Organization.objects.all()
+        query = Organization.objects.filter(status="actived")
         complexq = Q()
         if q:
             complexq = complexq & Q(name__icontains=q)
