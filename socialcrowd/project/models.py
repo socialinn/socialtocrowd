@@ -4,11 +4,19 @@ from django.contrib.gis.db import models
 
 
 class Organization(models.Model):
+    STATUS = (
+        ('pending', 'pending'),
+        ('actived', 'actived'),
+        ('deleted', 'deleted'),
+    )
+
+    user = models.ForeignKey(User, related_name='organizations')
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     img = models.ImageField(upload_to="ongs", blank=True, null=True)
     city = models.CharField(max_length=255)
     province = models.CharField(max_length=255)
+    status = models.CharField(choices=STATUS, max_length=10, default="pending")
 
     def __unicode__(self):
         return self.name

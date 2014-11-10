@@ -82,6 +82,12 @@ class CreateONG(CreateView):
     fields = ['name', 'description', 'img', 'city', 'province']
     success_url = '/'
 
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()
+        return redirect(self.success_url)
+
 
 class Detail(TemplateView):
     template_name = 'project/project-detail.html'
