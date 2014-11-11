@@ -4,14 +4,42 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        <h2>{% trans "New Project for" %} {{ ong.name }}</h2>
+        {% if edit %}
+            <h2>{% trans "Project" %} {{ project.name }}</h2>
+        {% else %}
+            <h2>{% trans "New Project for" %} {{ ong.name }}</h2>
+        {% endif %}
         {{ form.as_p }}
-        <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
-        {{ direction_form.management_form }}
-        {{ direction_form.as_p }}
-        <h2>{% trans "Add things" %}</h2>
-        {{ thing_form.management_form }}
-        {{ thing_form.as_p }}
-        <input type="submit" value="{% trans "Create" %}" />
+        {% if edit %}
+            <input type="submit" value="{% trans "Update" %}" />
+        {% else %}
+            <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
+            {{ direction_form.management_form }}
+            {{ direction_form.as_p }}
+            <h2>{% trans "Add things" %}</h2>
+            {{ thing_form.management_form }}
+            {{ thing_form.as_p }}
+            <input type="submit" value="{% trans "Create" %}" />
+        {% endif %}
     </form>
+    {% if edit %}
+        <h2>{% trans "Addresses:" %}</h2>
+        {% for dir in project.directions.all %}
+        <ul>
+            {{ dir.description }}, {{ dir.timetable }}, {{ dir.phone }},  ({{ dir.pos.0 }},{{ dir.pos.1 }})
+            <a href="/project/edit/direction/{{ dir.id }}/">{% trans "Edit" %}</a>
+            <a href="/project/remove/direction/{{ dir.id }}/">{% trans "Remove" %}</a>
+        </ul>
+        {% endfor %}
+        <a href="/project/create/direction/{{ project.id }}/">{% trans "New" %}</a>
+        <h2>{% trans "Things:" %}</h2>
+        {% for thing in project.things.all %}
+        <ul>
+            {{ thing.quantity }} {{ thing.name }}: {{ thing.description }}
+            <a href="/project/edit/thing/{{ thing.id }}/">{% trans "Edit" %}</a>
+            <a href="/project/remove/thing/{{ thing.id }}/">{% trans "Remove" %}</a>
+        </ul>
+        {% endfor %}
+        <a href="/project/create/thing/{{ project.id }}/">{% trans "New" %}</a>
+    {% endif %}
 {% endblock %}

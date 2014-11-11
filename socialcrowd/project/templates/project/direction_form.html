@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if edit %}
+            <input type="submit" value="{% trans "Update" %}" />
+        {% else %}
+            <input type="submit" value="{% trans "Create" %}" />
+        {% endif %}
+    </form>
+{% endblock %}

@@ -1,8 +1,9 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import datetime
@@ -163,6 +164,123 @@ class CreateProject(CreateView):
             return redirect(self.success_url)
         else:
             return self.render_to_response(self.get_context_data(form=form))
+
+
+class UpdateProject(UpdateView):
+    model = Project
+    fields = ['name', 'description', 'img']
+    success_url = '/'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateProject, self).get_context_data(*args, **kwargs)
+        context['edit'] = True
+        return context
+
+
+class CreateThing(CreateView):
+    model = Thing
+    fields = ['name', 'description', 'quantity']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateThing, self).get_context_data(*args, **kwargs)
+        project = get_object_or_404(Project, pk=self.args[0])
+        if (self.request.user != project.ong.user):
+            messages.add_message(self.request, messages.ERROR,
+                'Insufficient permissions')
+        context['project'] = project
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        obj = form.save(commit=False)
+        obj.project = context['project']
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['project'].id
+
+
+class UpdateThing(UpdateView):
+    model = Thing
+    fields = ['name', 'description', 'quantity']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateThing, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['thing'].project.id
+
+
+class RemoveThing(DeleteView):
+    model = Thing
+    fields = ['name', 'description', 'quantity']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RemoveThing, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['thing'].project.id
+
+
+class CreateDirection(CreateView):
+    model = Direction
+    fields = ['description', 'pos', 'timetable', 'phone']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateDirection, self).get_context_data(*args, **kwargs)
+        project = get_object_or_404(Project, pk=self.args[0])
+        if (self.request.user != project.ong.user):
+            messages.add_message(self.request, messages.ERROR,
+                'Insufficient permissions')
+        context['project'] = project
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        obj = form.save(commit=False)
+        obj.project = context['project']
+        obj.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['project'].id
+
+
+class UpdateDirection(UpdateView):
+    model = Direction
+    fields = ['description', 'pos', 'timetable', 'phone']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateDirection, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['direction'].project.id
+
+
+class RemoveDirection(DeleteView):
+    model = Direction
+    fields = ['description', 'pos', 'timetable', 'phone']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RemoveDirection, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return '/project/edit/project/%i' % context['direction'].project.id
 
 
 def donate(request, pk):
