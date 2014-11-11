@@ -82,13 +82,14 @@ ongs = ONGs.as_view()
 class CreateONG(CreateView):
     model = Organization
     fields = ['name', 'description', 'img', 'city', 'province']
-    success_url = '/'
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.user = self.request.user
         obj.save()
-        return redirect(self.success_url)
+        messages.add_message(self.request, messages.INFO,
+            'Administrators will review the organization as soon as possible')
+        return redirect("/project/ong/%i" % obj.id)
 
 
 class UpdateONG(UpdateView):
@@ -131,7 +132,6 @@ detail = Detail.as_view()
 class CreateProject(CreateView):
     model = Project
     fields = ['name', 'description', 'img']
-    success_url = '/'
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateProject, self).get_context_data(*args, **kwargs)
@@ -161,7 +161,9 @@ class CreateProject(CreateView):
             thing_form.save()
             direction_form.instance = self.object
             direction_form.save()
-            return redirect(self.success_url)
+            messages.add_message(self.request, messages.INFO,
+                'Project created successful')
+            return redirect("/project/detail/%i" % obj.id)
         else:
             return self.render_to_response(self.get_context_data(form=form))
 

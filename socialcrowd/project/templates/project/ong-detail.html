@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block content %}
+
+{% if ong %}
+    {% if ong.user == user %}
+        <h1>{% trans "Status" %}: {{ ong.status }}</h1>
+    {% endif %}
     <div class="ong-detail">
         <div class="row">
             <div class="col-sm-12 col-md-8">
@@ -64,10 +69,13 @@
                         </table>
                     </div>
                 {% endif %}
-                {% if ong.user == user %}
+                {% if ong.user == user and ong.status == "actived" %}
                     <a href="/project/create/project/{{ ong.id }}/">{% trans "Create new project" %}</a>
                 {% endif %}
             </div>
         </div>
     </div>
+{% else %}
+{% endif %}
+
 {% endblock %}
