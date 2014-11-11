@@ -36,7 +36,8 @@
                                 {% endif %}
                             </div>
                             <div class="col-xs-8 col-sm-8">
-                                {% trans "ONG" %}: {{ project.ong.name }}.</br>
+                                {% trans "ONG" %}: <a href="/project/ong/{{ project.ong.id }}/">{{ project.ong.name }}</a>.</br>
+            
                                 {% trans "Projects" %}: 
                                     {% for p in project.ong.projects.all %}
                                         {% if forloop.counter < 5 %}

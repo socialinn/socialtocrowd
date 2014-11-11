@@ -31,7 +31,6 @@
             <div class="col-sm-12 col-md-4">
                 <h3 class="center">{% trans "Projects" %}</h3>
 
-
                 {% if ong.projects.all|length == 0  %}
                     <h4 class="center">{% trans "Exist nothing project" %}</h4>
                 {% else %}
@@ -53,6 +52,9 @@
                             {% endfor %}
                         </table>
                     </div>
+                {% endif %}
+                {% if ong.user == user %}
+                    <a href="/project/create/project/{{ ong.id }}/">{% trans "Create new project" %}</a>
                 {% endif %}
             </div>
         </div>

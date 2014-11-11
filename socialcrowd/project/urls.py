@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     url(r'^donate/(\d+)/$', views.donate, name="donate"),
     url(r'^shipping/(\d+)/$', views.shipping, name="shipping"),
     url(r'^create/ong/$', views.CreateONG.as_view(), name="create_ong"),
-    url(r'^create/project/$', views.CreateProject.as_view(), name="create_project"),
+    url(r'^create/project/(\d+)/$', views.CreateProject.as_view(), name="create_project"),
 )

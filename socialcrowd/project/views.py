@@ -118,11 +118,16 @@ detail = Detail.as_view()
 
 class CreateProject(CreateView):
     model = Project
-    fields = ['name', 'description', 'img', 'ong']
+    fields = ['name', 'description', 'img']
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
-        context = super(CreateProject, self).get_context_data(**kwargs)
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateProject, self).get_context_data(*args, **kwargs)
+        ong = get_object_or_404(Organization, pk=self.args[0])
+        if (self.request.user != ong.user):
+            messages.add_message(self.request, messages.ERROR,
+                'Insufficient permissions')
+        context['ong'] = ong
         if self.request.POST:
             context['thing_form'] = ThingFormSet(self.request.POST)
             context['direction_form'] = DirectionFormSet(self.request.POST)
@@ -133,6 +138,9 @@ class CreateProject(CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
+        obj = form.save(commit=False)
+        obj.ong = context['ong']
+        obj.save()
         thing_form = context['thing_form']
         direction_form = context['direction_form']
         if thing_form.is_valid() and direction_form.is_valid():
