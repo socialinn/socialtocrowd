@@ -20,7 +20,12 @@
 
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
-                        <h3>{{ ong.name }}</h3>
+                        <h3>
+                            {{ ong.name }}
+                            {% if ong.user == user %}
+                                <a href="/project/edit/ong/{{ ong.id }}/">{% trans "EDIT" %}</a>
+                            {% endif %}
+                        </h3>
                         <p>{{ ong.description }}</p>
                         <span class="pull-left">
                             <p>{{ ong.city }}/{{ ong.province }}</p>

@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.contrib import messages
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
 from datetime import datetime
@@ -88,6 +88,17 @@ class CreateONG(CreateView):
         obj.user = self.request.user
         obj.save()
         return redirect(self.success_url)
+
+
+class UpdateONG(UpdateView):
+    model = Organization
+    fields = ['name', 'description', 'img', 'city', 'province']
+    success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateONG, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
 
 
 class ONG(TemplateView):
