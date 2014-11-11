@@ -71,63 +71,44 @@ class Thing(models.Model):
 class Direction(models.Model):
     project = models.ForeignKey(Project, related_name='directions')
     description = models.CharField(max_length=255)
-    #pos = models.GeoManager()
     pos = models.PointField(blank=True, null=True, help_text="Represented as (longitude, latitude)")
-
     timetable = models.CharField(max_length=255)
     phone = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.description
+        timetable = ""
+        phone = ""
+        if self.timetable:
+            timetable = "Available time: " + self.timetable + ". "
+        if self.phone:
+            phone = "Tel: " + str(self.phone) + ". "
+        return self.description + timetable + phone
 
 
 class Shipping(models.Model):
+    STATUS = (
+        ('sent', 'sent'),
+        ('received', 'received'),
+        ('confirmed', 'confirmed'),
+    )
     project = models.ForeignKey(Project, related_name='shipping')
     user = models.ForeignKey(User, related_name='shipping')
     comment = models.TextField(blank=True)
     show = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
-
-    def status(self):
-        total = 0
-        sent = 0
-        received = 0
-        for donation in self.donations.all():
-            if donation.status == 'sent':
-                sent += donation.quantity
-            elif donation.status == 'received':
-                sent += donation.quantity
-            total += donation.quantity
-        if total == received:
-            return 'received'
-        elif total == sent:
-            return 'pending'
-        else:
-            return 'incomplete'
+    direction = models.ForeignKey(Direction, null=True, related_name='shipping')
+    status = models.CharField(choices=STATUS, max_length=10, default="sent")
+    delivery = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return str(self.id)
 
 
 class Donation(models.Model):
-    STATUS = (
-        ('sent', 'sent'),
-        ('received', 'received'),
-        ('confirmed', 'confirmed'),
-    )
-    SENDTYPE = (
-        ('donorpay', 'donor pay'),
-        ('ongpay', 'ong pay'),
-        ('free', 'free'),
-    )
     thing = models.ForeignKey(Thing, related_name='donations')
     shipping = models.ForeignKey(Shipping, related_name='donations')
-    direction = models.ForeignKey(Direction, related_name='donations')
     info = models.TextField(blank=True)
-    status = models.CharField(choices=STATUS, max_length=10, default="sent")
-    sendtype = models.CharField(choices=SENDTYPE, max_length=10, default="free")
     quantity = models.IntegerField(default=1)
-    delivery = models.DateTimeField(null=True)
 
     def project(self):
         return self.shipping.project
@@ -137,6 +118,9 @@ class Donation(models.Model):
 
     def created(self):
         return self.shipping.created
+
+    def status(self):
+        return self.shipping.status
 
     def __unicode__(self):
         return self.thing.name

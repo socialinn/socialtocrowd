@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="project">
         <div class="row">
             <div class="col-sm-4">
@@ -27,6 +28,7 @@
         </div>
     </div>
 
+    {% if project.percent_donate < 100 %}
     <div class="donate-t1">
         <div class="row">
             <div class="col-md-12">
@@ -44,9 +46,7 @@
                                         <th>{% trans "Description" %}</th>
                                         <th class="center">{% trans "Necessaries" %}</th>
                                         <th>{% trans "Quantity" %}</th>
-                                        <th>{% trans "Shipping direction" %}</th>
-                                        <th>{% trans "Type Send" %}</th>
-                                        <th>{% trans "Delivery date (aprox.)" %}</th>
+                                        <th>{% trans "Optional information about item" %}</th>
                                     </tr>
                                 </thead>
                                 {% for thing in project.things.all %}
@@ -62,26 +62,27 @@
                                                 </input>
                                             </td>
                                             <td>
-                                                <select type="text" name="direction[{{ thing.id }}]">
-                                                    {% for dir in project.directions.all %}
-                                                        <option value="{{ dir.id }}">{{ dir }}</option>
-                                                    {% endfor %}
-                                                </select>
+                                                <textarea type="text" name="info[{{ thing.id }}]"></textarea>
                                             </td>
-                                            <td>
-                                                <select type="text" name="sendtype[{{ thing.id }}]">
-                                                    {% for type in sendtypes %}
-                                                        <option value="{{ type.0 }}">{{ type.1 }}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input type="date" id="delivery" name="delivery[{{ thing.id }}]"></input>
-                                            </td>
-                                        </tr>
                                     {% endif %}
                                 {% endfor %}
                             </table>
+                        </div>
+                    </div>
+
+                    <div class="row center">
+                        <div class="col-md-12">
+                            {% trans "Shipping direction" %}
+                            <select type="text" name="direction">
+                                {% for dir in project.directions.all %}
+                                    <option value="{{ dir.id }}">{{ dir }}</option>
+                                {% endfor %}
+                            </select>
+                            <br>
+                            {% trans "Delivery date (aprox.)" %}
+                            <input type="time" id="delivery" name="delivery_hour"></input>
+                            <input type="date" id="delivery" name="delivery_date" min="{{ today.date.isoformat }}"></input>
+                            <br>
                         </div>
                     </div>
                     <div class="row center">
@@ -99,4 +100,9 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <h3 class="center">{% trans "Project completed: you can donate in other projects" %}</h3>
+        <progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress>
+    {% endif %}
+
 {% endblock %}

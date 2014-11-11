@@ -302,42 +302,49 @@ def donate(request, pk):
     ctx['project'] = project
     ctx['things_checks'] = checks
     ctx['ship'] = ship_project
-    ctx['sendtypes'] = Donation.SENDTYPE
+    ctx['today'] = datetime.today()
     return render(request, 'project/donate-t1.html', ctx)
 
 
 def shipping(request, pk):
     if request.POST:
         ship_project = get_object_or_404(Shipping, pk=pk)
-        some_donate = False
         donations = []
         for thing in ship_project.project.things.all():
             strid = str(thing.id)
             if request.POST.get('quantity[' + strid + ']') and\
                     int(request.POST.get('quantity[' + strid + ']')) > 0:
                 quantity = request.POST.get('quantity[' + strid + ']')
-                id_direction = request.POST.get('direction[' + strid + ']')
-                direction = get_object_or_404(Direction, pk=id_direction)
-                sendtype = request.POST.get('sendtype[' + strid + ']')
-                date = request.POST.get('delivery[' + strid + ']')
-                if date:
-                    delivery = datetime(int(date[:4]), int(date[5:7]), int(date[8:]))
-                else:
-                    delivery = None
-                donation = Donation(thing=thing, shipping=ship_project, direction=direction,
-                        sendtype=sendtype, quantity=quantity, delivery=delivery)
+                info = request.POST.get('info[' + strid + ']')
+                donation = Donation(thing=thing, shipping=ship_project,
+                        quantity=quantity, info=info)
                 donation.save()
                 donations.append(donation)
-                some_donate = True
-        if some_donate:
+        if donations:
             ship_project.comment = request.POST.get('comment')
+            ship_project.direction = get_object_or_404(Direction, pk=request.POST.get('direction'))
+            hour = request.POST.get('delivery_hour')
+            date = request.POST.get('delivery_date')
+            if date and hour:
+                delivery = datetime(int(date[:4]), int(date[5:7]),
+                        int(date[8:]), int(hour[:2]), int(hour[3:5]))
+            elif date:
+                delivery = datetime(int(date[:4]), int(date[5:7]), int(date[8:]))
+            else:
+                delivery = None
+            ship_project.delivery = delivery
             if request.POST.get('show') == 'on':
                 ship_project.show = True
             else:
                 ship_project.show = False
             ship_project.save()
-        ctx = {}
-        ctx['ship'] = ship_project
-        ctx['donations'] = donations
-        ctx['companies'] = ShippingCompany.objects.all()
-    return render(request, 'project/shipping.html', ctx)
+            ctx = {}
+            ctx['ship'] = ship_project
+            ctx['donations'] = donations
+            ctx['companies'] = ShippingCompany.objects.all()
+            return render(request, 'project/shipping.html', ctx)
+        else:
+            messages.add_message(request, messages.ERROR,
+                'You should mark something for donate')
+            return redirect('/project/donate/%i' % ship_project.project.id)
+
