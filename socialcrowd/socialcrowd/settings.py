@@ -44,6 +44,7 @@ INSTALLED_APPS = (
 
     # third party apps
     'bootstrapform',
+    'easy_thumbnails',
 
     # custom apps
     'main',

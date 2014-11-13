@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account %}
+{% load thumbnail %}
+
+{% block title %}{% trans "Profile" %}{% endblock %}
+
+{% block extrahead %}
+    <link type="text/css" href="{{ STATIC_URL }}css/userprofile.css" rel="stylesheet"></link>
+{% endblock %}
+
+{% block content %}
+    <div class="profile">
+
+        <a class="btn btn-primary pull-right" href="{% url "edit_profile" %}">
+            {% trans "Edit" %}
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        </a>
+
+        <h1>
+            {{ user.username }} / {{ user.email }}
+        </h1>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <table class="table table-bordered table-striped">
+                    <tr><th colspan="2">{% trans "General" %}</th></tr>
+                    <tr>
+                        <th>{% trans "Avatar" %}</th>
+                        <td><img class="img-thumbnail" src="{% thumbnail user.profile.avatar|default:'default.png' 72x72 %}" alt="avatar"/></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-bordered table-striped">
+                    <tr><th colspan="2">{% trans "Social" %}</th></tr>
+                    <tr>
+                        <th>{% trans "Web" %}</th>
+                        <td>{{ user.profile.web }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Twitter" %}</th>
+                        <td>{{ user.profile.twitter }}</td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Facebook" %}</th>
+                        <td>{{ user.profile.facebook }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <hr/>
+
+        <h1>{{shippings|length }} {% trans "donations done" %}</h1>
+        {% include "project/shipping_list.html" with shippings=shippings %}
+
+        <hr/>
+
+        <div class="center">
+            <a href="/accounts/password/change/">{% trans "change password" %}</a>
+            <p>{% blocktrans %}Are you an organization? Request your access <a href="/project/create/ong/">here</a>.{% endblocktrans %}</p>
+        </div>
+
+    </div>
+{% endblock %}
