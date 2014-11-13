@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'main',
     'landing',
     'project',
+    'userprofile',
 
     'allauth',
     'allauth.account',
