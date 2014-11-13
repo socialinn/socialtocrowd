@@ -35,6 +35,6 @@ class EditProfile(TemplateView):
         else:
             ctx = self.get_context_data()
             ctx['form'] = f
-            return render(request, self.template, ctx)
+            return render(request, self.template_name, ctx)
 
 editProfile = login_required(EditProfile.as_view())
