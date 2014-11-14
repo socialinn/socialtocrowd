@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
 from .forms import ThingFormSet, DirectionFormSet
@@ -285,6 +286,7 @@ class RemoveDirection(DeleteView):
         return '/project/edit/project/%i' % context['direction'].project.id
 
 
+@login_required
 def donate(request, pk):
     project = get_object_or_404(Project, pk=pk)
     checks = []
@@ -306,6 +308,7 @@ def donate(request, pk):
     return render(request, 'project/donate-t1.html', ctx)
 
 
+@login_required
 def shipping(request, pk):
     if request.POST:
         ship_project = get_object_or_404(Shipping, pk=pk)
@@ -347,4 +350,3 @@ def shipping(request, pk):
             messages.add_message(request, messages.ERROR,
                 'You should mark something for donate')
             return redirect('/project/donate/%i' % ship_project.project.id)
-
