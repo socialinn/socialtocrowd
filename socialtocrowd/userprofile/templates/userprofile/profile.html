@@ -29,6 +29,27 @@
                         <th>{% trans "Avatar" %}</th>
                         <td><img class="img-thumbnail" src="{% thumbnail user.profile.avatar|default:'default.png' 72x72 %}" alt="avatar"/></td>
                     </tr>
+                    <tr>
+                        <th>{% trans "Password" %}</th>
+                        <td><a href="{% url 'account_change_password' %}">
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> {% trans "change password" %}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{% trans "Organizations" %}</th>
+                        <td>
+                            {% if user.organizations.all %}
+                            <ul>
+                                {% for o in user.organizations.all %}
+                                <li> <a href="{% url 'ong' o.id %}"> {{ o.name }} </a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            <a href="{% url 'create_ong' %}">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {% trans "Create new" %}
+                            </a>
+                        </td>
+                    </tr>
                 </table>
             </div>
             <div class="col-sm-6">
@@ -54,13 +75,6 @@
 
         <h1>{{shippings|length }} {% trans "donations done" %}</h1>
         {% include "project/shipping_list.html" with shippings=shippings %}
-
-        <hr/>
-
-        <div class="center">
-            <a href="/accounts/password/change/">{% trans "change password" %}</a>
-            <p>{% blocktrans %}Are you an organization? Request your access <a href="/project/create/ong/">here</a>.{% endblocktrans %}</p>
-        </div>
 
     </div>
 {% endblock %}
