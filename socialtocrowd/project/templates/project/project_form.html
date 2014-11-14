@@ -1,27 +1,56 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load bootstrap %}
+
+{% block extrabody %}
+    <script src="{{ STATIC_URL }}js/jquery.formset.min.js"></script>
+    <script>
+        $('.thingform').formset({ prefix: '{{ thing_form.prefix }}' });
+    </script>
+{% endblock %}
 
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well">
+                {% if edit %}
+                    <h2>{% trans "Project" %} {{ project.name }}</h2>
+                {% else %}
+                    <h2>{% trans "New Project for" %} {{ ong.name }}</h2>
+                {% endif %}
+                {{ form|bootstrap }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well">
+                {% if not edit %}
+                    <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
+                    {{ direction_form.management_form }}
+                    {{ direction_form|bootstrap }}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>{% trans "Add things" %}</h2>
+                {{ thing_form.management_form }}
+                {% for form in thing_form.forms %}
+                    <div class="thingform">{{form|bootstrap_horizontal}}</div>
+                {% endfor %}
+            </div>
+        </div>
+
         {% if edit %}
-            <h2>{% trans "Project" %} {{ project.name }}</h2>
+            <input type="submit" class="btn btn-success" value="{% trans "Update" %}" />
         {% else %}
-            <h2>{% trans "New Project for" %} {{ ong.name }}</h2>
-        {% endif %}
-        {{ form.as_p }}
-        {% if edit %}
-            <input type="submit" value="{% trans "Update" %}" />
-        {% else %}
-            <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
-            {{ direction_form.management_form }}
-            {{ direction_form.as_p }}
-            <h2>{% trans "Add things" %}</h2>
-            {{ thing_form.management_form }}
-            {{ thing_form.as_p }}
-            <input type="submit" value="{% trans "Create" %}" />
+            <input type="submit" class="btn btn-success" value="{% trans "Create" %}" />
         {% endif %}
     </form>
+
     {% if edit %}
         <h2>{% trans "Addresses:" %}</h2>
         {% for dir in project.directions.all %}

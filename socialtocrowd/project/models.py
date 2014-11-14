@@ -73,7 +73,7 @@ class Direction(models.Model):
     description = models.CharField(max_length=255)
     pos = models.PointField(blank=True, null=True, help_text="Represented as (longitude, latitude)")
     timetable = models.CharField(max_length=255)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
 
     def __unicode__(self):
         timetable = ""
@@ -81,7 +81,7 @@ class Direction(models.Model):
         if self.timetable:
             timetable = "Available time: " + self.timetable + ". "
         if self.phone:
-            phone = "Tel: " + str(self.phone) + ". "
+            phone = "Tel: " + self.phone + ". "
         return self.description + timetable + phone
 
 
