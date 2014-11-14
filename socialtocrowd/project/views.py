@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
@@ -90,7 +89,7 @@ class CreateONG(CreateView):
         obj.save()
         messages.add_message(self.request, messages.INFO,
             'Administrators will review the organization as soon as possible')
-        return redirect("/project/ong/%i" % obj.id)
+        return redirect('edit_ong', obj.id)
 
 
 class UpdateONG(UpdateView):
@@ -198,11 +197,11 @@ class CreateThing(CreateView):
         obj = form.save(commit=False)
         obj.project = context['project']
         obj.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['project'].id
+        return reverse('edit_project', args=(context['project'].id, ))
 
 
 class UpdateThing(UpdateView):
@@ -216,7 +215,7 @@ class UpdateThing(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['thing'].project.id
+        return reverse('edit_project', args=(context['thing'].project.id, ))
 
 
 class RemoveThing(DeleteView):
@@ -230,7 +229,7 @@ class RemoveThing(DeleteView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['thing'].project.id
+        return reverse('edit_project', args=(context['thing'].project.id, ))
 
 
 class CreateDirection(CreateView):
@@ -251,11 +250,11 @@ class CreateDirection(CreateView):
         obj = form.save(commit=False)
         obj.project = context['project']
         obj.save()
-        return HttpResponseRedirect(self.get_success_url())
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['project'].id
+        return reverse('edit_project', args=(context['project'].id, ))
 
 
 class UpdateDirection(UpdateView):
@@ -269,7 +268,7 @@ class UpdateDirection(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['direction'].project.id
+        return reverse('edit_project', args=(context['direction'].project.id, ))
 
 
 class RemoveDirection(DeleteView):
@@ -283,7 +282,7 @@ class RemoveDirection(DeleteView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return '/project/edit/project/%i' % context['direction'].project.id
+        return reverse('edit_project', args=(context['direction'].project.id, ))
 
 
 @login_required
@@ -349,4 +348,4 @@ def shipping(request, pk):
         else:
             messages.add_message(request, messages.ERROR,
                 'You should mark something for donate')
-            return redirect('/project/donate/%i' % ship_project.project.id)
+            return redirect('donate', ship_project.project.id)
