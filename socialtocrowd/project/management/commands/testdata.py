@@ -57,6 +57,8 @@ def create_org(name):
     o.description = v = paragraphs(random.randint(1, 3))
     o.city = word(random.randint(6, 14))
     o.province = word(random.randint(6, 14))
+    o.status = 'actived'
+    o.user = random.choice([i for i in User.objects.all()])
     o.save()
 
     for i in range(random.randint(0, 5)):
@@ -104,7 +106,7 @@ def create_donation(t):
 def create_users(n):
     for i in range(n):
         uid = i + 1
-        u = User(username='user%s' % uid, email='user%s@socialtocrowd.com' % uid, )
+        u, _ = User.objects.get_or_create(username='user%s' % uid, email='user%s@socialtocrowd.com' % uid, )
         u.set_password('123')
         u.first_name = word()
         u.last_name = word()
