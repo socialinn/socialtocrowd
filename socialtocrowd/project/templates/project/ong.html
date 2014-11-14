@@ -1,15 +1,12 @@
 {% load i18n %}
+{% load thumbnail %}
 <div class="ong">
     <div class="row">
         <div class="col-sm-2">
-            {% if ong.img %}
-                <img src="{{ MEDIA_URL }}{{ ong.img }}" class="img-responsive" alt="{{ ong.name }}"/>
-            {% else %}
-                <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ ong.name }}"/>
-            {% endif %}
+            <img class="img-responsive" src="{% thumbnail ong.img|default:'defaultp.png' 300x300 %}" alt="{{ ong.name }}"/></td>
         </div>
         <div class="col-sm-5">
-            <a href="/project/ong/{{ ong.id }}/"><h3>{{ ong.name }}</h3></a>
+            <a href="{% url 'ong' ong.id %}"><h3>{{ ong.name }}</h3></a>
             <p>{{ ong.description|truncatewords:40 }}</p>
             <span class="label label-default">{{ ong.province }}</span>
             <span class="label label-success">{{ ong.city }}</span>
@@ -20,7 +17,7 @@
             <ul>
                 {% for p in ong.projects.all %}
                 {% if forloop.counter < 5 %}
-                    <li><a href="/project/detail/{{ p.id }}">{{ p.name }}</a> ({{ p.created|timesince }})</li>
+                    <li><a href="{% url 'detail' p.id %}">{{ p.name }}</a> ({{ p.created|timesince }})</li>
                 {% elif forloop.counter == 5 %}
                     <li>{% trans "And more..." %}</li>
                 {% endif %}
