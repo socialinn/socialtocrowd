@@ -1,5 +1,5 @@
 """
-Django settings for socialcrowd project.
+Django settings for socialtocrowd project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -67,9 +67,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'socialcrowd.urls'
+ROOT_URLCONF = 'socialtocrowd.urls'
 
-WSGI_APPLICATION = 'socialcrowd.wsgi.application'
+WSGI_APPLICATION = 'socialtocrowd.wsgi.application'
 
 
 # Database

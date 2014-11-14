@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('avatar', models.ImageField(upload_to=b'/home/danigm/Projects/work/socialCrowd/socialcrowd/static/media/photos', null=True, verbose_name='Avatar', blank=True)),
+                ('avatar', models.ImageField(upload_to=b'photos', null=True, verbose_name='Avatar', blank=True)),
                 ('web', models.URLField(default=b'', null=True, verbose_name='Web', blank=True)),
                 ('twitter', models.CharField(default=b'', max_length=100, null=True, verbose_name=b'Twitter', blank=True)),
                 ('facebook', models.CharField(default=b'', max_length=100, null=True, verbose_name=b'Facebook', blank=True)),
