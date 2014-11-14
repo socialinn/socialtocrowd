@@ -29,6 +29,16 @@
                     <h2>{% trans "Add Main Direction, later you can to add others directions" %}</h2>
                     {{ direction_form.management_form }}
                     {{ direction_form|bootstrap }}
+                {% else %}
+                    <h2>{% trans "Addresses:" %}</h2>
+                    {% for dir in project.directions.all %}
+                    <ul>
+                        {{ dir.description }}, {{ dir.timetable }}, {{ dir.phone }},  ({{ dir.pos.0 }},{{ dir.pos.1 }})
+                        <a href="/project/edit/direction/{{ dir.id }}/">{% trans "Edit" %}</a>
+                        <a href="/project/remove/direction/{{ dir.id }}/">{% trans "Remove" %}</a>
+                    </ul>
+                    {% endfor %}
+                    <a href="/project/create/direction/{{ project.id }}/">{% trans "New" %}</a>
                 {% endif %}
                 </div>
             </div>
@@ -36,39 +46,33 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <h2>{% trans "Add things" %}</h2>
-                {{ thing_form.management_form }}
-                {% for form in thing_form.forms %}
-                    <div class="thingform">{{form|bootstrap_horizontal}}</div>
-                {% endfor %}
+                {% if edit %}
+                    <h2>{% trans "Things:" %}</h2>
+                    {% for thing in project.things.all %}
+                    <ul>
+                        {{ thing.quantity }} {{ thing.name }}: {{ thing.description }}
+                        <a href="/project/edit/thing/{{ thing.id }}/">{% trans "Edit" %}</a>
+                        <a href="/project/remove/thing/{{ thing.id }}/">{% trans "Remove" %}</a>
+                    </ul>
+                    {% endfor %}
+                    <a href="/project/create/thing/{{ project.id }}/">{% trans "New" %}</a>
+                {% else %}
+                    <h2>{% trans "Add things" %}</h2>
+                    {{ thing_form.management_form }}
+                    {% for form in thing_form.forms %}
+                        <div class="thingform">{{form|bootstrap_horizontal}}</div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
 
+        <hr/>
+
         {% if edit %}
-            <input type="submit" class="btn btn-success" value="{% trans "Update" %}" />
+            <input type="submit" class="btn btn-block btn-success" value="{% trans "Update" %}" />
         {% else %}
-            <input type="submit" class="btn btn-success" value="{% trans "Create" %}" />
+            <input type="submit" class="btn btn-block btn-success" value="{% trans "Create" %}" />
         {% endif %}
     </form>
 
-    {% if edit %}
-        <h2>{% trans "Addresses:" %}</h2>
-        {% for dir in project.directions.all %}
-        <ul>
-            {{ dir.description }}, {{ dir.timetable }}, {{ dir.phone }},  ({{ dir.pos.0 }},{{ dir.pos.1 }})
-            <a href="/project/edit/direction/{{ dir.id }}/">{% trans "Edit" %}</a>
-            <a href="/project/remove/direction/{{ dir.id }}/">{% trans "Remove" %}</a>
-        </ul>
-        {% endfor %}
-        <a href="/project/create/direction/{{ project.id }}/">{% trans "New" %}</a>
-        <h2>{% trans "Things:" %}</h2>
-        {% for thing in project.things.all %}
-        <ul>
-            {{ thing.quantity }} {{ thing.name }}: {{ thing.description }}
-            <a href="/project/edit/thing/{{ thing.id }}/">{% trans "Edit" %}</a>
-            <a href="/project/remove/thing/{{ thing.id }}/">{% trans "Remove" %}</a>
-        </ul>
-        {% endfor %}
-        <a href="/project/create/thing/{{ project.id }}/">{% trans "New" %}</a>
-    {% endif %}
 {% endblock %}
