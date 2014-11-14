@@ -57,7 +57,7 @@ def create_org(name):
     o.description = v = paragraphs(random.randint(1, 3))
     o.city = word(random.randint(6, 14))
     o.province = word(random.randint(6, 14))
-    o.status = 'actived'
+    o.status = 'active'
     o.user = random.choice([i for i in User.objects.all()])
     o.save()
 

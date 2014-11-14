@@ -64,7 +64,7 @@
                         </table>
                     </div>
                 {% endif %}
-                {% if ong.user == user and ong.status == "actived" %}
+                {% if ong.user == user and ong.status == "active" %}
                     <a href="{% url 'create_project' ong.id %}">{% trans "Create new project" %}</a>
                 {% endif %}
             </div>

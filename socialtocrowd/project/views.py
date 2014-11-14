@@ -32,7 +32,7 @@ class Things(TemplateView):
 
         q = self.request.GET.get('search', '')
         # default
-        query = Project.objects.filter(ong__status="actived")
+        query = Project.objects.filter(ong__status="active")
         complexq = Q()
         if q:
             complexq = complexq & Q(name__icontains=q)
@@ -61,7 +61,7 @@ class ONGs(TemplateView):
 
         q = self.request.GET.get('search', '')
         # default
-        query = Organization.objects.filter(status="actived")
+        query = Organization.objects.filter(status="active")
         complexq = Q()
         if q:
             complexq = complexq & Q(name__icontains=q)
@@ -110,11 +110,11 @@ class ONG(TemplateView):
     def get_context_data(self, *args, **kwargs):
         ctx = super(ONG, self).get_context_data(*args, **kwargs)
         ong = get_object_or_404(Organization, pk=self.args[0])
-        if ong.status == "actived" or self.request.user == ong.user:
+        if ong.status == "active" or self.request.user == ong.user:
             ctx['ong'] = ong
         else:
             messages.add_message(self.request, messages.ERROR,
-                'Organization deleted or not actived')
+                'Organization deleted or not active')
         return ctx
 ong = ONG.as_view()
 

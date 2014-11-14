@@ -6,7 +6,7 @@ from django.contrib.gis.db import models
 class Organization(models.Model):
     STATUS = (
         ('pending', 'pending'),
-        ('actived', 'actived'),
+        ('active', 'active'),
         ('deleted', 'deleted'),
     )
 

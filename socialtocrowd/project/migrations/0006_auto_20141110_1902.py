@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='organization',
             name='status',
-            field=models.CharField(default=b'pending', max_length=10, choices=[(b'pending', b'pending'), (b'actived', b'actived'), (b'deleted', b'deleted')]),
+            field=models.CharField(default=b'pending', max_length=10, choices=[(b'pending', b'pending'), (b'active', b'active'), (b'deleted', b'deleted')]),
             preserve_default=True,
         ),
         migrations.AddField(
