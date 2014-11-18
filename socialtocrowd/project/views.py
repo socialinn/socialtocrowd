@@ -235,7 +235,7 @@ class RemoveThing(DeleteView):
 
 class CreateDirection(CreateView):
     model = Direction
-    fields = ['description', 'pos', 'timetable', 'phone']
+    fields = ['description', 'timetable', 'phone', 'pos']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateDirection, self).get_context_data(*args, **kwargs)
@@ -260,7 +260,7 @@ class CreateDirection(CreateView):
 
 class UpdateDirection(UpdateView):
     model = Direction
-    fields = ['description', 'pos', 'timetable', 'phone']
+    fields = ['description', 'timetable', 'phone', 'pos']
 
     def get_context_data(self, **kwargs):
         ctx = super(UpdateDirection, self).get_context_data(**kwargs)

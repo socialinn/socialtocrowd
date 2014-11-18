@@ -1,5 +1,4 @@
 from django.forms import Textarea
-from django.contrib.gis.forms import OSMWidget
 from django.forms.models import inlineformset_factory
 from .models import Project
 from .models import Thing
@@ -17,6 +16,5 @@ ThingFormSet = inlineformset_factory(Project, Thing, min_num=1,
 
 DirectionFormSet = inlineformset_factory(Project, Direction, min_num=1,
         max_num=1, validate_min=True, extra=1, can_delete=False,
-        widgets = { 'pos': OSMWidget(attrs={'map_height': 150}) },
         fields=('description', 'pos', 'timetable', 'phone')
 )

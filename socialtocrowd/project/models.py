@@ -71,7 +71,7 @@ class Thing(models.Model):
 class Direction(models.Model):
     project = models.ForeignKey(Project, related_name='directions')
     description = models.CharField(max_length=255)
-    pos = models.PointField(blank=True, null=True, help_text="Represented as (longitude, latitude)")
+    pos = models.PointField(blank=True, null=True)
     timetable = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, blank=True, null=True)
 
