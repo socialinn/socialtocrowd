@@ -6,3 +6,4 @@ django-allauth
 pillow
 psycopg2
 easy-thumbnails
+feedparser

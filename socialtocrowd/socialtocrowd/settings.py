@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'landing',
     'project',
     'userprofile',
+    'newsfeed',
 
     'allauth',
     'allauth.account',

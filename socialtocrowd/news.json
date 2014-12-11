@@ -1,0 +1,10 @@
+[
+{
+    "fields": {
+        "url": "http://socialtocrowd.org/rss/",
+        "name": "blog"
+    },
+    "model": "newsfeed.newsfeed",
+    "pk": 1
+}
+]

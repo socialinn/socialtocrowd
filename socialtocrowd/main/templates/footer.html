@@ -10,24 +10,16 @@
             <div class="col-md-4">
                 <h4>{% trans "News" %}</h4>
                 <div class="news">
+                    {% for n in news %}
                     <!-- new-item -->
-                    <a href="#" class="new-item">
-                        <span class="date"><i class="icon-clock i-16"></i> 12/11/2014</span>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+                    <a href="{{ n.link }}" class="new-item">
+                        <span class="date"><i class="icon-clock i-16"></i> {{ n.created }}</span>
+                        <span>{{ n.title|truncatewords:10 }}</span>
                     </a>
                     <!-- END new-item -->
-                    <!-- new-item -->
-                    <a href="#" class="new-item">
-                        <span class="date"><i class="icon-clock i-16"></i> 12/11/2014</span>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                    </a>
-                    <!-- END new-item -->
-                    <!-- new-item -->
-                    <a href="#" class="new-item">
-                        <span class="date"><i class="icon-clock i-16"></i> 12/11/2014</span>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
-                    </a>
-                    <!-- END new-item -->
+                    {% empty %}
+                        {% trans "No news" %}
+                    {% endfor %}
                 </div>
             </div>
             <!-- END first-column -->
