@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}/{% endblock %} - Social Crowd</title>
+        <title>{% block title %}/{% endblock %} - Social to Crowd</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="shortcut icon" href="{{ STATIC_URL }}theme/img/favicon.png">
@@ -31,33 +31,16 @@
     </head>
 
     <body>
+    {% include "menu.html" %}
 
     <!-- #wrapper -->
     <div id="wrapper" class="big-container">
 
-        {% block body %}
-            {% include "menu.html" %}
-
-            {% block precont %}
-            {% endblock %}
-
-            <div class="container">
-              {% include "messages.html" %}
-
-              {% block content %}
-                  {% block pretop %}
-                  <div class="jumbotron">
-                    {% block top %}
-                        <h1>Jumbotron heading</h1>
-                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-                    {% endblock %}
-                  </div>
-                  {% endblock %}
-              {% endblock %}
-            </div>
+        {% include "messages.html" %}
+        {% block content %}
         {% endblock %}
     </div>
+
     {% include "footer.html" %}
 
         <!-- GMaps API -->
