@@ -61,9 +61,13 @@ class Project(models.Model):
         return res
 
     def get_objetives(self):
+        if self.objetives is None:
+            return ''
         return self.objetives.split(',')
 
     def get_images(self):
+        if self.images is None:
+            return ''
         return self.images.split(',')
 
 

@@ -14,10 +14,14 @@
             {% include "project/project_header.html" with project=project active="True" %}
         </div>
     </section>
-    {% include "project/project-detail-video.html" %}
+    {% if project.video %}
+        {% include "project/project-detail-video.html" %}
+    {% endif %}
     {% include "project/project-detail-needs.html" %}
     {% include "project/project-detail-info.html" %}
-    {% include "project/project-detail-gallery.html" %}
+    {% if project.get_images %}
+        {% include "project/project-detail-gallery.html" %}
+    {% endif %}
     {% include "project/project-detail-comments.html" %}
     {% include "project/donations.html" %}
     {% include "project/cooperations.html" %}
