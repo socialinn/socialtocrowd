@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load thumbnail %}
+
+<!-- item -->
+<div class="item {% if active %}active{% endif %}">
+    <div class="carousel-caption">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-8 col-sm-6 col-sm-offset-6">
+                    <div class="box">
+                        <div class="box-sponsor">
+                            <img class="img-circle" src="{% thumbnail project.ong.img|default:'defaultp.png' 60x60 crop %}" alt="{{ project.ong }}"/>
+                            <span>{{ project.ong.name|truncatechars:40 }}</span>
+                        </div>
+                        <div class="box-title">
+                            <h2>{{ project.name|truncatechars:40 }}</h2>
+                            <div class="progress white">
+                                <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <p>{{ project.description|truncatewords:20 }}</p>
+                            {% if slider %}
+                            <div class="text-right"><a href="{% url 'detail' project.id %}" class="btn btn-default">{% trans "More info" %}</a></div>
+                            {% endif %}
+                        </div>
+
+                        {% if not slider %}
+                            <div class="box-social">
+                                <div class="pull-left">{% trans "Share it" %}</div>
+                                <div class="pull-right">
+                                    <a href="#" class="social twitter"><i class="icon-twitter i-32"></i></a>
+                                    <a href="#" class="social facebook"><i class="icon-facebook i-32"></i></a>
+                                    <a href="#" class="social googleplus"><i class="icon-googleplus i-32"></i></a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="{% thumbnail project.img|default:'defaultp_img.png' 1280x540 crop %}">
+</div>
+<!-- END item -->

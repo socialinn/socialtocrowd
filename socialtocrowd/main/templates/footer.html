@@ -37,7 +37,7 @@
                 <ul class="nav nav-pills nav-stacked">
                   {% for ong in top_ongs %}
                     <li><a href="{% url 'ong' ong.id %}">
-                        <img src="{% thumbnail ong.img|default:'defaultp.png' 18x18 %}" alt="{{ user }}"/>
+                        <img src="{% thumbnail ong.img|default:'defaultp.png' 18x18 %}" alt="{{ ong }}"/>
                         {{ ong.name }}</a></li>
                   {% endfor %}
                 </ul>
