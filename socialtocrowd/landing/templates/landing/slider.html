@@ -8,6 +8,7 @@
         {% for p in top_projects %}
             {% include "project/project_header.html" with project=p active=forloop.first slider="True" %}
         {% endfor %}
+		{% include "project/slide_ad1.html" with active=forloop.first %}
     </div>
     <!-- END carousel-inner -->
 
@@ -20,6 +21,8 @@
                     {% for p in top_projects %}
                         <li data-target="#featured_images" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
                     {% endfor %}
+					<!-- ZERO!! -->
+					<li data-target="#featured_images" data-slide-to="3"></li>
                 </ol>
                 <!-- END carousel-indicators -->
                 <!-- carousel-control -->
