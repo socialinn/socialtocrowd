@@ -1,4 +1,4 @@
-from project.models import Organization, Project
+from project.models import Organization
 
 
 def global_vars(request):
