@@ -31,6 +31,10 @@ class Project(models.Model):
     description = models.TextField()
     img = models.ImageField(upload_to="projects", blank=True, null=True)
     ong = models.ForeignKey(Organization, related_name='projects')
+    hashtag = models.CharField(max_length=255, blank=True, null=True)
+    objetives = models.CharField(max_length=255)
+    images = models.CharField(max_length=255, blank=True, null=True)
+    video = models.CharField(max_length=255, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     @classmethod
@@ -55,6 +59,12 @@ class Project(models.Model):
         else:
             res = donate * 100.0 / total
         return res
+
+    def get_objetives(self):
+        return self.objetives.split(',')
+
+    def get_images(self):
+        return self.images.split(',')
 
 
 class Thing(models.Model):
@@ -142,6 +152,14 @@ class ShippingCompany(models.Model):
     name = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
     info = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+
+class Category(models.Model):
+    project = models.ForeignKey(Project, related_name='categories')
+    name = models.CharField(max_length=25)
 
     def __unicode__(self):
         return self.name
