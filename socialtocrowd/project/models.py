@@ -52,6 +52,15 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+    def remain_things(self):
+        total = 0
+        for thing in self.things.all():
+            total += thing.quantity
+            total -= thing.ndonations().get('total')
+        if total < 0:
+            total = 0
+        return total
+
     def percent_donate(self):
         total = 0
         donate = 0
@@ -139,6 +148,7 @@ class Donation(models.Model):
     shipping = models.ForeignKey(Shipping, related_name='donations')
     info = models.TextField(blank=True)
     quantity = models.IntegerField(default=1)
+    img = models.ImageField(upload_to="donations", blank=True, null=True)
 
     def project(self):
         return self.shipping.project
