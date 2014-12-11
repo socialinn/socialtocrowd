@@ -10,7 +10,7 @@ class Index(TemplateView):
     def get_context_data(self, *args, **kwargs):
         ctx = super(Index, self).get_context_data(*args, **kwargs)
         ctx['top_projects'] = Project.top(3)
-        ctx["all_projects"] = Project.latests(5)
+        ctx["all_projects"] = Project.latests(7)
 
         # Latests project bigger need
         needs = []

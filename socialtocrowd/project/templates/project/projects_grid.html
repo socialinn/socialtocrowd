@@ -1,10 +1,11 @@
 {% load thumbnail %}
+{% load i18n %}
 
 <!-- projects-container  -->
-<div class="projects-container projects grid">
+<div class="projects grid row active">
     {% for project in all_projects %}
     <!-- project -->
-    <a href="{% url 'detail' project.id %}" class="col-md-4 col-sm-6 project">
+    <a href="{% url 'detail' project.id %}" class="col-md-{{ colmd|default_if_none:"4" }} col-sm-6 project">
         <div class="project-title">
             <h3>{{ project.name|truncatechars:30 }}</h3>
             <div class="progress white">
@@ -15,5 +16,17 @@
     </a>
     <!-- END project -->
     {% endfor %}
+
+    {% if addbutton %}
+    <!-- project -->
+    <a href="{% url 'create_ong' %}" class="col-md-{{ colmd|default_if_none:"4" }} col-sm-6 project add">
+        <div class="project-title">
+            <i class="icon-plus i-64"></i>
+            <span>{% trans "Start your project from here" %}</span>
+        </div>
+        <img src="{{ STATIC_URL }}theme/img/blank_img-400.png">
+    </a>
+    <!-- END project -->
+    {% endif %}
 </div>
 <!-- END projects-container -->

@@ -1,0 +1,23 @@
+{% load i18n %}
+<!-- #last_projects -->
+<section id="last_projects">
+    <!-- section-title -->
+    <div class="section-title container">
+        <h2 class="pull-left">Proyectos recientes</h2>
+        <div class="btn-group change-view pull-right" role="group">
+            <button type="button" class="btn btn-default active" data-view="grid"><i class="icon-grid i-16"></i></button>
+            <button type="button" class="btn btn-default" data-view="map"><i class="icon-location i-16"></i></button>
+        </div>
+    </div>
+    <!-- END section-title -->
+    {% include "project/projects_grid.html" with addbutton="True" colmd=3 %}
+    <!-- projects map-->
+    <div class="projects map">
+        <div id="map_canvas" class="gmap"></div>
+    </div>
+    <!-- END projects map-->
+    <!-- control-buttons -->
+    <div class="control-buttons text-center"><a href="{% url 'things' %}" class="btn btn-default btn-lg">{% trans "View all projects" %}</a></div>
+    <!-- END control-buttons -->
+</section>
+<!-- END #last_projects -->
