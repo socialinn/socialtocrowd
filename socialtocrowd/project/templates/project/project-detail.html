@@ -7,97 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="project-detail">
-        <div class="row">
-            <div class="col-sm-12 col-md-8">
-                {% if project.img %}
-                    <img src="{{ MEDIA_URL }}{{ project.img }}" class="img-responsive" alt="{{ project.name }}"/>
-                {% else %}
-                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.name }}"/>
-                {% endif %}
-
-                </br>
-
-                <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h3>
-                            {{ project.name }}
-                            {% if project.ong.user == user %}
-                                <a href="/project/edit/project/{{ project.id }}/">{% trans "EDIT" %}</a>
-                            {% endif %}
-                        </h3>
-                        <p>{{ project.description }}</p>
-                        <span class="pull-right">
-                        {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}
-                        </span>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4">
-                                {% if project.ong.img %}
-                                    <img src="{{ MEDIA_URL }}{{ project.ong.img }}" class="img-responsive" alt="{{ project.ong.name }}"/>
-                                {% else %}
-                                    <img src="{{ STATIC_URL }}/img/defaultp.png" class="img-responsive" alt="{{ project.ong.name }}"/>
-                                {% endif %}
-                            </div>
-                            <div class="col-xs-8 col-sm-8">
-                                {% trans "ONG" %}: <a href="/project/ong/{{ project.ong.id }}/">{{ project.ong.name }}</a>.</br>
-            
-                                {% trans "Projects" %}: 
-                                    {% for p in project.ong.projects.all %}
-                                        {% if forloop.counter < 5 %}
-                                            {{ p.name }},
-                                        {% elif forloop.counter == 5 %}
-                                            {% trans "and more..." %}
-                                        {% endif %}
-                                    {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <h3 class="center">{% trans "Achieved" %}</h3>
-                <progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress>
-                <h3 class="center">{% trans "List equipment" %}</h3>
-                <div class="table-responsive">
-                    <form class="things_donate" action="/project/donate/{{ project.id }}/" method="GET">
-                        <table class="table table-hover list-equipment">
-                            <thead>
-                                <tr>
-                                    <th>{% trans "thing" %}</th>
-                                    <th class="center">{% trans "amount" %}</th>
-                                    <th>{% trans "status" %}</th>
-                                </tr>
-                            </thead>
-                            {% for thing in project.things.all %}
-                                {% if thing.ndonations.received > 0 %}
-                                    <tr>
-                                        <td>{{ thing.name }}</td>
-                                        <td class="center">{{ thing.ndonations.received }}</td>
-                                        <td>{% trans "received" %}</td>
-                                    </tr>
-                                {% endif %}
-                                {% if thing.ndonations.sent > 0 %}
-                                    <tr>
-                                        <td>{{ thing.name }}</td>
-                                        <td class="center">{{ thing.ndonations.sent }}</td>
-                                        <td>{% trans "sent" %}</td>
-                                    </tr>
-                                {% endif %}
-                                {% if thing.ndonations.nodonate > 0 %}
-                                    <tr>
-                                        <td>{{ thing.name }}</td>
-                                        <td class="center">{{ thing.ndonations.nodonate }}</td>
-                                        <td>necessaries <input type="checkbox" name="checks[]" value="{{ thing.id }}"/></td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
-                        <input  type="submit" class="btn btn-success w90" value="{% trans "Donate" %}"></input>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "project/project_header.html" with project=project active="True" %}
+    {% include "project/project-detail-image.html" %}
+    {% include "project/project-detail-video.html" %}
+    {% include "project/project-detail-needs.html" %}
+    {% include "project/project-detail-info.html" %}
+    {% include "project/project-detail-gallery.html" %}
+    {% include "project/project-detail-comments.html" %}
+    {% include "project/donations.html" %}
+    {% include "project/cooperations.html" %}
 {% endblock %}
