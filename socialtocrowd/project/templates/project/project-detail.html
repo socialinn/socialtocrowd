@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block content %}
-    {% include "project/project_header.html" with project=project active="True" %}
+    <section id="featured_images" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            {% include "project/project_header.html" with project=project active="True" %}
+        </div>
+    </section>
     {% include "project/project-detail-video.html" %}
     {% include "project/project-detail-needs.html" %}
     {% include "project/project-detail-info.html" %}
