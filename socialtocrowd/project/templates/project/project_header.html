@@ -44,3 +44,28 @@
     <img src="{% thumbnail project.img|default:'defaultp_img.png' 1280x540 crop %}">
 </div>
 <!-- END item -->
+
+{% if not slider %}
+<!-- project-bar-fixed -->
+<div class="project-bar-fixed" data-spy="affix" data-offset-top="300" data-offset-bottom="300">
+    <div class="container-fluid big-container">
+        <!-- sections -->
+        <div class="sections pull-left">
+            <a href="#detail_video"><i class="icon-film i-32"></i></a>
+            <a href="#detail_needs"><i class="icon-object i-32"></i></a>
+            <a href="#detail_info"><i class="icon-paragraph-left2 i-32"></i></a>
+            <a href="#detail_gallery"><i class="icon-images i-32"></i></a>
+            <a href="#detail_comments"><i class="icon-bubble i-32"></i></a>
+        </div>
+        <!-- END sections -->
+        <!-- box-social -->
+        <div class="box-social pull-right visible-md visible-lg visible-sm">
+            <a href="#" class="social twitter"><i class="icon-twitter i-32"></i></a>
+            <a href="#" class="social facebook"><i class="icon-facebook i-32"></i></a>
+            <a href="#" class="social googleplus"><i class="icon-googleplus i-32"></i></a>
+        </div>
+        <!-- END box-social -->
+    </div>
+</div>
+<!-- END project-bar-fixed -->
+{% endif %}

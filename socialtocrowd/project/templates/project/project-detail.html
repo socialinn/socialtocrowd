@@ -6,6 +6,8 @@
     <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
 {% endblock %}
 
+{% block title %} {{ project.name }} {% endblock %}
+
 {% block content %}
     <section id="featured_images" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
