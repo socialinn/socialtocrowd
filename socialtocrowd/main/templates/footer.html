@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load thumbnail %}
 
 <!-- main_footer -->
 <footer id="main_footer">
@@ -34,11 +35,11 @@
             <div class="col-md-4 col-md-offset-1 col-xs-7">
                 <h4>{% trans "Organizations" %}</h4>
                 <ul class="nav nav-pills nav-stacked">
-                  <li><a href="#"><i class="icon-users i-16"></i> Nombre de organización</a></li>
-                  <li><a href="#"><i class="icon-users i-16"></i> Nombre de organización</a></li>
-                  <li><a href="#"><i class="icon-users i-16"></i> Nombre de organización</a></li>
-                  <li><a href="#"><i class="icon-users i-16"></i> Nombre de organización</a></li>
-                  <li><a href="#"><i class="icon-users i-16"></i> Nombre de organización</a></li>
+                  {% for ong in top_ongs %}
+                    <li><a href="{% url 'ong' ong.id %}">
+                        <img src="{% thumbnail ong.img|default:'defaultp.png' 18x18 %}" alt="{{ user }}"/>
+                        {{ ong.name }}</a></li>
+                  {% endfor %}
                 </ul>
             </div>
             <!-- END second-column -->
