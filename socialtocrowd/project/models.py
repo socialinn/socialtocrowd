@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from django.core.urlresolvers import reverse
 
 
 class Organization(models.Model):
@@ -36,6 +37,9 @@ class Project(models.Model):
     images = models.CharField(max_length=255, blank=True, null=True)
     video = models.CharField(max_length=255, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('detail', args=[str(self.id)])
 
     @classmethod
     def top(cls, n=5):

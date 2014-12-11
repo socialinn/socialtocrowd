@@ -1,17 +1,19 @@
+{% load thumbnail %}
+
 <!-- projects-container  -->
 <div class="projects-container projects grid">
-	{% for project in all_projects %}
-	<!-- project -->
-	<a href="#" class="col-md-4 col-sm-6 project">
-		<div class="project-title">
-			<h3>{{ project.name }}</h3>
-			<div class="progress white">
-				<div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">60%</div>
-			</div>
-		</div>
-		<img src="{{ project.img.url }}" />
-	</a>
-	<!-- END project -->
-	{% endfor %}
+    {% for project in all_projects %}
+    <!-- project -->
+    <a href="{% url 'detail' project.id %}" class="col-md-4 col-sm-6 project">
+        <div class="project-title">
+            <h3>{{ project.name|truncatechars:30 }}</h3>
+            <div class="progress white">
+                <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+            </div>
+        </div>
+        <img src="{% thumbnail project.img|default:'defaultp_img.png' 400x400 crop %}">
+    </a>
+    <!-- END project -->
+    {% endfor %}
 </div>
 <!-- END projects-container -->
