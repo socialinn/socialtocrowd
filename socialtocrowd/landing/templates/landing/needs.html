@@ -1,0 +1,63 @@
+{% load i18n %}
+{% load thumbnail %}
+
+<!-- #last_projects -->
+<section id="needs_home">
+    <div class="container">
+        <div class="row">
+            <!-- needs -->
+            <div class="col-md-5 col-sm-6 needs">
+                <h2>{% trans "Needs" %}</h2>
+                {% for need in needs %}
+                <!-- need -->
+                <div class="media">
+                    <div class="media-left">
+                        <img src="{% thumbnail need.project.img|default:'defaultp.png' 60x60 crop %}" alt="{{ need.project }}"/>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">{{ need.name|truncatechars:20 }}</h3>
+                        <p>
+                            <a href="{% url 'detail' need.project.id %}" class="black"><i class="icon-brand i-16"></i> {{ need.project|truncatechars:40 }}</a>
+                            (<a href="{% url 'ong' need.project.ong.id %}" class="black">{{ need.project.ong|truncatechars:40 }}</a>)
+                        </p>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal_donation"><i class="icon-object i-16"></i> {% trans "Donate" %}</a>
+                    </div>
+                </div>
+                <!-- END need -->
+                {% empty %}
+                <p>{% trans "No needs yet" %}</p>
+                {% endfor %}
+            </div>
+            <!-- END needs -->
+            <!-- donations -->
+            <div class="col-md-5 col-md-offset-2 col-sm-6 donations">
+                <h2>{% trans "Latest donnors" %}</h2>
+                {% for donnor in donnors %}
+                <!-- user -->
+                {% with u=donnor.shipping.user p=donnor.shipping.project %}
+                <div class="media">
+                    <div class="media-left">
+                        <img class="img-circle" src="{% thumbnail u.profile.avatar|default:'default.png' 100x100 crop %}" alt="{{ u }}"/>
+                    </div>
+                    <div class="media-body">
+                        <h3 class="media-heading">{{ u }}</h3>
+                        <p>{% blocktrans with tn=donnor.thing.name|truncatechars:20 tq=donnor.quantity %}
+                        Donates  {{ tn }} x {{ tq }} to
+                        {% endblocktrans %}</p>
+                        <p><a href="{% url 'detail' p.id %}" class="black"><i class="icon-brand i-16"></i> {{ p|truncatechars:40 }}</a></p>
+                    </div>
+                </div>
+                {% endwith %}
+                <!-- END user -->
+                {% empty %}
+                <p>{% trans "No donations yet" %}</p>
+                {% endfor %}
+            </div>
+            <!-- END donations -->
+        </div>
+        <!-- control-buttons -->
+        <div class="control-buttons text-center"><a href="{% url 'things' %}" class="btn btn-default btn-lg">{% trans "View all needs and donate" %}</a></div>
+        <!-- END control-buttons -->
+    </div>
+</section>
+<!-- END #last_projects -->
