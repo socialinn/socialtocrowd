@@ -18,6 +18,10 @@ class Organization(models.Model):
     province = models.CharField(max_length=255)
     status = models.CharField(choices=STATUS, max_length=10, default="pending")
 
+    @classmethod
+    def top(cls, n=5):
+        return cls.objects.all().order_by("-pk")[0:n]
+
     def __unicode__(self):
         return self.name
 
@@ -28,6 +32,10 @@ class Project(models.Model):
     img = models.ImageField(upload_to="projects", blank=True, null=True)
     ong = models.ForeignKey(Organization, related_name='projects')
     created = models.DateTimeField(auto_now_add=True)
+
+    @classmethod
+    def top(cls, n=5):
+        return cls.objects.all().order_by("-pk")[0:n]
 
     def __unicode__(self):
         return self.name
