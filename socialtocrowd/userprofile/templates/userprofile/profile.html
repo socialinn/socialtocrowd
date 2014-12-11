@@ -10,7 +10,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="profile">
+
+<section id="profile_section">
+	<div class="container">
+		<div class="row">
+	<!-- begin profile -->
+    <div class="profile col-md-8 col-md-offset-2">
 
         <a class="btn btn-primary pull-right" href="{% url "edit_profile" %}">
             {% trans "Edit" %}
@@ -77,4 +82,9 @@
         {% include "project/shipping_list.html" with shippings=shippings %}
 
     </div>
+	<!-- end profile -->
+
+		</div>
+	</div>
+</section>
 {% endblock %}
