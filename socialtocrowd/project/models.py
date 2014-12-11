@@ -37,6 +37,10 @@ class Project(models.Model):
     def top(cls, n=5):
         return cls.objects.all().order_by("-pk")[0:n]
 
+    @classmethod
+    def latests(cls, n=5):
+        return cls.objects.all().order_by("-created")[0:n]
+
     def __unicode__(self):
         return self.name
 
