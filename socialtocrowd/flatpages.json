@@ -28,5 +28,20 @@
     },
     "model": "flatpages.flatpage",
     "pk": 2
+},
+{
+    "fields": {
+        "registration_required": false,
+        "title": "Cómo funciona",
+        "url": "/how/",
+        "template_name": "",
+        "sites": [
+            1
+        ],
+        "content": "<p>Cómo funciona Social to Crowd</p>",
+        "enable_comments": false
+    },
+    "model": "flatpages.flatpage",
+    "pk": 3
 }
 ]

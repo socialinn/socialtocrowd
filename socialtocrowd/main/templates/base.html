@@ -31,6 +31,10 @@
     </head>
 
     <body>
+
+    <!-- #wrapper -->
+    <div id="wrapper" class="big-container">
+
         {% block body %}
             {% include "menu.html" %}
 
@@ -41,38 +45,34 @@
               {% include "messages.html" %}
 
               {% block content %}
-
-              {% block pretop %}
-              <div class="jumbotron">
-                {% block top %}
-                    <h1>Jumbotron heading</h1>
-                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
-                {% endblock %}
-              </div>
+                  {% block pretop %}
+                  <div class="jumbotron">
+                    {% block top %}
+                        <h1>Jumbotron heading</h1>
+                        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                        <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+                    {% endblock %}
+                  </div>
+                  {% endblock %}
               {% endblock %}
-
-            {% endblock %}
-
-              <div class="footer">
-                {% block foot %}
-                    <!-- FOOTER -->
-                    <footer>
-                      <p class="text-center">
-                          <a href="https://github.com/socialinn/socialtocrowd/">{% trans "Source code" %}</a> &middot;
-                          <a href="/pages/legal/">{% trans "Legal" %}</a> &middot;
-                          <a href="/pages/faq/">{% trans "FAQ" %}</a>
-                      </p>
-                    </footer>
-                {% endblock %}
-              </div>
-
             </div>
-
         {% endblock %}
+    </div>
+    {% include "footer.html" %}
 
+        <!-- GMaps API -->
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <!-- jQuery -->
         <script src="{{ STATIC_URL }}js/jquery.js"></script>
-        <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.js"></script>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <!-- Bootstrap -->
+        <script src="{{ STATIC_URL }}theme/js/bootstrap.min.js"></script>
+        <!-- UI Map -->
+        <script src="{{ STATIC_URL }}theme/js/jquery.ui.map.min.js"></script>
+        <!-- prettyPhoto -->
+        <script src="{{ STATIC_URL }}theme/js/jquery.prettyPhoto.js"></script>
+        <!-- Neembos -->
+        <script src="{{ STATIC_URL }}theme/js/neembos.js"></script>
 
         {% block extrabody %}
         {% endblock %}
