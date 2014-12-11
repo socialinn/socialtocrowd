@@ -17,7 +17,8 @@ class NewsFeed(models.Model):
             defaults['created'] = timezone.make_aware(created, timezone.get_current_timezone())
             defaults['title'] = e.title
             defaults['desc'] = e.description
-            nc, created = NewsCached.objects.get_or_create(link=e.link,
+            nc, created = NewsCached.objects.get_or_create(feed=self,
+                                link=e.link,
                                 defaults=defaults)
             nc.save()
 
