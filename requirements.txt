@@ -7,3 +7,4 @@ pillow
 psycopg2
 easy-thumbnails
 feedparser
+django-suit
