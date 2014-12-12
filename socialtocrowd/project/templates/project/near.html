@@ -9,18 +9,17 @@
 {% endblock %}
 
 {% block extrabody %}
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
+</script>
     <script src="{{ STATIC_URL }}js/near.js"></script>
-    <script>
-        Near.init();
-    </script>
 {% endblock %}
 
 {% block content %}
     <div class="searchbar input-group">
       <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
       <span class="input-group-btn">
-        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="Near.codeAddress()">
+        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="Near.updateSourceLocation()">
       </span>
     </div>
 
