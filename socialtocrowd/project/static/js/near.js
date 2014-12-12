@@ -1,8 +1,9 @@
 
 
 // MARKER CONFIG
+var iconGeometry = new ol.geom.Point([637125.42195, 8172199.19090669]);
 var iconFeature = new ol.Feature({
-	geometry: new ol.geom.Point([637125.42195, 8172199.19090669]),
+	geometry: iconGeometry,
 	name: 'Null Island',
 	population: 4000,
 	rainfall: 500
@@ -59,7 +60,7 @@ Near.map = new ol.Map({
 
 Near.map.on('singleclick', function (evt) {
 		console.log(evt.coordinate);
-        iconGeometry.setCoordinates([10, 10]);
+        iconGeometry.setCoordinates(evt.coordinate);
     });
 Near.updateSourceLocation = function() {
 	Debug.Log("olaqase");
