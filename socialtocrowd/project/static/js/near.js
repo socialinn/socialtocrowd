@@ -20,6 +20,7 @@ var iconStyle = new ol.style.Style({
 });
 
 iconFeature.setStyle(iconStyle);
+
 // MARKER LAYER
 var vectorSource = new ol.source.Vector({
   features: [iconFeature]
@@ -59,10 +60,11 @@ Near.map = new ol.Map({
 });
 
 Near.map.on('singleclick', function (evt) {
-		console.log(evt.coordinate);
-        iconGeometry.setCoordinates(evt.coordinate);
-    });
+	console.log(evt.coordinate);
+	iconGeometry.setCoordinates(evt.coordinate);
+});
+
 Near.updateSourceLocation = function() {
-	Debug.Log("olaqase");
+	mapView.setCenter(iconGeometry.getCoordinates());
 }
 
