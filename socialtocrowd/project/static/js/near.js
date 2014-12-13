@@ -1,79 +1,70 @@
-(function() {
-    var Near = this.Near = {};
-    Near.map = null;
-    Near.geocoder = null;
 
-    Near.initialize = function () {
-      var mapOptions = {
-        zoom: 8,
-        center: new google.maps.LatLng(-34.397, 150.644)
-      };
-      Near.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-      Near.geocoder = new google.maps.Geocoder();
 
-      Near.geoloc();
-    };
+// MARKER CONFIG
+var iconGeometry = new ol.geom.Point([637125.42195, 8172199.19090669]);
+var iconFeature = new ol.Feature({
+	geometry: iconGeometry,
+	name: 'Null Island',
+	population: 4000,
+	rainfall: 500
+});
 
-    Near.init = function() {
-        google.maps.event.addDomListener(window, 'load', Near.initialize);
-        $("#address").keypress(function(e) {
-            if (e.which == 13) {
-                Near.codeAddress();
-            }
-        });
-    };
+var iconStyle = new ol.style.Style({
+  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+    anchor: [0.5, 46],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    opacity: 0.75,
+    src: marker_image
+  }))
+});
 
-    Near.geoloc = function() {
-        // Try HTML5 geolocation
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                var infowindow = new google.maps.InfoWindow({
-                  map: Near.map,
-                  position: pos,
-                  content: "You're here"
-                });
+iconFeature.setStyle(iconStyle);
 
-                Near.map.setCenter(pos);
-            }, function() {
-              Near.handleNoGeolocation(true);
-            });
-        } else {
-        // Browser doesn't support Geolocation
-            Near.handleNoGeolocation(false);
-        }
-    };
+// MARKER LAYER
+var vectorSource = new ol.source.Vector({
+  features: [iconFeature]
+});
 
-    Near.handleNoGeolocation = function(errorFlag) {
-        if (errorFlag) {
-            var content = 'Error: The Geolocation service failed.';
-        } else {
-            var content = 'Error: Your browser doesn\'t support geolocation.';
-        }
+var vectorLayer = new ol.layer.Vector({
+  source: vectorSource
+});
 
-        var options = {
-            map: Near.map,
-            position: new google.maps.LatLng(60, 105),
-            content: content
-        };
+// OSM LAYER
+var osmLayer = new ol.layer.Tile({
+	source: new ol.source.OSM()
+});
 
-        var infowindow = new google.maps.InfoWindow(options);
-        Near.map.setCenter(options.position);
-    };
+// MAP POSITION
+var mapView = new ol.View({
+	center: [0, 0],
+	zoom: 2
+});
 
-    Near.codeAddress = function () {
-        var address = document.getElementById('address').value;
-        Near.geocoder.geocode( { 'address': address}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                Near.map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: Near.map,
-                    position: results[0].geometry.location
-                });
-            } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-            }
-        });
-    };
+var rasterLayer = new ol.layer.Tile({
+  source: new ol.source.TileJSON({
+    url: 'http://api.tiles.mapbox.com/v3/mapbox.geography-class.jsonp'
+  })
+});
 
-}).call(this);
+var Near = {};
+Near.map = new ol.Map({
+  layers: [ osmLayer, rasterLayer, vectorLayer ],
+  controls: ol.control.defaults({
+    attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+      collapsible: false
+    })
+  }),
+  target: 'map-canvas',
+  view: mapView
+});
+
+Near.map.on('singleclick', function (evt) {
+	console.log(evt.coordinate);
+	iconGeometry.setCoordinates(evt.coordinate);
+});
+
+Near.updateSourceLocation = function() {
+	mapView.setCenter(iconGeometry.getCoordinates());
+}
+

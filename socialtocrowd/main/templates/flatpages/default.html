@@ -3,8 +3,26 @@
 {% block title %}{{ flatpage.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ flatpage.title }}</h1>
 
-{{ flatpage.content }}
+<div class="page-layout container">
+	<div class="row">
+		<!-- #content -->
+		<section id="content" class="col-md-9">
+			<!-- page-header -->
+			<div class="page-header">
+				<h2>{{ flatpage.title }}</h2>
+			</div>
+			
+			<div class="page-content">
+
+				{{ flatpage.content }}
+
+			</div>		
+		</section>
+		
+	</div>
+</div>	
+
+
 
 {% endblock %}
