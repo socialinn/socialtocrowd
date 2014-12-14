@@ -28,7 +28,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -82,16 +81,16 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'stc',
         'USER': 'stc',
-        'PASSWORD': 'stc',
+        'PASSWORD': 'yA%ckQ5Ip%C0',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'Europe/Madrid'
 USE_I18N = True
 USE_L10N = True
@@ -102,6 +101,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/socialtocrowd/static'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -114,6 +114,7 @@ MEDIA_URL = '/static/media/'
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     # Required by allauth template tags
     "django.core.context_processors.request",
+   "django.core.context_processors.i18n",
     # allauth specific context processors
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
