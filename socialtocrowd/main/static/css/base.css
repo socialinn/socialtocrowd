@@ -51,3 +51,20 @@ body {
     font-size: 2em;
     line-height: 3em;
 }
+
+/* default flatpage */
+
+/* flatpage howto */
+
+.howto li {
+list-style: none !important;
+}
+.howto .badge {
+margin: 20px !important;
+float: left;
+font-size: 25px !important;
+border-radius: 25px !important;
+padding: 8px 14px !important;
+backuground-color: #f39200 !important;
+
+}
