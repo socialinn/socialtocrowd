@@ -1,0 +1,754 @@
+# SocialToCrowd ES
+# Copyright (C) 2014
+# This file is distributed under the same license as the SocialToCrowd package.
+# Daniel García <danigm@wadobo.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-12-14 18:48+0100\n"
+"PO-Revision-Date: 2014-12-14 18:49+0100\n"
+"Last-Translator: Daniel García <danigm@wadobo.com>\n"
+"Language-Team: Español; Castellano <>\n"
+"Language: ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: landing/templates/landing/bigbuttons.html:6
+#: project/templates/project/near.html:4
+msgid "Near to you"
+msgstr "Cerca de ti"
+
+#: landing/templates/landing/bigbuttons.html:13
+msgid "What do you have?"
+msgstr "¿Qué tienes para colaborar?"
+
+#: landing/templates/landing/bigbuttons.html:20
+msgid "Who wants to?"
+msgstr "¿Con quién quieres colaborar?"
+
+#: landing/templates/landing/contributors.html:8
+msgid "Contributors"
+msgstr "Colaboradores"
+
+#: landing/templates/landing/index.html:11
+msgid "Welcome"
+msgstr "Bienvenido"
+
+#: landing/templates/landing/needs.html:10 main/templates/menu.html:26
+msgid "Needs"
+msgstr "Necesidades"
+
+#: landing/templates/landing/needs.html:23
+#: project/templates/project/project-detail-needs.html:27
+#: project/templates/project/project.html:22 project/views.py:30
+msgid "Donate"
+msgstr "Donar"
+
+#: landing/templates/landing/needs.html:28
+msgid "No needs yet"
+msgstr "Ninguna necesidad aún"
+
+#: landing/templates/landing/needs.html:34
+msgid "Latest donnors"
+msgstr "Últimos colaboradores"
+
+#: landing/templates/landing/needs.html:44
+#, python-format
+msgid ""
+"\n"
+"                        Donates  %(tn)s x %(tq)s to\n"
+"                        "
+msgstr ""
+"\n"
+"                        Donó  %(tn)s x %(tq)s a\n"
+"                        "
+
+#: landing/templates/landing/needs.html:53
+msgid "No donations yet"
+msgstr "Ninguna colaboración aún"
+
+#: landing/templates/landing/needs.html:59
+msgid "View all needs and donate"
+msgstr "Ver todas las necesidades y los colaboradores"
+
+#: landing/templates/landing/recent.html:6
+#| msgid "Latest projects"
+msgid "Recent projects"
+msgstr "Últimos proyectos"
+
+#: landing/templates/landing/recent.html:20
+msgid "View all projects"
+msgstr "Ver todos los proyectos"
+
+#: main/templates/account/email.html:6
+msgid "Account"
+msgstr "Cuenta"
+
+#: main/templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "Dirección de email"
+
+#: main/templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Las siguientes direcciones de email están asociadas con tu cuenta:"
+
+#: main/templates/account/email.html:25
+msgid "Verified"
+msgstr "Verificar"
+
+#: main/templates/account/email.html:27
+msgid "Unverified"
+msgstr "No verificada"
+
+#: main/templates/account/email.html:29
+msgid "Primary"
+msgstr "Principal"
+
+#: main/templates/account/email.html:35
+msgid "Make Primary"
+msgstr "Hacer Principal"
+
+#: main/templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "Reenviar Verificación"
+
+#: main/templates/account/email.html:37
+#: project/templates/project/project_form.html:38
+#: project/templates/project/project_form.html:55
+msgid "Remove"
+msgstr "Borrar"
+
+#: main/templates/account/email.html:44
+msgid "Warning:"
+msgstr "Aviso:"
+
+#: main/templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"No tienes una dirección de correo electrónico configurada. Deberías añadir "
+"un coreo electrónico para poder recibir notificaciones, cambiar tu "
+"contraseña, etc."
+
+#: main/templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "Añadir dirección E-mail"
+
+#: main/templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "Añadir E-mail"
+
+#: main/templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Estás seguro de que quieres eleminar el E-mail seleccionado?"
+
+#: main/templates/account/login.html:7 main/templates/account/login.html:15
+#: main/templates/account/login.html:47
+msgid "Sign In"
+msgstr "Entrar"
+
+#: main/templates/account/login.html:18
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+"Por favor, accede con una\n"
+"de tus cuentas de terceros existentes. O, <a href=\"%(signup_url)s"
+"\">Regístrate</a>\n"
+"para una cuenta de %(site_name)s y accede debajo:"
+
+#: main/templates/account/login.html:28
+msgid "or"
+msgstr "o"
+
+#: main/templates/account/login.html:35
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Si no has creado una cuenta todavía, por favor\n"
+"<a href=\"%(signup_url)s\">registrate</a> primero."
+
+#: main/templates/account/login.html:37 main/templates/account/signup.html:12
+msgid ""
+"If you are an organization. Create an account and after request your "
+"Organization."
+msgstr ""
+"Si eres una organización. Crea una cuenta y después solicita tu Organización."
+
+#: main/templates/account/login.html:46
+msgid "Forgot Password?"
+msgstr "Contraseña olvidada"
+
+#: main/templates/account/logout.html:6 main/templates/account/logout.html:9
+#: main/templates/account/logout.html:18
+msgid "Sign Out"
+msgstr "Salir"
+
+#: main/templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "¿Estas seguro que quieres salir?"
+
+#: main/templates/account/password_change.html:6
+#: main/templates/account/password_change.html:9
+#: main/templates/account/password_change.html:14
+#: main/templates/account/password_reset_from_key.html:5
+#: main/templates/account/password_reset_from_key.html:8
+msgid "Change Password"
+msgstr "Cambiar contraseña"
+
+#: main/templates/account/password_reset.html:7
+#: main/templates/account/password_reset.html:11
+msgid "Password Reset"
+msgstr "Recordar contraseña"
+
+#: main/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"¿Olvidaste tu contraseña? Introduce tu dirección de E-mail y te enviaremos "
+"un E-mail permitiendote cambiarla."
+
+#: main/templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr "Recordar mi contraseña"
+
+#: main/templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+"Por favor, contacta con nosotros si tieneas algún problema cambiando tu "
+"contraseña."
+
+#: main/templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr "Token incorrecto"
+
+#: main/templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"El link para cambiar la contraseña es inválido, posiblemente ya fue usado "
+"antes. Por favor, solicita un <a href=\"%(passwd_reset_url)s\">nuevo cambio "
+"de contraseña</a>."
+
+#: main/templates/account/password_reset_from_key.html:18
+#: userprofile/templates/userprofile/profile.html:40
+msgid "change password"
+msgstr "cambiar contraseña"
+
+#: main/templates/account/password_reset_from_key.html:21
+msgid "Your password is now changed."
+msgstr "Has cambiado tu contraseña."
+
+#: main/templates/account/password_set.html:6
+#: main/templates/account/password_set.html:9
+#: main/templates/account/password_set.html:14
+msgid "Set Password"
+msgstr "Contraseña"
+
+#: main/templates/account/signup.html:6
+msgid "Signup"
+msgstr "Registro"
+
+#: main/templates/account/signup.html:9 main/templates/account/signup.html:20
+msgid "Sign Up"
+msgstr "Registrate"
+
+#: main/templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "¿Ya tienes una cuenta? Entonces <a href=\"%(login_url)s\">accede</a>."
+
+#: main/templates/footer.html:11
+msgid "News"
+msgstr "Noticias"
+
+#: main/templates/footer.html:21
+msgid "No news"
+msgstr "Ninguna noticia"
+
+#: main/templates/footer.html:28
+#: userprofile/templates/userprofile/profile.html:44
+msgid "Organizations"
+msgstr "Organizaciones"
+
+#: main/templates/footer.html:40
+#: userprofile/templates/userprofile/profile.html:62
+msgid "Social"
+msgstr "Social"
+
+#: main/templates/footer.html:56
+msgid "Legal"
+msgstr "Aviso Legal"
+
+#: main/templates/footer.html:57
+msgid "Source code"
+msgstr "Código fuente"
+
+#: main/templates/footer.html:58
+msgid "FAQ"
+msgstr "Preguntas y respuestas"
+
+#: main/templates/layout.html:4
+msgid "Home"
+msgstr "Portada"
+
+#: main/templates/layout.html:5
+msgid "About"
+msgstr "Acerca de"
+
+#: main/templates/layout.html:6
+msgid "Contact"
+msgstr "Contacto"
+
+#: main/templates/layout.html:15
+#| msgid "Sign Out"
+msgid "Sign up today"
+msgstr "Registrate hoy"
+
+#: main/templates/menu.html:20 project/templates/project/ong-detail.html:37
+msgid "Projects"
+msgstr "Proyectos"
+
+#: main/templates/menu.html:22
+msgid "Latest projects"
+msgstr "Últimos proyectos"
+
+#: main/templates/menu.html:23
+msgid "Top projects"
+msgstr "Projectos destacados"
+
+#: main/templates/menu.html:27
+msgid "How it works?"
+msgstr "¿Cómo funciona?"
+
+#: main/templates/menu.html:42
+#, python-format
+msgid "%(user)s profile"
+msgstr "%(user)s perfil"
+
+#: main/templates/menu.html:52
+msgid "Logout"
+msgstr "Salir"
+
+#: main/templates/menu.html:54
+msgid "Login / Register"
+msgstr "Entrar / Registro"
+
+#: main/templates/menu.html:62
+msgid "Search"
+msgstr "Buscar"
+
+#: project/admin.py:8
+msgid "Mark selected ongs as active"
+msgstr "Marcar las ongs seleccionar como activas"
+
+#: project/templates/project/direction_confirm_delete.html:8
+#: project/templates/project/thing_confirm_delete.html:8
+msgid "Are you sure you want to delete"
+msgstr "¿Estas seguro que quieres borrar?"
+
+#: project/templates/project/direction_form.html:11
+#: project/templates/project/organization_form.html:10
+#: project/templates/project/project_form.html:72
+#: project/templates/project/thing_form.html:9
+msgid "Update"
+msgstr "Actualizar"
+
+#: project/templates/project/direction_form.html:13
+#: project/templates/project/organization_form.html:12
+#: project/templates/project/project_form.html:74
+#: project/templates/project/thing_form.html:11
+msgid "Create"
+msgstr "Crear"
+
+#: project/templates/project/donate-t1.html:24
+#: project/templates/project/project.html:15
+#, python-format
+msgid "%(time)s ago"
+msgstr "hace %(time)s"
+
+#: project/templates/project/donate-t1.html:35
+msgid "Achieved"
+msgstr "Archivado"
+
+#: project/templates/project/donate-t1.html:37
+msgid "Shipping number"
+msgstr "Número de envío"
+
+#: project/templates/project/donate-t1.html:45
+#: project/templates/project/shipping.html:27
+msgid "Items"
+msgstr "Unidades"
+
+#: project/templates/project/donate-t1.html:46
+#: project/templates/project/project-detail-info.html:9
+msgid "Description"
+msgstr "Descripción"
+
+#: project/templates/project/donate-t1.html:47
+msgid "Necessaries"
+msgstr "Necesidades"
+
+#: project/templates/project/donate-t1.html:48
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: project/templates/project/donate-t1.html:49
+msgid "Optional information about item"
+msgstr "Información adicional sobre la unidad"
+
+#: project/templates/project/donate-t1.html:75
+msgid "Shipping direction"
+msgstr "Dirección de envío"
+
+#: project/templates/project/donate-t1.html:82
+#: project/templates/project/shipping.html:47
+msgid "Delivery date (aprox.)"
+msgstr "Fecha de entrega (aprox.)"
+
+#: project/templates/project/donate-t1.html:90
+msgid "Commentary about shipping"
+msgstr "Comentarios sobre el envío"
+
+#: project/templates/project/donate-t1.html:94
+msgid "Show in donate page"
+msgstr "Mostrar en la página de colaboradores"
+
+#: project/templates/project/donate-t1.html:98
+#: project/templates/project/modal_donation.html:57
+msgid "Accept"
+msgstr "Aceptar"
+
+#: project/templates/project/donate-t1.html:104
+msgid "Project completed: you can donate in other projects"
+msgstr "Proyecto completado: puedes colaborar en otros proyectos"
+
+#: project/templates/project/modal_cooperation.html:10
+msgid "Collaborate with your help"
+msgstr "Coopera con tu ayuda"
+
+#: project/templates/project/modal_cooperation.html:17
+msgid "What we need from you?"
+msgstr "¿Qué necesitamos de ti?"
+
+#: project/templates/project/modal_cooperation.html:23
+msgid "Where?"
+msgstr "¿Dónde?"
+
+#: project/templates/project/modal_cooperation.html:29
+msgid "When?"
+msgstr "¿Cuándo?"
+
+#: project/templates/project/modal_cooperation.html:37
+#: project/templates/project/modal_donation.html:56
+#: userprofile/templates/userprofile/edit.html:15
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: project/templates/project/modal_cooperation.html:38
+msgid "Participate"
+msgstr "Participar"
+
+#: project/templates/project/modal_cooperation.html:45
+#: project/templates/project/modal_donation.html:64
+msgid "Close"
+msgstr "Cerrar"
+
+#: project/templates/project/modal_cooperation.html:49
+#: project/templates/project/modal_donation.html:68
+msgid "Done!"
+msgstr "Hecho!"
+
+#: project/templates/project/modal_cooperation.html:50
+msgid "Thank you for your collaboration"
+msgstr "Gracias por tu colaboración"
+
+#: project/templates/project/modal_donation.html:10
+msgid "Donate thing"
+msgstr "Donar cosas"
+
+#: project/templates/project/modal_donation.html:17
+msgid "Have you a object photo? Upload it!"
+msgstr "¿Tienes una foto del objeto? Subela! "
+
+#: project/templates/project/modal_donation.html:20
+msgid "Add image"
+msgstr "Añadir imagen"
+
+#: project/templates/project/modal_donation.html:26
+msgid "Add name and description of the object"
+msgstr "Añadir descripción del objeto"
+
+#: project/templates/project/modal_donation.html:36
+msgid "Private donation"
+msgstr "Donación privada"
+
+#: project/templates/project/modal_donation.html:42
+msgid "Select shipping"
+msgstr "Seleccionar envío"
+
+#: project/templates/project/modal_donation.html:69
+msgid "Thank for you collaboration"
+msgstr "Gracias por tu colaboración"
+
+#: project/templates/project/near.html:20
+msgid "Search your location"
+msgstr "Busca por tu direción"
+
+#: project/templates/project/near.html:22
+#: project/templates/project/search.html:15
+msgid "Go"
+msgstr "Ir"
+
+#: project/templates/project/ong-detail.html:14
+msgid "Status"
+msgstr "Estado"
+
+#: project/templates/project/ong-detail.html:26
+#: project/templates/project/ong-detail.html:60
+msgid "EDIT"
+msgstr "EDITAR"
+
+#: project/templates/project/ong-detail.html:40
+msgid "Exist nothing project"
+msgstr "No existen proyectos"
+
+#: project/templates/project/ong-detail.html:46
+msgid "project"
+msgstr "proyecto"
+
+#: project/templates/project/ong-detail.html:47
+msgid "created"
+msgstr "creado"
+
+#: project/templates/project/ong-detail.html:48
+msgid "achieved"
+msgstr "conseguido"
+
+#: project/templates/project/ong-detail.html:50
+msgid "edit"
+msgstr "editar"
+
+#: project/templates/project/ong-detail.html:68
+msgid "Create new project"
+msgstr "Crea un nuevo projecto"
+
+#: project/templates/project/ong.html:16
+msgid "Our projects"
+msgstr "Nuestros proyectos"
+
+#: project/templates/project/ong.html:22
+#: project/templates/project/project.html:28
+msgid "And more..."
+msgstr "Y más"
+
+#: project/templates/project/project-detail-gallery.html:5
+msgid "Progress in images ..."
+msgstr "Progresos en imágenes"
+
+#: project/templates/project/project-detail-info.html:24
+msgid "Categories"
+msgstr "Categorías"
+
+#: project/templates/project/project-detail-info.html:29
+msgid "Collaborators"
+msgstr "Colaboradores"
+
+#: project/templates/project/project-detail-needs.html:9
+msgid "We need ..."
+msgstr "Necesitamos ..."
+
+#: project/templates/project/project-detail-needs.html:11
+msgid "Neccesary things"
+msgstr "Cosas necesarias"
+
+#: project/templates/project/project-detail-needs.html:25
+msgid "remaining"
+msgstr "restantes"
+
+#: project/templates/project/project-detail-needs.html:42
+msgid "Thanks"
+msgstr "Gracias"
+
+#: project/templates/project/project-detail-needs.html:57
+msgid "Load more"
+msgstr "Cargar más"
+
+#: project/templates/project/project-detail-video.html:5
+msgid "explanatory video"
+msgstr "Vídeo"
+
+#: project/templates/project/project.html:21
+msgid "What do we need?"
+msgstr "¿Qué necesitamos?"
+
+#: project/templates/project/project_form.html:19
+msgid "Project"
+msgstr "Proyecto"
+
+#: project/templates/project/project_form.html:21
+msgid "New Project for"
+msgstr "Nuevo proyecto"
+
+#: project/templates/project/project_form.html:29
+msgid "Add Main Direction, later you can to add others directions"
+msgstr "Añadir dirección principal, después podrás añadir otras direcciones"
+
+#: project/templates/project/project_form.html:33
+msgid "Addresses:"
+msgstr "Direcciones"
+
+#: project/templates/project/project_form.html:37
+#: project/templates/project/project_form.html:54
+#: userprofile/templates/userprofile/profile.html:21
+msgid "Edit"
+msgstr "Editar"
+
+#: project/templates/project/project_form.html:41
+#: project/templates/project/project_form.html:58
+msgid "New"
+msgstr "Nuevo"
+
+#: project/templates/project/project_form.html:50
+msgid "Things:"
+msgstr "Cosas:"
+
+#: project/templates/project/project_form.html:60
+msgid "Add things"
+msgstr "Añadir cosas"
+
+#: project/templates/project/project_header.html:24
+msgid "More info"
+msgstr "Más información"
+
+#: project/templates/project/project_header.html:30
+msgid "Share it"
+msgstr "Compártelo"
+
+#: project/templates/project/projects_grid.html:25
+msgid "Start your project from here"
+msgstr "Empieza tu proyecto desde aquí"
+
+#: project/templates/project/shipping.html:10
+msgid "Accepted Shipping Number"
+msgstr "Aceptado número de envío"
+
+#: project/templates/project/shipping.html:28
+msgid "Info"
+msgstr "Info"
+
+#: project/templates/project/shipping.html:41
+msgid "Your commentary"
+msgstr "Tu comentario"
+
+#: project/templates/project/shipping.html:44
+msgid "Address to shipping"
+msgstr "Dirección de envío"
+
+#: project/templates/project/shipping.html:51
+msgid "Phone"
+msgstr "Teléfono"
+
+#: project/templates/project/shipping.html:55
+msgid "Print address"
+msgstr "Imprimir dirección"
+
+#: project/templates/project/shipping.html:56
+msgid "Download QR"
+msgstr "Descargar QR"
+
+#: project/templates/project/shipping.html:63
+msgid "Order shipping"
+msgstr "Solicitar pedido"
+
+#: project/templates/project/shipping_list.html:24
+msgid "Donated"
+msgstr "Donado!"
+
+#: project/templates/project/shipping_list.html:26
+msgid "Public"
+msgstr "Público"
+
+#: project/templates/project/shipping_list.html:28
+msgid "Private"
+msgstr "Privado"
+
+#: project/views.py:31
+msgid "Search things to donate"
+msgstr "Buscar cosas para colaborar"
+
+#: project/views.py:59
+msgid "ONGs"
+msgstr "ONGs"
+
+#: project/views.py:60
+msgid "Search ONG to donate"
+msgstr "Busca una ONG con la que colaborar"
+
+#: socialtocrowd/settings.py:104
+msgid "Spanish"
+msgstr "Español"
+
+#: socialtocrowd/settings.py:105
+msgid "English"
+msgstr "Ingĺes"
+
+#: userprofile/models.py:13 userprofile/templates/userprofile/profile.html:34
+msgid "Avatar"
+msgstr "Avatar"
+
+#: userprofile/models.py:15 userprofile/templates/userprofile/profile.html:64
+msgid "Web"
+msgstr "Web"
+
+#: userprofile/templates/userprofile/edit.html:6
+msgid "Edit profile"
+msgstr "Editar perfil"
+
+#: userprofile/templates/userprofile/edit.html:14
+msgid "Save"
+msgstr "Gaurdar"
+
+#: userprofile/templates/userprofile/profile.html:6
+msgid "Profile"
+msgstr "Perfil"
+
+#: userprofile/templates/userprofile/profile.html:32
+msgid "General"
+msgstr "General"
+
+#: userprofile/templates/userprofile/profile.html:38
+msgid "Password"
+msgstr "Contraseña"
+
+#: userprofile/templates/userprofile/profile.html:54
+msgid "Create new"
+msgstr "Crear nuevo"
+
+#: userprofile/templates/userprofile/profile.html:68
+msgid "Twitter"
+msgstr "Twitter"
+
+#: userprofile/templates/userprofile/profile.html:72
+msgid "Facebook"
+msgstr "Facebook"
+
+#: userprofile/templates/userprofile/profile.html:81
+msgid "donations done"
+msgstr "Colaboraciones hechas"
