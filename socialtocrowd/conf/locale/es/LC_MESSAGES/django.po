@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 18:28+0100\n"
-"PO-Revision-Date: 2014-12-14 18:29+0100\n"
+"POT-Creation-Date: 2014-12-14 18:48+0100\n"
+"PO-Revision-Date: 2014-12-14 18:49+0100\n"
 "Last-Translator: Daniel García <danigm@wadobo.com>\n"
 "Language-Team: Español; Castellano <>\n"
 "Language: ES\n"
@@ -75,6 +75,11 @@ msgstr "Ninguna colaboración aún"
 #: landing/templates/landing/needs.html:59
 msgid "View all needs and donate"
 msgstr "Ver todas las necesidades y los colaboradores"
+
+#: landing/templates/landing/recent.html:6
+#| msgid "Latest projects"
+msgid "Recent projects"
+msgstr "Últimos proyectos"
 
 #: landing/templates/landing/recent.html:20
 msgid "View all projects"
@@ -299,8 +304,24 @@ msgstr "Código fuente"
 msgid "FAQ"
 msgstr "Preguntas y respuestas"
 
-#: main/templates/menu.html:20
-#: project/templates/project/ong-detail.html:37
+#: main/templates/layout.html:4
+msgid "Home"
+msgstr "Portada"
+
+#: main/templates/layout.html:5
+msgid "About"
+msgstr "Acerca de"
+
+#: main/templates/layout.html:6
+msgid "Contact"
+msgstr "Contacto"
+
+#: main/templates/layout.html:15
+#| msgid "Sign Out"
+msgid "Sign up today"
+msgstr "Registrate hoy"
+
+#: main/templates/menu.html:20 project/templates/project/ong-detail.html:37
 msgid "Projects"
 msgstr "Proyectos"
 
@@ -419,12 +440,10 @@ msgid "Project completed: you can donate in other projects"
 msgstr "Proyecto completado: puedes colaborar en otros proyectos"
 
 #: project/templates/project/modal_cooperation.html:10
-#| msgid "Collaborators"
 msgid "Collaborate with your help"
 msgstr "Coopera con tu ayuda"
 
 #: project/templates/project/modal_cooperation.html:17
-#| msgid "What do we need?"
 msgid "What we need from you?"
 msgstr "¿Qué necesitamos de ti?"
 
@@ -457,7 +476,6 @@ msgid "Done!"
 msgstr "Hecho!"
 
 #: project/templates/project/modal_cooperation.html:50
-#| msgid "Thank for you collaboration"
 msgid "Thank you for your collaboration"
 msgstr "Gracias por tu colaboración"
 
@@ -682,6 +700,14 @@ msgstr "ONGs"
 #: project/views.py:60
 msgid "Search ONG to donate"
 msgstr "Busca una ONG con la que colaborar"
+
+#: socialtocrowd/settings.py:104
+msgid "Spanish"
+msgstr "Español"
+
+#: socialtocrowd/settings.py:105
+msgid "English"
+msgstr "Ingĺes"
 
 #: userprofile/models.py:13 userprofile/templates/userprofile/profile.html:34
 msgid "Avatar"
