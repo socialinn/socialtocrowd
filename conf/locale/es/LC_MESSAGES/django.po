@@ -20,43 +20,43 @@ msgstr ""
 #: socialtocrowd/landing/templates/landing/bigbuttons.html:6
 #: socialtocrowd/project/templates/project/near.html:4
 msgid "Near to you"
-msgstr ""
+msgstr "Cerca de ti"
 
 #: socialtocrowd/landing/templates/landing/bigbuttons.html:13
 msgid "What do you have?"
-msgstr ""
+msgstr "¿Qué tienes para colaborar?"
 
 #: socialtocrowd/landing/templates/landing/bigbuttons.html:20
 msgid "Who wants to?"
-msgstr ""
+msgstr "¿Con quién quieres colaborar?"
 
 #: socialtocrowd/landing/templates/landing/contributors.html:8
 msgid "Contributors"
-msgstr ""
+msgstr "Colaboradores"
 
 #: socialtocrowd/landing/templates/landing/index.html:11
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: socialtocrowd/landing/templates/landing/needs.html:10
 #: socialtocrowd/main/templates/menu.html:26
 msgid "Needs"
-msgstr ""
+msgstr "Necesidades"
 
 #: socialtocrowd/landing/templates/landing/needs.html:23
 #: socialtocrowd/project/templates/project/project-detail-needs.html:27
 #: socialtocrowd/project/templates/project/project.html:22
 #: socialtocrowd/project/views.py:30
 msgid "Donate"
-msgstr ""
+msgstr "Donar"
 
 #: socialtocrowd/landing/templates/landing/needs.html:28
 msgid "No needs yet"
-msgstr ""
+msgstr "Ninguna necesidad aún"
 
 #: socialtocrowd/landing/templates/landing/needs.html:34
 msgid "Latest donnors"
-msgstr ""
+msgstr "Últimos colaboradores"
 
 #: socialtocrowd/landing/templates/landing/needs.html:44
 #, python-format
@@ -68,23 +68,23 @@ msgstr ""
 
 #: socialtocrowd/landing/templates/landing/needs.html:53
 msgid "No donations yet"
-msgstr ""
+msgstr "Ninguna colaboración aún"
 
 #: socialtocrowd/landing/templates/landing/needs.html:59
 msgid "View all needs and donate"
-msgstr ""
+msgstr "Ver todas las necesidades y los colaboradores"
 
 #: socialtocrowd/landing/templates/landing/recent.html:20
 msgid "View all projects"
-msgstr ""
+msgstr "Ver todos los proyectos"
 
 #: socialtocrowd/main/templates/account/email.html:6
 msgid "Account"
-msgstr ""
+msgstr "Cuenta"
 
 #: socialtocrowd/main/templates/account/email.html:9
 msgid "E-mail Addresses"
-msgstr ""
+msgstr "Dirección de email"
 
 #: socialtocrowd/main/templates/account/email.html:11
 msgid "The following e-mail addresses are associated with your account:"
@@ -92,11 +92,11 @@ msgstr ""
 
 #: socialtocrowd/main/templates/account/email.html:25
 msgid "Verified"
-msgstr ""
+msgstr "Verificar"
 
 #: socialtocrowd/main/templates/account/email.html:27
 msgid "Unverified"
-msgstr ""
+msgstr "No verificada"
 
 #: socialtocrowd/main/templates/account/email.html:29
 msgid "Primary"
@@ -114,7 +114,7 @@ msgstr ""
 #: socialtocrowd/project/templates/project/project_form.html:38
 #: socialtocrowd/project/templates/project/project_form.html:55
 msgid "Remove"
-msgstr ""
+msgstr "Borrar"
 
 #: socialtocrowd/main/templates/account/email.html:44
 msgid "Warning:"
@@ -132,7 +132,7 @@ msgstr ""
 
 #: socialtocrowd/main/templates/account/email.html:54
 msgid "Add E-mail"
-msgstr ""
+msgstr "Añadir E-mail"
 
 #: socialtocrowd/main/templates/account/email.html:63
 msgid "Do you really want to remove the selected e-mail address?"
@@ -142,7 +142,7 @@ msgstr ""
 #: socialtocrowd/main/templates/account/login.html:15
 #: socialtocrowd/main/templates/account/login.html:47
 msgid "Sign In"
-msgstr ""
+msgstr "Entrar"
 
 #: socialtocrowd/main/templates/account/login.html:18
 #, python-format
@@ -173,17 +173,17 @@ msgstr ""
 
 #: socialtocrowd/main/templates/account/login.html:46
 msgid "Forgot Password?"
-msgstr ""
+msgstr "Contraseña olvidada"
 
 #: socialtocrowd/main/templates/account/logout.html:6
 #: socialtocrowd/main/templates/account/logout.html:9
 #: socialtocrowd/main/templates/account/logout.html:18
 msgid "Sign Out"
-msgstr ""
+msgstr "Salir"
 
 #: socialtocrowd/main/templates/account/logout.html:11
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "¿Estas seguro que quieres salir?"
 
 #: socialtocrowd/main/templates/account/password_change.html:6
 #: socialtocrowd/main/templates/account/password_change.html:9
@@ -191,12 +191,12 @@ msgstr ""
 #: socialtocrowd/main/templates/account/password_reset_from_key.html:5
 #: socialtocrowd/main/templates/account/password_reset_from_key.html:8
 msgid "Change Password"
-msgstr ""
+msgstr "Cambiar contraseña"
 
 #: socialtocrowd/main/templates/account/password_reset.html:7
 #: socialtocrowd/main/templates/account/password_reset.html:11
 msgid "Password Reset"
-msgstr ""
+msgstr "Recordar contraseña"
 
 #: socialtocrowd/main/templates/account/password_reset.html:16
 msgid ""
@@ -206,7 +206,7 @@ msgstr ""
 
 #: socialtocrowd/main/templates/account/password_reset.html:21
 msgid "Reset My Password"
-msgstr ""
+msgstr "Recordar mi contraseña"
 
 #: socialtocrowd/main/templates/account/password_reset.html:24
 msgid "Please contact us if you have any trouble resetting your password."
@@ -227,26 +227,26 @@ msgstr ""
 #: socialtocrowd/main/templates/account/password_reset_from_key.html:18
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:40
 msgid "change password"
-msgstr ""
+msgstr "cambiar contraseña"
 
 #: socialtocrowd/main/templates/account/password_reset_from_key.html:21
 msgid "Your password is now changed."
-msgstr ""
+msgstr "Has cambiado tu contraseña."
 
 #: socialtocrowd/main/templates/account/password_set.html:6
 #: socialtocrowd/main/templates/account/password_set.html:9
 #: socialtocrowd/main/templates/account/password_set.html:14
 msgid "Set Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: socialtocrowd/main/templates/account/signup.html:6
 msgid "Signup"
-msgstr ""
+msgstr "Registro"
 
 #: socialtocrowd/main/templates/account/signup.html:9
 #: socialtocrowd/main/templates/account/signup.html:20
 msgid "Sign Up"
-msgstr ""
+msgstr "Registrate"
 
 #: socialtocrowd/main/templates/account/signup.html:11
 #, python-format
@@ -256,16 +256,16 @@ msgstr ""
 
 #: socialtocrowd/main/templates/footer.html:11
 msgid "News"
-msgstr ""
+msgstr "Noticias"
 
 #: socialtocrowd/main/templates/footer.html:21
 msgid "No news"
-msgstr ""
+msgstr "Ninguna noticia"
 
 #: socialtocrowd/main/templates/footer.html:28
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:44
 msgid "Organizations"
-msgstr ""
+msgstr "Organizaciones"
 
 #: socialtocrowd/main/templates/footer.html:40
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:62
@@ -274,24 +274,24 @@ msgstr ""
 
 #: socialtocrowd/main/templates/footer.html:56
 msgid "Legal"
-msgstr ""
+msgstr "Aviso Legal"
 
 #: socialtocrowd/main/templates/footer.html:57
 msgid "Source code"
-msgstr ""
+msgstr "Código fuente"
 
 #: socialtocrowd/main/templates/footer.html:58
 msgid "FAQ"
-msgstr ""
+msgstr "Preguntas y respuestas"
 
 #: socialtocrowd/main/templates/menu.html:20
 #: socialtocrowd/project/templates/project/ong-detail.html:37
 msgid "Projects"
-msgstr ""
+msgstr "Proyectos"
 
 #: socialtocrowd/main/templates/menu.html:22
 msgid "Latest projects"
-msgstr ""
+msgstr "Últimos proyectos"
 
 #: socialtocrowd/main/templates/menu.html:23
 msgid "Top projects"
@@ -299,109 +299,109 @@ msgstr ""
 
 #: socialtocrowd/main/templates/menu.html:27
 msgid "How it works?"
-msgstr ""
+msgstr "¿Cómo funciona?"
 
 #: socialtocrowd/main/templates/menu.html:42
 #, python-format
 msgid "%(user)s profile"
-msgstr ""
+msgstr "%(user)s perfil"
 
 #: socialtocrowd/main/templates/menu.html:52
 msgid "Logout"
-msgstr ""
+msgstr "Salir"
 
 #: socialtocrowd/main/templates/menu.html:54
 msgid "Login / Register"
-msgstr ""
+msgstr "Entrar / Registro"
 
 #: socialtocrowd/main/templates/menu.html:62
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: socialtocrowd/project/admin.py:8
 msgid "Mark selected ongs as active"
-msgstr ""
+msgstr "Marcar las ongs seleccionar como activas"
 
 #: socialtocrowd/project/templates/project/direction_confirm_delete.html:8
 #: socialtocrowd/project/templates/project/thing_confirm_delete.html:8
 msgid "Are you sure you want to delete"
-msgstr ""
+msgstr "¿Estas seguro que quieres borrar?"
 
 #: socialtocrowd/project/templates/project/direction_form.html:11
 #: socialtocrowd/project/templates/project/organization_form.html:10
 #: socialtocrowd/project/templates/project/project_form.html:72
 #: socialtocrowd/project/templates/project/thing_form.html:9
 msgid "Update"
-msgstr ""
+msgstr "Actualizar"
 
 #: socialtocrowd/project/templates/project/direction_form.html:13
 #: socialtocrowd/project/templates/project/organization_form.html:12
 #: socialtocrowd/project/templates/project/project_form.html:74
 #: socialtocrowd/project/templates/project/thing_form.html:11
 msgid "Create"
-msgstr ""
+msgstr "Crear"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:24
 #: socialtocrowd/project/templates/project/project.html:15
 #, python-format
 msgid "%(time)s ago"
-msgstr ""
+msgstr "hace %(time)s"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:35
 msgid "Achieved"
-msgstr ""
+msgstr "Archivado"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:37
 msgid "Shipping number"
-msgstr ""
+msgstr "Número de envío"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:45
 #: socialtocrowd/project/templates/project/shipping.html:27
 msgid "Items"
-msgstr ""
+msgstr "Unidades"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:46
 #: socialtocrowd/project/templates/project/project-detail-info.html:9
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:47
 msgid "Necessaries"
-msgstr ""
+msgstr "Necesidades"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:48
 msgid "Quantity"
-msgstr ""
+msgstr "Cantidad"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:49
 msgid "Optional information about item"
-msgstr ""
+msgstr "Información adicional sobre la unidad"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:75
 msgid "Shipping direction"
-msgstr ""
+msgstr "Dirección de envío"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:82
 #: socialtocrowd/project/templates/project/shipping.html:47
 msgid "Delivery date (aprox.)"
-msgstr ""
+msgstr "Fecha de entrega (aprox.)"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:90
 msgid "Commentary about shipping"
-msgstr ""
+msgstr "Comentarios sobre el envío"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:94
 msgid "Show in donate page"
-msgstr ""
+msgstr "Mostrar en la página de colaboradores"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:98
 #: socialtocrowd/project/templates/project/modal_donation.html:57
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: socialtocrowd/project/templates/project/donate-t1.html:104
 msgid "Project completed: you can donate in other projects"
-msgstr ""
+msgstr "Proyecto completado: puedes colaborar en otros proyectos"
 
 #: socialtocrowd/project/templates/project/modal_cooperation.html:10
 msgid "Coopera con tu ayuda"
@@ -430,7 +430,7 @@ msgstr ""
 #: socialtocrowd/project/templates/project/modal_cooperation.html:45
 #: socialtocrowd/project/templates/project/modal_donation.html:64
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: socialtocrowd/project/templates/project/modal_cooperation.html:49
 msgid "¡Hecho!"
@@ -446,66 +446,66 @@ msgstr ""
 
 #: socialtocrowd/project/templates/project/modal_donation.html:17
 msgid "Have you a object photo? Upload it!"
-msgstr ""
+msgstr "¿Tienes una foto del objeto? Subela! "
 
 #: socialtocrowd/project/templates/project/modal_donation.html:20
 msgid "Add image"
-msgstr ""
+msgstr "Añadir imagen"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:26
 msgid "Add name and description of the object"
-msgstr ""
+msgstr "Añadir descripción del objeto"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:36
 msgid "Private donation"
-msgstr ""
+msgstr "Donación privada"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:42
 msgid "Select shipping"
-msgstr ""
+msgstr "Seleccionar envío"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:56
 #: socialtocrowd/userprofile/templates/userprofile/edit.html:15
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelado"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:68
 msgid "Done!"
-msgstr ""
+msgstr "Hecho!"
 
 #: socialtocrowd/project/templates/project/modal_donation.html:69
 msgid "Thank for you collaboration"
-msgstr ""
+msgstr "Gracias por tu colaboración"
 
 #: socialtocrowd/project/templates/project/near.html:20
 msgid "Search your location"
-msgstr ""
+msgstr "Busca por tu direción"
 
 #: socialtocrowd/project/templates/project/near.html:22
 #: socialtocrowd/project/templates/project/search.html:15
 msgid "Go"
-msgstr ""
+msgstr "Ir"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:14
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:26
 #: socialtocrowd/project/templates/project/ong-detail.html:60
 msgid "EDIT"
-msgstr ""
+msgstr "EDITAR"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:40
 msgid "Exist nothing project"
-msgstr ""
+msgstr "No existen proyectos"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:46
 msgid "project"
-msgstr ""
+msgstr "proyecto"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:47
 msgid "created"
-msgstr ""
+msgstr "creado"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:48
 msgid "achieved"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: socialtocrowd/project/templates/project/ong-detail.html:50
 msgid "edit"
-msgstr ""
+msgstr "editar"
 
 #: socialtocrowd/project/templates/project/ong-detail.html:68
 msgid "Create new project"
@@ -521,155 +521,155 @@ msgstr ""
 
 #: socialtocrowd/project/templates/project/ong.html:16
 msgid "Our projects"
-msgstr ""
+msgstr "Nuestros proyectos"
 
 #: socialtocrowd/project/templates/project/ong.html:22
 #: socialtocrowd/project/templates/project/project.html:28
 msgid "And more..."
-msgstr ""
+msgstr "Y más"
 
 #: socialtocrowd/project/templates/project/project-detail-gallery.html:5
 msgid "Progress in images ..."
-msgstr ""
+msgstr "Progresos en imágenes"
 
 #: socialtocrowd/project/templates/project/project-detail-info.html:24
 msgid "Categories"
-msgstr ""
+msgstr "Categorías"
 
 #: socialtocrowd/project/templates/project/project-detail-info.html:29
 msgid "Collaborators"
-msgstr ""
+msgstr "Colaboradores"
 
 #: socialtocrowd/project/templates/project/project-detail-needs.html:9
 msgid "We need ..."
-msgstr ""
+msgstr "Necesitamos ..."
 
 #: socialtocrowd/project/templates/project/project-detail-needs.html:11
 msgid "Neccesary things"
-msgstr ""
+msgstr "Cosas necesarias"
 
 #: socialtocrowd/project/templates/project/project-detail-needs.html:25
 msgid "remaining"
-msgstr ""
+msgstr "restantes"
 
 #: socialtocrowd/project/templates/project/project-detail-needs.html:42
 msgid "Thanks"
-msgstr ""
+msgstr "Gracias"
 
 #: socialtocrowd/project/templates/project/project-detail-needs.html:57
 msgid "Load more"
-msgstr ""
+msgstr "Cargar más"
 
 #: socialtocrowd/project/templates/project/project-detail-video.html:5
 msgid "explanatory video"
-msgstr ""
+msgstr "Vídeo"
 
 #: socialtocrowd/project/templates/project/project.html:21
 msgid "What do we need?"
-msgstr ""
+msgstr "¿Qué necesitamos?"
 
 #: socialtocrowd/project/templates/project/project_form.html:19
 msgid "Project"
-msgstr ""
+msgstr "Proyecto"
 
 #: socialtocrowd/project/templates/project/project_form.html:21
 msgid "New Project for"
-msgstr ""
+msgstr "Nuevo proyecto"
 
 #: socialtocrowd/project/templates/project/project_form.html:29
 msgid "Add Main Direction, later you can to add others directions"
-msgstr ""
+msgstr "Añadir dirección principal, después podrás añadir otras direcciones"
 
 #: socialtocrowd/project/templates/project/project_form.html:33
 msgid "Addresses:"
-msgstr ""
+msgstr "Direcciones"
 
 #: socialtocrowd/project/templates/project/project_form.html:37
 #: socialtocrowd/project/templates/project/project_form.html:54
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:21
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: socialtocrowd/project/templates/project/project_form.html:41
 #: socialtocrowd/project/templates/project/project_form.html:58
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: socialtocrowd/project/templates/project/project_form.html:50
 msgid "Things:"
-msgstr ""
+msgstr "Cosas:"
 
 #: socialtocrowd/project/templates/project/project_form.html:60
 msgid "Add things"
-msgstr ""
+msgstr "Añadir cosas"
 
 #: socialtocrowd/project/templates/project/project_header.html:24
 msgid "More info"
-msgstr ""
+msgstr "Más información"
 
 #: socialtocrowd/project/templates/project/project_header.html:30
 msgid "Share it"
-msgstr ""
+msgstr "Compártelo"
 
 #: socialtocrowd/project/templates/project/projects_grid.html:25
 msgid "Start your project from here"
-msgstr ""
+msgstr "Empieza tu proyecto desde aquí"
 
 #: socialtocrowd/project/templates/project/shipping.html:10
 msgid "Accepted Shipping Number"
-msgstr ""
+msgstr "Aceptado número de envío"
 
 #: socialtocrowd/project/templates/project/shipping.html:28
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: socialtocrowd/project/templates/project/shipping.html:41
 msgid "Your commentary"
-msgstr ""
+msgstr "Tu comentario"
 
 #: socialtocrowd/project/templates/project/shipping.html:44
 msgid "Address to shipping"
-msgstr ""
+msgstr "Dirección de envío"
 
 #: socialtocrowd/project/templates/project/shipping.html:51
 msgid "Phone"
-msgstr ""
+msgstr "Teléfono"
 
 #: socialtocrowd/project/templates/project/shipping.html:55
 msgid "Print address"
-msgstr ""
+msgstr "Imprimir dirección"
 
 #: socialtocrowd/project/templates/project/shipping.html:56
 msgid "Download QR"
-msgstr ""
+msgstr "Descargar QR"
 
 #: socialtocrowd/project/templates/project/shipping.html:63
 msgid "Order shipping"
-msgstr ""
+msgstr "Solicitar pedido"
 
 #: socialtocrowd/project/templates/project/shipping_list.html:24
 msgid "Donated"
-msgstr ""
+msgstr "Donado!"
 
 #: socialtocrowd/project/templates/project/shipping_list.html:26
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: socialtocrowd/project/templates/project/shipping_list.html:28
 msgid "Private"
-msgstr ""
+msgstr "Privado"
 
 #: socialtocrowd/project/views.py:31
 msgid "Search things to donate"
-msgstr ""
+msgstr "Buscar cosas para colaborar"
 
 #: socialtocrowd/project/views.py:59
 msgid "ONGs"
-msgstr ""
+msgstr "ONGs"
 
 #: socialtocrowd/project/views.py:60
 msgid "Search ONG to donate"
-msgstr ""
+msgstr "Busca una ONG con la que colaborar"
 
 #: socialtocrowd/userprofile/models.py:13
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:34
@@ -683,15 +683,15 @@ msgstr ""
 
 #: socialtocrowd/userprofile/templates/userprofile/edit.html:6
 msgid "Edit profile"
-msgstr ""
+msgstr "Editar perfil"
 
 #: socialtocrowd/userprofile/templates/userprofile/edit.html:14
 msgid "Save"
-msgstr ""
+msgstr "Gaurdar"
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:6
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:32
 msgid "General"
@@ -699,11 +699,11 @@ msgstr ""
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:38
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:54
 msgid "Create new"
-msgstr ""
+msgstr "Crear nuevo"
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:68
 msgid "Twitter"
@@ -715,4 +715,4 @@ msgstr ""
 
 #: socialtocrowd/userprofile/templates/userprofile/profile.html:81
 msgid "donations done"
-msgstr ""
+msgstr "Colaboraciones hechas"
