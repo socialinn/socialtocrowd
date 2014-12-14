@@ -21,18 +21,22 @@
                         {% endif %}
                     {% endfor %}
 				</ul>
-				<h2>{% trans "Categories" %}</h2>
-				<ul class="nav nav-pills nav-stacked">
-					<li><a href="#"><i class="icon-folder i-16 primary"></i> Nombre de categoría</a></li>
-					<li><a href="#"><i class="icon-folder i-16 primary"></i> Nombre de categoría</a></li>
-				</ul>
-				<h2>{% trans "Collaborators" %}</h2>
-				<div class="collaborators">
-					<a href="#" class="collaborator"><img src="timthumb.php?src=/demo-files/fake_logo.png&h=60&w=60&zc=1"></a>
-					<a href="#" class="collaborator"><img src="timthumb.php?src=/demo-files/fake_logo.png&h=60&w=60&zc=1"></a>
-					<a href="#" class="collaborator"><img src="timthumb.php?src=/demo-files/fake_logo.png&h=60&w=60&zc=1"></a>
-					<a href="#" class="collaborator"><img src="timthumb.php?src=/demo-files/fake_logo.png&h=60&w=60&zc=1"></a>
-				</div>
+                {% if project.categories.all %}
+                    <h2>{% trans "Categories" %}</h2>
+                    <ul class="nav nav-pills nav-stacked">
+                        {% for category in project.categories.all %}
+                        <li><a href="#"><i class="icon-folder i-16 primary"></i>{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if project.collaborators.all %}
+                    <h2>{% trans "Collaborators" %}</h2>
+                    <div class="collaborators">
+                        {% for collaborator in project.collaborators.all %}
+                            <a href="{{ collaborator.link }}" class="collaborator"><img src="{{ collaborator.img }}"></a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 			</div>
 			<!-- END donations -->
 		</div>

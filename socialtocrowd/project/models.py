@@ -181,3 +181,12 @@ class Category(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Collaborator(models.Model):
+    project = models.ForeignKey(Project, related_name='collaborators')
+    img = models.ImageField(upload_to="collaborators")
+    link = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.link
