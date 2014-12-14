@@ -1,0 +1,18 @@
+/* default flatpage */
+
+/* flatpage howto */
+
+.howto li {
+list-style: none !important;
+padding-bottom: 20px;
+}
+.howto .badge {
+margin: 10px !important;
+float: left;
+font-size: 25px !important;
+border-radius: 25px !important;
+padding: 8px 14px !important;
+background-color: #f39200 !important;
+
+}
+        
