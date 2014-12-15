@@ -29,6 +29,7 @@ function DoNear()
 		},
 		success: function(response) {
 			console.log(response['geoaddr']);
+			console.log(response['neardirs']);
 			iconGeometry.setCoordinates(ol.proj.transform(response['geoaddr'], 'EPSG:4326', 'EPSG:3857'));
 		}
 	});

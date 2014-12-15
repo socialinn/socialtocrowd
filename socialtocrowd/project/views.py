@@ -11,6 +11,7 @@ from datetime import datetime
 from django.http import HttpResponse, HttpResponseNotFound
 import urllib2
 import json
+from django.contrib.gis.geos import Point
 
 from .forms import ThingFormSet, DirectionFormSet
 from .models import Project
@@ -370,6 +371,13 @@ class DoNearView(View):
         geoaddr = addr_to_geo(addr)
         json_data = {}
         json_data['geoaddr'] = [ float(geoaddr['lon']), float(geoaddr['lat']) ]
+        alldirs = []
+        for proj in Project.objects.all():
+            punto = Point(float(geoaddr['lon']), float(geoaddr['lat']))
+            dirs = [ [thedir.pos.x, thedir.pos.y] for thedir in proj.directions.filter(pos__distance_lt=(punto, 5000000)) ]
+            alldirs = alldirs + dirs
+        print(alldirs)
+        json_data['neardirs'] = alldirs
         return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 donear = DoNearView.as_view()
