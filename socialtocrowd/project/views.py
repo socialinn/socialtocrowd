@@ -374,7 +374,7 @@ class DoNearView(View):
         alldirs = []
         for proj in Project.objects.all():
             punto = Point(float(geoaddr['lon']), float(geoaddr['lat']))
-            dirs = [ [thedir.pos.x, thedir.pos.y] for thedir in proj.directions.filter(pos__distance_lt=(punto, 500000)) ]
+            dirs = [ { 'pos' : [thedir.pos.x, thedir.pos.y], 'project' : proj.__str__() } for thedir in proj.directions.filter(pos__distance_lt=(punto, 500000)) ]
             alldirs = alldirs + dirs
         print(alldirs)
         json_data['neardirs'] = alldirs

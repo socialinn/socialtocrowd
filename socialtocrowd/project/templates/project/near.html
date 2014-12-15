@@ -7,10 +7,15 @@
     <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
     <link type="text/css" href="{{ STATIC_URL }}css/near.css" rel="stylesheet"></link>
 {% endblock %}
-
+    <style>
+      #popup {
+        padding-bottom: 1000px;
+      }
+    </style>
 {% block extrabody %}
 <script>
 var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
+var marker_image2 = '{{ STATIC_URL }}media/mapmarker2.png';
 
 $(function() {
 	$.ajaxSetup({
@@ -22,16 +27,13 @@ var all_markers = [];
 
 function createMarkers(dirs)
 {
-
 	all_markers = [];
 	for( var i = 0; i < dirs.length; i++ )
 	{
-		var igeo = new ol.geom.Point(toPixelCoords(dirs[i]));
+		var igeo = new ol.geom.Point(toPixelCoords(dirs[i].pos));
 		var ifea = new ol.Feature({
 			geometry: igeo,
-			name: 'Null Island',
-			population: 4000,
-			rainfall: 500
+			name: dirs[i].project,
 		});
 		ifea.setStyle(iconStyle);
 		all_markers.push(ifea);
@@ -40,6 +42,21 @@ function createMarkers(dirs)
 	vectorSource = new ol.source.Vector({ features: all_markers });
 	vectorLayer = new ol.layer.Vector({ source: vectorSource });
 	Near.map.addLayer(vectorLayer);
+}
+
+function createAddressMarker(addrdir, address)
+{
+	var igeo = new ol.geom.Point(toPixelCoords(addrdir));
+	var ifea = new ol.Feature({
+		geometry: igeo,
+		name: address,
+	});
+	ifea.setStyle(iconStyle2);
+
+	Near.map.removeLayer(yourAddrLayer);
+	yourAddrSource = new ol.source.Vector({ features: [ifea] });
+	yourAddrLayer = new ol.layer.Vector({ source: yourAddrSource });
+	Near.map.addLayer(yourAddrLayer);
 }
 
 function toPixelCoords(dir)
@@ -58,8 +75,9 @@ function DoNear()
 		},
 		success: function(response) {
 			neardirs = response['neardirs'];
-			neardirs.push(response['geoaddr'])
+			//neardirs.push(response['geoaddr'])
 			createMarkers(neardirs);
+			createAddressMarker( response['geoaddr'], $("#address").val() );
 		}
 	});
 }
@@ -75,7 +93,9 @@ function DoNear()
       </span>
     </div>
 
-    <div id="map-canvas"></div>
+    <div id="map-canvas">
+		<div id="popup"></div>
+	</div>
 
     {% include "landing/bigbuttons.html" %}
 {% endblock %}
