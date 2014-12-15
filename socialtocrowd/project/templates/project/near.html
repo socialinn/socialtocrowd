@@ -66,7 +66,8 @@ function DoNear()
 		url: "{% url 'donear' %}",
 		type: "POST",
 		data: {
-			"address": $("#address").val()
+			"address": $("#address").val(),
+			"project": "{% if selected_project %}{{ selected_project }}{% endif %}",
 		},
 		success: function(response) {
 			neardirs = response['neardirs'];

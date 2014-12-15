@@ -281,7 +281,7 @@ class RemoveDirection(DeleteView):
     fields = ['description', 'pos', 'timetable', 'phone']
 
     def get_context_data(self, **kwargs):
-        ctx = super(RemoveDirection, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx['edit'] = True
         return ctx
 
@@ -364,15 +364,31 @@ def addr_to_geo(addr):
     data = json.loads(jsonreq)
     return { key : data[0][key] for key in { "lat", "lon" } }
 
+class NearProject(TemplateView):
+    template_name = 'project/near.html'
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(NearProject, self).get_context_data(*args, **kwargs)
+        print(self.args[0])
+        ctx['selected_project'] = self.args[0]
+        return ctx
+nearproject = NearProject.as_view()
+
 class DoNearView(View):
 
     def post(self, request):
         addr = request.POST.get('address')
+        selected_project = request.POST.get('project')
         geoaddr = addr_to_geo(addr)
         json_data = {}
         json_data['geoaddr'] = [ float(geoaddr['lon']), float(geoaddr['lat']) ]
         alldirs = []
-        for proj in Project.objects.all():
+        print("selproj: " + selected_project)
+        if selected_project == "":
+            projects = Project.objects.all()
+        else:
+            projects = Project.objects.filter(pk=selected_project)
+
+        for proj in projects:
             punto = Point(float(geoaddr['lon']), float(geoaddr['lat']))
             dirs = [ { 'pos' : [thedir.pos.x, thedir.pos.y], 'project' : proj.__str__() } for thedir in proj.directions.filter(pos__distance_lt=(punto, 500000)) ]
             alldirs = alldirs + dirs
