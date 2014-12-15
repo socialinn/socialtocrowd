@@ -7,11 +7,6 @@
     <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
     <link type="text/css" href="{{ STATIC_URL }}css/near.css" rel="stylesheet"></link>
 {% endblock %}
-    <style>
-      #popup {
-        padding-bottom: 1000px;
-      }
-    </style>
 {% block extrabody %}
 <script>
 var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
@@ -97,5 +92,10 @@ function DoNear()
 		<div id="popup"></div>
 	</div>
 
+    <style>
+      #popup {
+        padding-bottom: 45px;
+      }
+    </style>
     {% include "landing/bigbuttons.html" %}
 {% endblock %}
