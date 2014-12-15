@@ -11,6 +11,26 @@
 {% block extrabody %}
 <script>
 var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
+
+$(function() {
+	$.ajaxSetup({
+		data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+	});
+});
+
+function DoNear()
+{
+	console.log($("#address").val());
+	$.ajax({
+		url: "{% url 'donear' %}",
+		type: "POST",
+		data: {
+			msg: "asdasd"
+		},
+		success: function(response) {
+		}
+	});
+}
 </script>
     <script src="{{ STATIC_URL }}js/near.js"></script>
 {% endblock %}
@@ -19,7 +39,7 @@ var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
     <div class="searchbar input-group">
       <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
       <span class="input-group-btn">
-        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="Near.updateSourceLocation()">
+        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="DoNear()">
       </span>
     </div>
 

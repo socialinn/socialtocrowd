@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.views.generic.base import TemplateView
+from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
@@ -350,3 +350,12 @@ def shipping(request, pk):
             messages.add_message(request, messages.ERROR,
                 'You should mark something for donate')
             return redirect('donate', ship_project.project.id)
+
+
+
+class DoNearView(View):
+
+    def post(self, request):
+        print("olaqase\n")
+
+donear = DoNearView.as_view()
