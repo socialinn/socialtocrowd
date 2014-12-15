@@ -8,6 +8,9 @@ from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.http import HttpResponse, HttpResponseNotFound
+import urllib2
+import json
 
 from .forms import ThingFormSet, DirectionFormSet
 from .models import Project
@@ -351,11 +354,22 @@ def shipping(request, pk):
                 'You should mark something for donate')
             return redirect('donate', ship_project.project.id)
 
+def addr_to_url(addr):
+    return "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + addr.strip().replace(" ", "+") + "&format=json&limit=1"
 
+def addr_to_geo(addr):
+    url = addr_to_url(addr)
+    jsonreq = urllib2.urlopen(url.encode('UTF-8')).read()
+    data = json.loads(jsonreq)
+    return { key : data[0][key] for key in { "lat", "lon" } }
 
 class DoNearView(View):
 
     def post(self, request):
-        print("olaqase\n")
+        addr = request.POST.get('address')
+        geoaddr = addr_to_geo(addr)
+        json_data = {}
+        json_data['geoaddr'] = [ float(geoaddr['lon']), float(geoaddr['lat']) ]
+        return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 donear = DoNearView.as_view()

@@ -25,9 +25,11 @@ function DoNear()
 		url: "{% url 'donear' %}",
 		type: "POST",
 		data: {
-			msg: "asdasd"
+			"address": $("#address").val()
 		},
 		success: function(response) {
+			console.log(response['geoaddr']);
+			iconGeometry.setCoordinates(ol.proj.transform(response['geoaddr'], 'EPSG:4326', 'EPSG:3857'));
 		}
 	});
 }
