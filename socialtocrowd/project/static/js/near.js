@@ -68,23 +68,16 @@ var rasterLayer = new ol.layer.Tile({
 
 var Near = {};
 Near.map = new ol.Map({
-  layers: [ osmLayer, rasterLayer, vectorLayer ],
+  layers: [ osmLayer, vectorLayer ],
   target: document.getElementById('map-canvas'),
   controls: ol.control.defaults({
     attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
       collapsible: false
     })
   }),
-  //target: 'map-canvas',
   view: mapView
 });
 
-/*
-Near.map.on('singleclick', function (evt) {
-	console.log(evt.coordinate);
-	iconGeometry.setCoordinates(evt.coordinate);
-});
-*/
 
 Near.updateSourceLocation = function() {
 	mapView.setCenter(iconGeometry.getCoordinates());
@@ -119,6 +112,7 @@ Near.map.on('click', function(evt) {
     $(element).popover('destroy');
   }
 });
+
 $(Near.map.getViewport()).on('mousemove', function(e) {
   var pixel = Near.map.getEventPixel(e.originalEvent);
   var hit = Near.map.forEachFeatureAtPixel(pixel, function(feature, layer) {

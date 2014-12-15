@@ -70,7 +70,6 @@ function DoNear()
 		},
 		success: function(response) {
 			neardirs = response['neardirs'];
-			//neardirs.push(response['geoaddr'])
 			createMarkers(neardirs);
 			createAddressMarker( response['geoaddr'], $("#address").val() );
 		}
