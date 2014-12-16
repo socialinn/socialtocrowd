@@ -1,5 +1,6 @@
 {% load thumbnail %}
 {% load i18n %}
+{% load l10n %}
 
 <!-- projects-container  -->
 <div class="projects grid row active">
@@ -9,7 +10,9 @@
         <div class="project-title">
             <h3>{{ project.name|truncatechars:30 }}</h3>
             <div class="progress white">
+            {% localize off %}
                 <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+            {% endlocalize %}
             </div>
         </div>
         <img src="{% thumbnail project.img|default:'defaultp_img.png' 400x400 crop %}">

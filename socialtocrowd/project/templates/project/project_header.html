@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load thumbnail %}
+{% load l10n %}
 
 <!-- item -->
 <div class="item {% if active %}active{% endif %}">
@@ -15,7 +16,9 @@
                         <div class="box-title">
                             <h2>{{ project.name|truncatechars:40 }}</h2>
                             <div class="progress white">
+                            {% localize off %}
                                 <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+                            {% endlocalize %}
                             </div>
                         </div>
                         <div class="box-body">
@@ -29,9 +32,9 @@
                             <div class="box-social">
                                 <div class="pull-left">{% trans "Share it" %}</div>
                                 <div class="pull-right">
-                                    <a href="#" class="social twitter"><i class="icon-twitter i-32"></i></a>
-                                    <a href="#" class="social facebook"><i class="icon-facebook i-32"></i></a>
-                                    <a href="#" class="social googleplus"><i class="icon-googleplus i-32"></i></a>
+									<a href="https://twitter.com/home?status=Colabora%20con%20{{ project.name }}%20en%20 {{ request.build_absolute_uri }} #{{ project.hashtag }}" class="social twitter" target="_blank"><i class="icon-twitter i-32"></i></a>
+									<a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="social facebook" target="_blank"><i class="icon-facebook i-32"></i></a>
+									<a href="https://plus.google.com/share?url={{ request.build_absolute_uri }}" class="social googleplus" target="_blank"><i class="icon-googleplus i-32"></i></a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

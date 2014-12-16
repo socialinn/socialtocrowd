@@ -6,7 +6,7 @@
         <!-- modal-content form -->
         <div class="modal-content form active">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
                 <h3 class="modal-title" id="myModalLabel">{% trans "Donate thing" %}</h3>
             </div>
             <div class="modal-body">
@@ -17,7 +17,7 @@
                         <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
                         <div class="well text-center">
                             <i class="icon-camera i-64"></i>
-                            <p><a href="#" class="black">{% trans "Add image" %}</a></p>
+                            <p><a href="#" name="img" class="black">{% trans "Add image" %}</a></p>
                         </div>
                     </div>
                     <!-- END form-section -->
@@ -25,15 +25,28 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
                         <div class="form-group">
-                            <label class="sr-only" for="objectName">Nombre de objeto</label>
-                            <input type="text" class="form-control" id="objectName" placeholder="Nombre de objeto">
+                            <select class="form-control">
+                                <option>--- {% trans "Object name" %} ---</option>
+                                {% for thing in project.things.all %}
+                                    {% if thing.ndonations.nodonate > 0 %}
+                                        <option name="object[{{ thing.id }}]" value="{{ thing.id }}">
+                                        {{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="objectDrescription">Descripción del objeto</label>
-                            <textarea class="form-control" id="objectDrescription" placeholder="Descripción del objeto"></textarea>
+                            <input id="objectQuantity" name="quantity[{{ thing.id }}]" type="number" min="0" max="90"
+                                class="form-control" placeholder="{% trans "Object quantity" %}">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="objectDrescription">{% trans "Object description" %}</label>
+                            <textarea class="form-control" name="info" id="objectDrescription" placeholder="{% trans "Object description" %}"></textarea>
                         </div>
                         <div class="checkbox">
-                            <label><input id="objectPrivate" type="checkbox">{% trans "Private donation" %}</label>
+                            <label><input id="objectPrivate" name="show" type="checkbox">{% trans "Private donation" %}</label>
                         </div>
                     </div>
                     <!-- END form-section -->
@@ -41,11 +54,9 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
                         <select class="form-control">
-                            <option>Método de envío 1</option>
-                            <option>Método de envío 2</option>
-                            <option>Método de envío 3</option>
-                            <option>Método de envío 4</option>
-                            <option>Método de envío 5</option>
+                            {% for dir in project.directions.all %}
+                                <option name="quantity[{{ thing.id }}]" value="{{ dir.id }}">{{ dir }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <!-- END form-section -->
@@ -54,7 +65,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
-                <button type="button" class="btn btn-primary" onclick="formModalSuccess();">{% trans "Accept" %}</button>
+                <button type="button" id="accept" class="btn btn-primary">{% trans "Accept" %}</button>
+                <button type="button" id="acceptAndNext" class="btn btn-primary">{% trans "Accept and donate other" %}</button>
             </div>
         </div>
         <!-- END modal-content form -->

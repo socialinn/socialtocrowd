@@ -2,12 +2,16 @@ from django.db import models
 from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.views.generic.base import TemplateView
+from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.http import HttpResponse, HttpResponseNotFound
+import urllib2
+import json
+from django.contrib.gis.geos import Point
 
 from .forms import ThingFormSet, DirectionFormSet
 from .models import Project
@@ -109,7 +113,7 @@ class ONG(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(ONG, self).get_context_data(*args, **kwargs)
-        ong = get_object_or_404(Organization, pk=self.args[0])
+        ong = get_object_or_404(Organization, slug=self.kwargs['ongslug'])
         if ong.status == "active" or self.request.user == ong.user:
             ctx['ong'] = ong
         else:
@@ -124,7 +128,7 @@ class Detail(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(Detail, self).get_context_data(*args, **kwargs)
-        project = get_object_or_404(Project, pk=self.args[0])
+        project = get_object_or_404(Project, slug=self.kwargs['projectslug'])
         ctx['project'] = project
         return ctx
 detail = Detail.as_view()
@@ -136,7 +140,7 @@ class CreateProject(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateProject, self).get_context_data(*args, **kwargs)
-        ong = get_object_or_404(Organization, pk=self.args[0])
+        ong = get_object_or_404(Organization, slug=self.kwargs['ongslug'])
         if (self.request.user != ong.user):
             messages.add_message(self.request, messages.ERROR,
                 'Insufficient permissions')
@@ -171,8 +175,11 @@ class CreateProject(CreateView):
 
 class UpdateProject(UpdateView):
     model = Project
-    fields = ['name', 'description', 'img']
+    fields = ['name', 'description', 'img', 'twitter', 'googleplus', 'facebook' ]
     success_url = '/'
+
+    def get_object(self):
+        return Project.objects.get(slug=self.kwargs['projectslug'])
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateProject, self).get_context_data(*args, **kwargs)
@@ -202,7 +209,7 @@ class CreateThing(CreateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['project'].id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug() })
 
 
 class UpdateThing(UpdateView):
@@ -216,7 +223,7 @@ class UpdateThing(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['thing'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['thing'].project.getslug() })
 
 
 class RemoveThing(DeleteView):
@@ -230,7 +237,7 @@ class RemoveThing(DeleteView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['thing'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['thing'].project.getslug() })
 
 
 class CreateDirection(CreateView):
@@ -255,7 +262,7 @@ class CreateDirection(CreateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['project'].id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug(), })
 
 
 class UpdateDirection(UpdateView):
@@ -269,7 +276,7 @@ class UpdateDirection(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['direction'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
 
 class RemoveDirection(DeleteView):
@@ -277,18 +284,18 @@ class RemoveDirection(DeleteView):
     fields = ['description', 'pos', 'timetable', 'phone']
 
     def get_context_data(self, **kwargs):
-        ctx = super(RemoveDirection, self).get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         ctx['edit'] = True
         return ctx
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['direction'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
 
 @login_required
-def donate(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+def donate(request, **kwargs):
+    project = get_object_or_404(Project, slug=kwargs['projectslug'])
     checks = []
     for c in request.GET.getlist('checks[]'):
         checks.append(int(c))
@@ -349,4 +356,47 @@ def shipping(request, pk):
         else:
             messages.add_message(request, messages.ERROR,
                 'You should mark something for donate')
-            return redirect('donate', ship_project.project.id)
+            return redirect('donate', ship_project.project.getslug())
+
+def addr_to_url(addr):
+    return "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + addr.strip().replace(" ", "+") + "&format=json&limit=1"
+
+def addr_to_geo(addr):
+    url = addr_to_url(addr)
+    jsonreq = urllib2.urlopen(url.encode('UTF-8')).read()
+    data = json.loads(jsonreq)
+    return { key : data[0][key] for key in { "lat", "lon" } }
+
+class NearProject(TemplateView):
+    template_name = 'project/near.html'
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(NearProject, self).get_context_data(*args, **kwargs)
+        print(self.kwargs['projectslug'])
+        ctx['selected_project'] = self.kwargs['projectslug']
+        return ctx
+nearproject = NearProject.as_view()
+
+class DoNearView(View):
+
+    def post(self, request):
+        addr = request.POST.get('address')
+        selected_project = request.POST.get('project')
+        geoaddr = addr_to_geo(addr)
+        json_data = {}
+        json_data['geoaddr'] = [ float(geoaddr['lon']), float(geoaddr['lat']) ]
+        alldirs = []
+        print("selproj: " + selected_project)
+        if selected_project == "":
+            projects = Project.objects.all()
+        else:
+            projects = Project.objects.filter(slug=selected_project)
+
+        for proj in projects:
+            punto = Point(float(geoaddr['lon']), float(geoaddr['lat']))
+            dirs = [ { 'pos' : [thedir.pos.x, thedir.pos.y], 'project' : proj.__str__() } for thedir in proj.directions.filter(pos__distance_lt=(punto, 500000)) ]
+            alldirs = alldirs + dirs
+        print(alldirs)
+        json_data['neardirs'] = alldirs
+        return HttpResponse(json.dumps(json_data), content_type="application/json")
+
+donear = DoNearView.as_view()

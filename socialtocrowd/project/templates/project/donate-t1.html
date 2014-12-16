@@ -18,7 +18,7 @@
                 {% endif %}
             </div>
             <div class="col-sm-8">
-                <a href="/project/detail/{{ project.id }}/"><h3>{{ project.name }}</h3></a>
+				<a href="{% url 'detail' project.getslug %}"><h3>{{ project.name }}</h3></a>
                 <p>{{ project.description }}</p>
                 <span class="pull-right">
                 {% blocktrans with time=project.created|timesince %}{{ time }} ago{% endblocktrans %}

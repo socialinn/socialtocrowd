@@ -42,11 +42,11 @@
                         {% if user.is_authenticated %}
                             <li><a href="{% url 'profile' %}">{% blocktrans with user=user %}{{ user }} profile{% endblocktrans %}</a></li>
                             {% if user.organizations.all|length == 1 %}
-                                <li><a href="{% url 'ong' user.organizations.all.0.id %}"> {{ user.organizations.all.0.name }} </a></li>
+                                <li><a href="{% url 'ong' user.organizations.all.0.getslug %}"> {{ user.organizations.all.0.name }} </a></li>
                             {% elif user.organizations.all|length > 1 %}
                                 <li role="presentation" class="divider"></li>
                                 {% for ong in user.organizations.all %}
-                                    <li><a href="{% url 'ong' ong.id %}"> {{ ong.name }} </a></li>
+                                    <li><a href="{% url 'ong' ongslug=ong.getslug %}"> {{ ong.name }} </a></li>
                                 {% endfor %}
                                 <li role="presentation" class="divider"></li>
                             {% endif %}

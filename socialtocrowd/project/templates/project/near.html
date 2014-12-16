@@ -7,10 +7,75 @@
     <link type="text/css" href="{{ STATIC_URL }}css/project.css" rel="stylesheet"></link>
     <link type="text/css" href="{{ STATIC_URL }}css/near.css" rel="stylesheet"></link>
 {% endblock %}
-
 {% block extrabody %}
 <script>
 var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
+var marker_image2 = '{{ STATIC_URL }}media/mapmarker2.png';
+
+$(function() {
+	$.ajaxSetup({
+		data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+	});
+});
+
+var all_markers = [];
+
+function createMarkers(dirs)
+{
+	all_markers = [];
+	for( var i = 0; i < dirs.length; i++ )
+	{
+		var igeo = new ol.geom.Point(toPixelCoords(dirs[i].pos));
+		var ifea = new ol.Feature({
+			geometry: igeo,
+			name: dirs[i].project,
+		});
+		ifea.setStyle(iconStyle);
+		all_markers.push(ifea);
+	}
+	Near.map.removeLayer(vectorLayer);
+	vectorSource = new ol.source.Vector({ features: all_markers });
+	vectorLayer = new ol.layer.Vector({ source: vectorSource });
+	Near.map.addLayer(vectorLayer);
+}
+
+function createAddressMarker(addrdir, address)
+{
+	var igeo = new ol.geom.Point(toPixelCoords(addrdir));
+	var ifea = new ol.Feature({
+		geometry: igeo,
+		name: address,
+	});
+	ifea.setStyle(iconStyle2);
+
+	Near.map.removeLayer(yourAddrLayer);
+	yourAddrSource = new ol.source.Vector({ features: [ifea] });
+	yourAddrLayer = new ol.layer.Vector({ source: yourAddrSource });
+	Near.map.addLayer(yourAddrLayer);
+}
+
+function toPixelCoords(dir)
+{
+	return ol.proj.transform(dir, 'EPSG:4326', 'EPSG:3857');
+}
+
+function DoNear()
+{
+	console.log($("#address").val());
+	$.ajax({
+		url: "{% url 'donear' %}",
+		type: "POST",
+		data: {
+			"address": $("#address").val(),
+			"project": "{% if selected_project %}{{ selected_project }}{% endif %}",
+		},
+		success: function(response) {
+			neardirs = response['neardirs'];
+			createMarkers(neardirs);
+			createAddressMarker( response['geoaddr'], $("#address").val() );
+		}
+	});
+}
 </script>
     <script src="{{ STATIC_URL }}js/near.js"></script>
 {% endblock %}
@@ -19,11 +84,18 @@ var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
     <div class="searchbar input-group">
       <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
       <span class="input-group-btn">
-        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="Near.updateSourceLocation()">
+        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="DoNear()">
       </span>
     </div>
 
-    <div id="map-canvas"></div>
+    <div id="map-canvas">
+		<div id="popup"></div>
+	</div>
 
+    <style>
+      #popup {
+        padding-bottom: 45px;
+      }
+    </style>
     {% include "landing/bigbuttons.html" %}
 {% endblock %}
