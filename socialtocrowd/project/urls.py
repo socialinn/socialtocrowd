@@ -4,7 +4,7 @@ from project import views
 
 urlpatterns = patterns('',
     url(r'^near/$', views.near, name="near"),
-    url(r'^near/(\d+)/$', views.nearproject, name="nearproject"),
+    url(r'^near/(?P<projectslug>[-\w]+)/$', views.nearproject, name="nearproject"),
     url(r'^donear/$', views.donear, name="donear"),
     url(r'^things/$', views.things, name="things"),
     url(r'^ongs/$', views.ongs, name="ongs"),

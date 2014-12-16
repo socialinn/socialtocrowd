@@ -368,8 +368,8 @@ class NearProject(TemplateView):
     template_name = 'project/near.html'
     def get_context_data(self, *args, **kwargs):
         ctx = super(NearProject, self).get_context_data(*args, **kwargs)
-        print(self.args[0])
-        ctx['selected_project'] = self.args[0]
+        print(self.kwargs['projectslug'])
+        ctx['selected_project'] = self.kwargs['projectslug']
         return ctx
 nearproject = NearProject.as_view()
 
@@ -386,7 +386,7 @@ class DoNearView(View):
         if selected_project == "":
             projects = Project.objects.all()
         else:
-            projects = Project.objects.filter(pk=selected_project)
+            projects = Project.objects.filter(slug=selected_project)
 
         for proj in projects:
             punto = Point(float(geoaddr['lon']), float(geoaddr['lat']))
