@@ -291,8 +291,8 @@ class RemoveDirection(DeleteView):
 
 
 @login_required
-def donate(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+def donate(request, **kwargs):
+    project = get_object_or_404(Project, slug=kwargs['projectslug'])
     checks = []
     for c in request.GET.getlist('checks[]'):
         checks.append(int(c))
@@ -353,7 +353,7 @@ def shipping(request, pk):
         else:
             messages.add_message(request, messages.ERROR,
                 'You should mark something for donate')
-            return redirect('donate', ship_project.project.id)
+            return redirect('donate', ship_project.project.getslug())
 
 def addr_to_url(addr):
     return "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + addr.strip().replace(" ", "+") + "&format=json&limit=1"
