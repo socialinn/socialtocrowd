@@ -6,8 +6,9 @@
 {% block title %}{% trans "Edit profile" %}{% endblock %}
 
 {% block content %}
+<div class="page-layout container">
 <div class="row">
-    <div class="well col-sm-6">
+    <div class="well col-md-9">
         <form method="POST" action="" role="form" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|bootstrap }}
@@ -15,5 +16,6 @@
             <a href="{% url 'profile' %}" class="btn btn-danger">{% trans "Cancel" %}</a>
         </form>
     </div>
+</div>
 </div>
 {% endblock %}
