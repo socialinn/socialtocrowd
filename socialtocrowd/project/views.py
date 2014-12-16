@@ -140,7 +140,7 @@ class CreateProject(CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateProject, self).get_context_data(*args, **kwargs)
-        ong = get_object_or_404(Organization, pk=self.args[0])
+        ong = get_object_or_404(Organization, slug=self.kwargs['ongslug'])
         if (self.request.user != ong.user):
             messages.add_message(self.request, messages.ERROR,
                 'Insufficient permissions')

@@ -53,11 +53,11 @@
                             </thead>
                             {% for project in ong.projects.all %}
                                 <tr>
-                                    <td><a href="{% url 'detail' project.id %}">{{ project.name }}</a></td>
+                                    <td><a href="{% url 'detail' project.getslug %}">{{ project.name }}</a></td>
                                     <td>{{ project.created.date }}</td>
                                     <td><progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress></td>
                                     {% if ong.user == user %}
-                                        <td><a href="{% url 'edit_project' project.id %}">{% trans "EDIT" %}</a></td>
+                                        <td><a href="{% url 'edit_project' project.getslug %}">{% trans "EDIT" %}</a></td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}
@@ -65,7 +65,7 @@
                     </div>
                 {% endif %}
                 {% if ong.user == user and ong.status == "active" %}
-                    <a href="{% url 'create_project' ong.id %}">{% trans "Create new project" %}</a>
+                    <a href="{% url 'create_project' ong.getslug %}">{% trans "Create new project" %}</a>
                 {% endif %}
             </div>
         </div>
