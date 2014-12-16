@@ -175,7 +175,7 @@ class CreateProject(CreateView):
 
 class UpdateProject(UpdateView):
     model = Project
-    fields = ['name', 'description', 'img']
+    fields = ['name', 'description', 'img', 'twitter', 'googleplus', 'facebook' ]
     success_url = '/'
 
     def get_context_data(self, *args, **kwargs):
