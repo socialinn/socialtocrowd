@@ -71,7 +71,7 @@ class Project(models.Model):
         return self.slug or self.fillslug()
 
     def get_absolute_url(self):
-        return reverse('detail', args=[str(self.id)])
+        return reverse('detail', args=[str(self.slug)])
 
     @classmethod
     def top(cls, n=5):

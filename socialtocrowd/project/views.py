@@ -128,7 +128,7 @@ class Detail(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(Detail, self).get_context_data(*args, **kwargs)
-        project = get_object_or_404(Project, pk=self.args[0])
+        project = get_object_or_404(Project, slug=self.kwargs['projectslug'])
         ctx['project'] = project
         return ctx
 detail = Detail.as_view()
