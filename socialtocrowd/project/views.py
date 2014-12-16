@@ -113,7 +113,7 @@ class ONG(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(ONG, self).get_context_data(*args, **kwargs)
-        ong = get_object_or_404(Organization, pk=self.args[0])
+        ong = get_object_or_404(Organization, slug=self.kwargs['ongslug'])
         if ong.status == "active" or self.request.user == ong.user:
             ctx['ong'] = ong
         else:
