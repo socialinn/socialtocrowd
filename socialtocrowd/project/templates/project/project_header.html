@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load thumbnail %}
+{% load l10n %}
 
 <!-- item -->
 <div class="item {% if active %}active{% endif %}">
@@ -15,7 +16,9 @@
                         <div class="box-title">
                             <h2>{{ project.name|truncatechars:40 }}</h2>
                             <div class="progress white">
+                            {% localize off %}
                                 <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+                            {% endlocalize %}
                             </div>
                         </div>
                         <div class="box-body">
