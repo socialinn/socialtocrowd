@@ -37,6 +37,9 @@ class Project(models.Model):
     images = models.CharField(max_length=255, blank=True, null=True)
     video = models.CharField(max_length=255, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
+    twitter = models.CharField(max_length=150, blank=True, null=True)
+    googleplus = models.CharField(max_length=255, verbose_name="Google+", blank=True, null=True)
+    facebook = models.CharField(max_length=255, blank=True, null=True)
 
     def get_absolute_url(self):
         return reverse('detail', args=[str(self.id)])
