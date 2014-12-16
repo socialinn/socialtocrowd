@@ -178,6 +178,9 @@ class UpdateProject(UpdateView):
     fields = ['name', 'description', 'img', 'twitter', 'googleplus', 'facebook' ]
     success_url = '/'
 
+    def get_object(self):
+        return Project.objects.get(slug=self.kwargs['projectslug'])
+
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateProject, self).get_context_data(*args, **kwargs)
         context['edit'] = True
@@ -206,7 +209,7 @@ class CreateThing(CreateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['project'].id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug() })
 
 
 class UpdateThing(UpdateView):
@@ -220,7 +223,7 @@ class UpdateThing(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['thing'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['thing'].project.getslug() })
 
 
 class RemoveThing(DeleteView):
@@ -234,7 +237,7 @@ class RemoveThing(DeleteView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['thing'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['thing'].project.getslug() })
 
 
 class CreateDirection(CreateView):
@@ -259,7 +262,7 @@ class CreateDirection(CreateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['project'].id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug(), })
 
 
 class UpdateDirection(UpdateView):
@@ -273,7 +276,7 @@ class UpdateDirection(UpdateView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['direction'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
 
 class RemoveDirection(DeleteView):
@@ -287,7 +290,7 @@ class RemoveDirection(DeleteView):
 
     def get_success_url(self):
         context = self.get_context_data()
-        return reverse('edit_project', args=(context['direction'].project.id, ))
+        return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
 
 @login_required
