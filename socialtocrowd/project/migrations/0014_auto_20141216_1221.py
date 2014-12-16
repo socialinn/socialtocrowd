@@ -14,19 +14,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='facebook',
-            field=models.CharField(max_length=255, null=True, blank=True),
+            field=models.CharField(default=b'https://www.facebook.com/', max_length=255),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='project',
             name='googleplus',
-            field=models.CharField(max_length=255, null=True, verbose_name=b'Google+', blank=True),
+            field=models.CharField(default=b'https://plus.google.com/', max_length=255, verbose_name=b'Google+'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='project',
             name='twitter',
-            field=models.CharField(max_length=150, null=True, blank=True),
+            field=models.CharField(default=b'https://twitter.com/', max_length=150),
             preserve_default=True,
         ),
     ]
