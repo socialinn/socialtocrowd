@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db.models.signals import pre_save, post_save
 
-
 class Organization(models.Model):
     STATUS = (
         ('pending', 'pending'),
@@ -15,11 +14,22 @@ class Organization(models.Model):
 
     user = models.ForeignKey(User, related_name='organizations')
     name = models.CharField(max_length=255)
+    slug = models.SlugField(blank=True, null=True, max_length=150)
     description = models.TextField(blank=True)
     img = models.ImageField(upload_to="ongs", blank=True, null=True)
     city = models.CharField(max_length=255)
     province = models.CharField(max_length=255)
     status = models.CharField(choices=STATUS, max_length=10, default="pending")
+
+    def fillslug(self):
+        self.slug = slugify(self.name)
+        post_save.disconnect(post_add_ong, sender=Organization)
+        self.save()
+        post_save.connect(post_add_ong, sender=Organization)
+        return self.slug
+
+    def getslug(self):
+        return self.slug or self.fillslug()
 
     @classmethod
     def top(cls, n=5):
@@ -27,6 +37,12 @@ class Organization(models.Model):
 
     def __unicode__(self):
         return self.name
+
+def post_add_ong(sender, instance, created, *args, **kwargs ):
+    instance.fillslug()
+
+post_save.connect(post_add_ong, sender=Organization)
+
 
 
 class Project(models.Model):
@@ -46,9 +62,9 @@ class Project(models.Model):
 
     def fillslug(self):
         self.slug = slugify(self.name)
-        post_save.disconnect(add_project, sender=Project)
+        post_save.disconnect(post_add_project, sender=Project)
         self.save()
-        post_save.connect(add_project, sender=Project)
+        post_save.connect(post_add_project, sender=Project)
         return self.slug
 
     def getslug(self):
@@ -99,10 +115,10 @@ class Project(models.Model):
             return ''
         return self.images.split(',')
 
-def add_project(sender, instance, created, *args, **kwargs ):
+def post_add_project(sender, instance, created, *args, **kwargs ):
     instance.fillslug()
 
-post_save.connect(add_project, sender=Project)
+post_save.connect(post_add_project, sender=Project)
 
 
 class Thing(models.Model):
