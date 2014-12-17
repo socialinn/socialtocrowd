@@ -2,25 +2,15 @@
 {% load i18n %}
 {% load bootstrap %}
 
-{% block content %}
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form|bootstrap }}
-        {% if edit %}
-            <input type="submit" class="btn btn-block btn-success" value="{% trans "Update" %}" />
-        {% else %}
-            <input type="submit" class="btn btn-block btn-success" value="{% trans "Create" %}" />
-        {% endif %}
-    </form>
+{% block extrabody %}
 
     <script type="text/javascript">
-        var raster = new ol.layer.Tile({
-            source: new ol.source.MapQuest({layer: 'osm'})
+        var osmLayer = new ol.layer.Tile({
+            source: new ol.source.OSM()
         });
 
         var source = new ol.source.Vector();
-        var vector = new ol.layer.Vector({
+        var vectorLayer = new ol.layer.Vector({
             source: source,
             style: new ol.style.Style({
                 fill: new ol.style.Fill({
@@ -40,7 +30,7 @@
         });
 
         var map = new ol.Map({
-            layers: [raster, vector],
+            layers: [osmLayer, vectorLayer],
             target: 'id_pos_map',
             controls: ol.control.defaults({
                 attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
@@ -101,5 +91,20 @@
             $('#id_pos').val("POINT (" + point[0] + " " + point[1] + ")");
         });
     </script>
+
+
+{% endblock %}
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        {% if edit %}
+            <input type="submit" class="btn btn-block btn-success" value="{% trans "Update" %}" />
+        {% else %}
+            <input type="submit" class="btn btn-block btn-success" value="{% trans "Create" %}" />
+        {% endif %}
+    </form>
+
 {% endblock %}
 
