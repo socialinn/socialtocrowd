@@ -14,8 +14,23 @@
     padding: 20px;
 }
 
+/*
 .project:hover {
     background-color: #fff;
+}
+*/
+
+/* projects-container */
+.projects-container{
+	margin-bottom: 30px;
+}
+.projects-container:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
 
 .ong {

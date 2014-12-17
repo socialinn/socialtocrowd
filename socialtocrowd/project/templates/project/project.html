@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load thumbnail %}
 
-<!-- div class="media project">
+<!-- div class="media project-container">
     <div class="media-left">
         <img src="{% thumbnail project.img|default:'defaultp.png' 300x300 %}">
     </div>
@@ -22,7 +22,7 @@
     </div>
 </div -->
 
-<div class="media project">
+<div class="media project-container">
     <div class="row">
         <div class="col-sm-2">
             <img class="img-responsive" src="{% thumbnail project.img|default:'defaultp.png' 300x300 %}">
@@ -31,7 +31,15 @@
             <a href="/project/detail/{{ project.slug }}/"><h3>{{ project.name }}</h3></a>
             <p>{{ project.description|truncatewords:40 }}</p>
             <span class="pull-right">
-            <a href="/project/ong/{{ project.ong.slug }}/" class="label label-success">{{ project.ong.name }}</a>
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                    <a href="{% url 'ong' project.ong.slug %}">
+                        <img src="{% thumbnail project.ong.img|default:'defaultp.png' 18x18 %}" alt="{{ project.ong }}"/>
+                        {{ project.ong.name }}</a>
+                </li>
+            </ul>
+
+
             </span>
             <p>
                 {% if project.categories.all %}
