@@ -8,3 +8,4 @@ psycopg2
 easy-thumbnails
 feedparser
 django-suit
+django-autocomplete-light==2.0.0a18
