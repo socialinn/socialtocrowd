@@ -70,6 +70,7 @@
 
             </div>
             <div class="modal-footer">
+                <span id="donations" class="badge"></span>
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
                 <button type="button" class="btn btn-primary" onclick="modalAccept()">{% trans "Accept" %}</button>
                 <button type="button" class="btn btn-primary" onclick="modalAcceptNext()">{% trans "Accept and donate other" %}</button>
@@ -93,17 +94,24 @@
 <!-- END modal_donation -->
 
 <script type="text/javascript">
-    function createDonation() {
-        var img = document.getElementById("img").value;
-        var obj_quantity = document.getElementById("object_quantity").value;
-        var obj_info = document.getElementById("object_info").value;
-        var show = document.getElementById("show").value;
-
+    var donations = 0;
+    function createDonation(close) {
         var select_id = document.getElementById("object_id");
         var obj_id = select_id.options[select_id.selectedIndex].value;
+        if (obj_id == '')
+            return false;
+        var obj_quantity = document.getElementById("object_quantity").value;
+        if (obj_quantity == '')
+            return false;
         var select_ship = document.getElementById("ship");
         var ship = select_ship.options[select_ship.selectedIndex].value;
+        if (ship == '')
+            return false;
+
         var project_slug = "{{ project.slug }}";
+        var show = document.getElementById("show").value;
+        var img = document.getElementById("img").value;
+        var obj_info = document.getElementById("object_info").value;
 
         $.ajax({
             type: 'POST',
@@ -111,26 +119,31 @@
             data: {
                 'csrfmiddlewaretoken': $.cookie('csrftoken'),
                 'img': img,
-                'id': obj_id,
+                'thing_id': obj_id,
                 'quantity': obj_quantity,
-                'description': obj_info,
+                'info': obj_info,
                 'show': show,
                 'ship': ship,
+                'close': close,
             },
             success: function(json) {
-                if(!json.error)
-                    return true;
+                if(!json.error) {
+                    if (!close) {
+                        donations += 1;
+                        $('#donations').text('Donation:' + donations);
+                    } else {
+                        formModalSuccess();
+                    }
+                }
             }
         });
     };
 
     function modalAccept() {
-        var done = createDonation();
-        if (done) location.reload(true);
+        createDonation(true);
     };
 
     function modalAcceptNext() {
-        var done = createDonation();
-        if (done) location.reload(true);
+        createDonation(false);
     };
 </script>

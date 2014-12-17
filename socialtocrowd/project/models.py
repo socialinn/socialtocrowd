@@ -166,6 +166,7 @@ class Shipping(models.Model):
         ('sent', 'sent'),
         ('received', 'received'),
         ('confirmed', 'confirmed'),
+        ('creating', 'creating'),
     )
     project = models.ForeignKey(Project, related_name='shipping')
     user = models.ForeignKey(User, related_name='shipping')

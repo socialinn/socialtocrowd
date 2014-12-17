@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.views.generic.base import View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseNotFound
@@ -294,69 +294,41 @@ class RemoveDirection(DeleteView):
 
 
 @login_required
-def donate(request, **kwargs):
-    project = get_object_or_404(Project, slug=kwargs['projectslug'])
-    checks = []
-    for c in request.GET.getlist('checks[]'):
-        checks.append(int(c))
-    ships_project = Shipping.objects.filter(project=project, user=request.user)
-    for ship_project in ships_project:
-        if not ship_project.donations.all():
-            break
-        ship_project = None
-    if not ships_project or not ship_project:
-        ship_project = Shipping(project=project, user=request.user)
-        ship_project.save()
+def donate(request, projectslug):
+    if not request.POST:
+        return
+
     ctx = {}
+    # Create/edit shipping for donate
+    project = get_object_or_404(Project, slug=projectslug)
+    ships_project = Shipping.objects.filter(project=project, user=request.user,
+            status='creating')
+    if ships_project:
+        ship_project = ships_project[0]
+    else:
+        ship_project = Shipping(project=project, user=request.user, status='creating')
+        ship_project.save()
+
+    # Add donate
+    thing = get_object_or_404(Thing, id=request.POST.get('thing_id'))
+    info = request.POST.get('info')
+    quantity = request.POST.get('quantity')
+    img = request.POST.get('img')
+    donation = Donation(thing=thing, shipping=ship_project, info=info,
+            quantity=quantity, img=img)
+    donation.save()
+
+    # Close shipping
+    if (request.POST.get('close')):
+        ship_project.status = 'sent'
+        ship_project.show = request.POST.get('show')
+        ctx['close'] = True
+        ship_project.save()
+
     ctx['project'] = project
-    ctx['things_checks'] = checks
     ctx['ship'] = ship_project
-    ctx['today'] = datetime.today()
-    return render(request, 'project/donate-t1.html', ctx)
+    return redirect(request.META.get('HTTP_REFERER'))
 
-
-@login_required
-def shipping(request, pk):
-    if request.POST:
-        ship_project = get_object_or_404(Shipping, pk=pk)
-        donations = []
-        for thing in ship_project.project.things.all():
-            strid = str(thing.id)
-            if request.POST.get('quantity[' + strid + ']') and\
-                    int(request.POST.get('quantity[' + strid + ']')) > 0:
-                quantity = request.POST.get('quantity[' + strid + ']')
-                info = request.POST.get('info[' + strid + ']')
-                donation = Donation(thing=thing, shipping=ship_project,
-                        quantity=quantity, info=info)
-                donation.save()
-                donations.append(donation)
-        if donations:
-            ship_project.comment = request.POST.get('comment')
-            ship_project.direction = get_object_or_404(Direction, pk=request.POST.get('direction'))
-            hour = request.POST.get('delivery_hour')
-            date = request.POST.get('delivery_date')
-            if date and hour:
-                delivery = datetime(int(date[:4]), int(date[5:7]),
-                        int(date[8:]), int(hour[:2]), int(hour[3:5]))
-            elif date:
-                delivery = datetime(int(date[:4]), int(date[5:7]), int(date[8:]))
-            else:
-                delivery = None
-            ship_project.delivery = delivery
-            if request.POST.get('show') == 'on':
-                ship_project.show = True
-            else:
-                ship_project.show = False
-            ship_project.save()
-            ctx = {}
-            ctx['ship'] = ship_project
-            ctx['donations'] = donations
-            ctx['companies'] = ShippingCompany.objects.all()
-            return render(request, 'project/shipping.html', ctx)
-        else:
-            messages.add_message(request, messages.ERROR,
-                'You should mark something for donate')
-            return redirect('donate', ship_project.project.getslug())
 
 def addr_to_url(addr):
     return "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + addr.strip().replace(" ", "+") + "&format=json&limit=1"
