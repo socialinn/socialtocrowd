@@ -28,7 +28,7 @@
                 <h4>{% trans "Organizations" %}</h4>
                 <ul class="nav nav-pills nav-stacked">
                   {% for ong in top_ongs %}
-                    <li><a href="{% url 'ong' ong.id %}">
+                    <li><a href="{% url 'ong' ong.slug %}">
                         <img src="{% thumbnail ong.img|default:'defaultp.png' 18x18 %}" alt="{{ ong }}"/>
                         {{ ong.name }}</a></li>
                   {% endfor %}
