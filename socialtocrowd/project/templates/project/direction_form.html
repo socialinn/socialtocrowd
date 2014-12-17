@@ -71,6 +71,9 @@ if ("{{ direction }}") { // Paint point and center
 
 map.on('singleclick', function(evt) {
 	iconGeometry.setCoordinates(evt.coordinate);
+	var transform = ol.proj.getTransform('EPSG:3857', 'EPSG:4326');
+	var point = transform(evt.coordinate);
+	$('#id_pos').val("POINT (" + point[0] + " " + point[1] + ")");
 });
 
 </script>
