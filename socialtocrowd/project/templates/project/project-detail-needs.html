@@ -39,18 +39,20 @@
             {% for shipping in project.shipping.all %}
                 <div class="col-md-3 col-sm-6">
                     {% for donation in shipping.donations.all %}
-                        <div class="item box need done">
-                            <div class="box-container">
-                                <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
-                                <div>
-                                    {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
+                        {% if donation.show %}
+                            <div class="item box need done">
+                                <div class="box-container">
+                                    <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
+                                    <div>
+                                        {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
+                                    </div>
                                 </div>
+                                <!-- if is a object... the image of object donated -->
+                                {% if donation.img %}
+                                    <img src="{% thumbnail donation.img 400x400 crop %}" />
+                                {% endif %}
                             </div>
-                            <!-- if is a object... the image of object donated -->
-                            {% if donation.img %}
-                                <img src="{% thumbnail donation.img 400x400 crop %}" />
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             {% endfor %}

@@ -171,7 +171,6 @@ class Shipping(models.Model):
     project = models.ForeignKey(Project, related_name='shipping')
     user = models.ForeignKey(User, related_name='shipping')
     comment = models.TextField(blank=True)
-    show = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     direction = models.ForeignKey(Direction, null=True, related_name='shipping')
     status = models.CharField(choices=STATUS, max_length=10, default="sent")
@@ -187,6 +186,7 @@ class Donation(models.Model):
     info = models.TextField(blank=True)
     quantity = models.IntegerField(default=1)
     img = models.ImageField(upload_to="donations", blank=True, null=True)
+    show = models.BooleanField(default=False)
 
     def project(self):
         return self.shipping.project

@@ -314,14 +314,14 @@ def donate(request, projectslug):
     info = request.POST.get('info')
     quantity = request.POST.get('quantity')
     img = request.POST.get('img')
+    show = request.POST.get('show')
     donation = Donation(thing=thing, shipping=ship_project, info=info,
-            quantity=quantity, img=img)
+            quantity=quantity, img=img, show=show)
     donation.save()
 
     # Close shipping
     if (request.POST.get('close')):
         ship_project.status = 'sent'
-        ship_project.show = request.POST.get('show')
         ctx['close'] = True
         ship_project.save()
 
