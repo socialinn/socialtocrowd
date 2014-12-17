@@ -21,8 +21,8 @@
 
 		<div class="row needs">
             {% for thing in project.things.all %}
-                <div class="col-md-3 col-sm-6">
-                    {% if thing.ndonations.nodonate > 0 %}
+                {% if thing.ndonations.nodonate > 0 %}
+                    <div class="col-md-3 col-sm-6">
                         <div class="item box need">
                             <div class="box-container">
                                 <h3>{{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}</h3>
@@ -30,16 +30,16 @@
                                         data-toggle="modal" data-target="#modal_donation"><i class="icon-object i-16"></i>{% trans "Donate" %}</a></div>
                             </div>
                         </div>
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
             {% endfor %}
             <!-- END need item -->
 
             <!-- need item ... class="done" when object is donated-->
             {% for shipping in project.shipping.all %}
-                <div class="col-md-3 col-sm-6">
-                    {% for donation in shipping.donations.all %}
-                        {% if donation.show %}
+                {% for donation in shipping.donations.all %}
+                    {% if donation.show %}
+                        <div class="col-md-3 col-sm-6">
                             <div class="item box need done">
                                 <div class="box-container">
                                     <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
@@ -52,9 +52,9 @@
                                     <img src="{% thumbnail donation.img 400x400 crop %}" />
                                 {% endif %}
                             </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
             <!-- END need item -->
 		</div>

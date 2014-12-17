@@ -186,7 +186,7 @@ class Donation(models.Model):
     info = models.TextField(blank=True)
     quantity = models.IntegerField(default=1)
     img = models.ImageField(upload_to="donations", blank=True, null=True)
-    show = models.BooleanField(default=False)
+    show = models.BooleanField(default=True)
 
     def project(self):
         return self.shipping.project
