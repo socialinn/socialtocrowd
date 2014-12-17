@@ -9,6 +9,9 @@
             <div class="col-md-5 col-sm-6 needs">
                 <h2>{% trans "Needs" %}</h2>
                 {% for need in needs %}
+                {% with project=need.project %}
+                    {% include "project/modal_donation.html" %}
+                {% endwith %}
                 <!-- need -->
                 <div class="media">
                     <div class="media-left">
@@ -17,8 +20,8 @@
                     <div class="media-body">
                         <h3 class="media-heading">{{ need.name|truncatechars:20 }}</h3>
                         <p>
-                            <a href="{% url 'detail' need.project.id %}" class="black"><i class="icon-brand i-16"></i> {{ need.project|truncatechars:40 }}</a>
-                            (<a href="{% url 'ong' need.project.ong.id %}" class="black">{{ need.project.ong|truncatechars:40 }}</a>)
+                            <a href="{% url 'detail' need.project.slug %}" class="black"><i class="icon-brand i-16"></i> {{ need.project|truncatechars:40 }}</a>
+                            (<a href="{% url 'ong' need.project.ong.slug %}" class="black">{{ need.project.ong|truncatechars:40 }}</a>)
                         </p>
                         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal_donation"><i class="icon-object i-16"></i> {% trans "Donate" %}</a>
                     </div>

@@ -1,12 +1,12 @@
 {% load i18n %}
 {% load thumbnail %}
 
-<!-- div class="media project">
+<!-- div class="media project-container">
     <div class="media-left">
         <img src="{% thumbnail project.img|default:'defaultp.png' 300x300 %}">
     </div>
     <div class="media-body">
-        <a href="/project/detail/{{ project.id }}/"> <h3 class="media-heading">{{ project.name }}
+        <a href="/project/detail/{{ project.slug }}/"> <h3 class="media-heading">{{ project.name }}
             <div class="progress grey pull-right">
                 <div class="progress-bar progress-bar-grey" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
             </div>
@@ -22,16 +22,24 @@
     </div>
 </div -->
 
-<div class="media project">
+<div class="media project-container">
     <div class="row">
         <div class="col-sm-2">
             <img class="img-responsive" src="{% thumbnail project.img|default:'defaultp.png' 300x300 %}">
         </div>
         <div class="col-sm-5">
-            <a href="/project/detail/{{ project.id }}/"><h3>{{ project.name }}</h3></a>
+            <a href="/project/detail/{{ project.slug }}/"><h3>{{ project.name }}</h3></a>
             <p>{{ project.description|truncatewords:40 }}</p>
             <span class="pull-right">
-            <a href="/project/ong/{{ project.ong.id }}/" class="label label-success">{{ project.ong.name }}</a>
+            <ul class="nav nav-pills nav-stacked">
+                <li>
+                    <a href="{% url 'ong' project.ong.slug %}">
+                        <img src="{% thumbnail project.ong.img|default:'defaultp.png' 18x18 %}" alt="{{ project.ong }}"/>
+                        {{ project.ong.name }}</a>
+                </li>
+            </ul>
+
+
             </span>
             <p>
                 {% if project.categories.all %}

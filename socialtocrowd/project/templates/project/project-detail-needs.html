@@ -20,8 +20,8 @@
 		<!-- END section-title -->
 
 		<div class="row needs">
-			<div class="col-md-3 col-sm-6">
-                {% for thing in project.things.all %}
+            {% for thing in project.things.all %}
+                <div class="col-md-3 col-sm-6">
                     {% if thing.ndonations.nodonate > 0 %}
                         <div class="item box need">
                             <div class="box-container">
@@ -31,12 +31,13 @@
                             </div>
                         </div>
                     {% endif %}
-                {% endfor %}
-				<!-- END need item -->
-			</div>
-			<div class="col-md-3 col-sm-6">
-				<!-- need item ... class="done" when object is donated-->
-                {% for shipping in project.shipping.all %}
+                </div>
+            {% endfor %}
+            <!-- END need item -->
+
+            <!-- need item ... class="done" when object is donated-->
+            {% for shipping in project.shipping.all %}
+                <div class="col-md-3 col-sm-6">
                     {% for donation in shipping.donations.all %}
                         <div class="item box need done">
                             <div class="box-container">
@@ -51,9 +52,9 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                {% endfor %}
-				<!-- END need item -->
-			</div>
+                </div>
+            {% endfor %}
+            <!-- END need item -->
 		</div>
 
 		<!-- control-buttons -->

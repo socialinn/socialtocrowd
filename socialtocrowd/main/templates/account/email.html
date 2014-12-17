@@ -6,6 +6,10 @@
 {% block head_title %}{% trans "Account" %}{% endblock %}
 
 {% block content %}
+<div class="page-layout container">
+
+<div class="row">
+    <div class="well col-md-9">
     <h1>{% trans "E-mail Addresses" %}</h1>
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -54,6 +58,9 @@
         <button class="btn btn-primary" name="action_add" type="submit">{% trans "Add E-mail" %}</button>
     </form>
 
+</div>
+</div>
+</div>
 {% endblock %}
 
 

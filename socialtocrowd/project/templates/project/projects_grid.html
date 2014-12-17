@@ -6,7 +6,7 @@
 <div class="projects grid row active">
     {% for project in all_projects %}
     <!-- project -->
-    <a href="{% url 'detail' project.id %}" class="col-md-{{ colmd|default_if_none:"4" }} col-sm-6 project">
+    <a href="{{ project.get_absolute_url }}" class="col-md-{{ colmd|default_if_none:"4" }} col-sm-6 project">
         <div class="project-title">
             <h3>{{ project.name|truncatechars:30 }}</h3>
             <div class="progress white">
