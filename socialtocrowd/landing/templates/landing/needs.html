@@ -1,8 +1,6 @@
 {% load i18n %}
 {% load thumbnail %}
 
-{% include "project/modal_donation.html" %}
-
 <!-- #last_projects -->
 <section id="needs_home">
     <div class="container">
@@ -11,6 +9,9 @@
             <div class="col-md-5 col-sm-6 needs">
                 <h2>{% trans "Needs" %}</h2>
                 {% for need in needs %}
+                {% with project=need.project %}
+                    {% include "project/modal_donation.html" %}
+                {% endwith %}
                 <!-- need -->
                 <div class="media">
                     <div class="media-left">

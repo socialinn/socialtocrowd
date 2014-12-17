@@ -10,6 +10,7 @@
                 <h3 class="modal-title" id="myModalLabel">{% trans "Donate thing" %}</h3>
             </div>
             <div class="modal-body">
+
                 <!-- form -->
                 <form>
                     <!-- form-section -->
@@ -17,7 +18,11 @@
                         <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
                         <div class="well text-center">
                             <i class="icon-camera i-64"></i>
-                            <p><a href="#" name="img" class="black">{% trans "Add image" %}</a></p>
+                            <p>
+                                <input type="file" id="img" class="file_upload" accept="image/*"/>
+                                <!-- a href="#" id="btn_img" class="black">{% trans "Add image" %}</a -->
+                            </p>
+
                         </div>
                     </div>
                     <!-- END form-section -->
@@ -25,11 +30,11 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" id="object_id">
                                 <option>--- {% trans "Object name" %} ---</option>
                                 {% for thing in project.things.all %}
                                     {% if thing.ndonations.nodonate > 0 %}
-                                        <option name="object[{{ thing.id }}]" value="{{ thing.id }}">
+                                        <option value="{{ thing.id }}">
                                         {{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}
                                         </option>
                                     {% endif %}
@@ -37,36 +42,37 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input id="objectQuantity" name="quantity[{{ thing.id }}]" type="number" min="0" max="90"
+                            <input id="object_quantity" type="number" min="0" max="90"
                                 class="form-control" placeholder="{% trans "Object quantity" %}">
                             </input>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="objectDrescription">{% trans "Object description" %}</label>
-                            <textarea class="form-control" name="info" id="objectDrescription" placeholder="{% trans "Object description" %}"></textarea>
+                            <textarea class="form-control" id="object_info" placeholder="{% trans "Object description" %}"></textarea>
                         </div>
                         <div class="checkbox">
-                            <label><input id="objectPrivate" name="show" type="checkbox">{% trans "Private donation" %}</label>
+                            <label><input id="show" type="checkbox">{% trans "Private donation" %}</label>
                         </div>
                     </div>
                     <!-- END form-section -->
                     <!-- form-section -->
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
-                        <select class="form-control">
+                        <select class="form-control" id="ship">
                             {% for dir in project.directions.all %}
-                                <option name="quantity[{{ thing.id }}]" value="{{ dir.id }}">{{ dir }}</option>
+                                <option value="{{ dir.id }}">{{ dir }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <!-- END form-section -->
                 </form>
                 <!-- END form -->
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
-                <button type="button" id="accept" class="btn btn-primary">{% trans "Accept" %}</button>
-                <button type="button" id="acceptAndNext" class="btn btn-primary">{% trans "Accept and donate other" %}</button>
+                <button type="button" class="btn btn-primary" onclick="modalAccept()">{% trans "Accept" %}</button>
+                <button type="button" class="btn btn-primary" onclick="modalAcceptNext()">{% trans "Accept and donate other" %}</button>
             </div>
         </div>
         <!-- END modal-content form -->
@@ -85,3 +91,46 @@
     </div>
 </div>
 <!-- END modal_donation -->
+
+<script type="text/javascript">
+    function createDonation() {
+        var img = document.getElementById("img").value;
+        var obj_quantity = document.getElementById("object_quantity").value;
+        var obj_info = document.getElementById("object_info").value;
+        var show = document.getElementById("show").value;
+
+        var select_id = document.getElementById("object_id");
+        var obj_id = select_id.options[select_id.selectedIndex].value;
+        var select_ship = document.getElementById("ship");
+        var ship = select_ship.options[select_ship.selectedIndex].value;
+        var project_slug = "{{ project.slug }}";
+
+        $.ajax({
+            type: 'POST',
+            url: '/project/donate/' + project_slug + '/',
+            data: {
+                'csrfmiddlewaretoken': $.cookie('csrftoken'),
+                'img': img,
+                'id': obj_id,
+                'quantity': obj_quantity,
+                'description': obj_info,
+                'show': show,
+                'ship': ship,
+            },
+            success: function(json) {
+                if(!json.error)
+                    return true;
+            }
+        });
+    };
+
+    function modalAccept() {
+        var done = createDonation();
+        if (done) location.reload(true);
+    };
+
+    function modalAcceptNext() {
+        var done = createDonation();
+        if (done) location.reload(true);
+    };
+</script>

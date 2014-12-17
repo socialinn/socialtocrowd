@@ -1,7 +1,6 @@
-{% include "project/modal_donation.html" %}
-
 {% for project in projects %}
     <div class="projects-container projects list">
+        {% include "project/modal_donation.html" %}
         {% include "project/project.html" %}
     </div>
 {% endfor %}
