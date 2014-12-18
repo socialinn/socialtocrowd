@@ -79,6 +79,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
                 <button type="button" class="btn btn-primary" onclick="add()">{% trans "Add" %}</button>
+                <button type="button" class="btn btn-primary" onclick="addFinish()">{% trans "Add and donate" %}</button>
                 <button type="button" class="btn btn-primary" onclick="finish()">{% trans "Donate" %}</button>
             </div>
         </div>
@@ -103,7 +104,7 @@
     $("#modal_donation").on('shown', refresh());
 
     function donation(add, close) {
-        if(add || close) {
+        if(add) {
             var select_id = document.getElementById("object_id");
             var obj_id = select_id.options[select_id.selectedIndex].value;
             if (obj_id == '')
@@ -171,6 +172,10 @@
 
     function add() {
         donation(true, false);
+    };
+
+    function addFinish() {
+        donation(true, true);
     };
 
     function refresh_cart(ship) {
