@@ -65,15 +65,21 @@
                         </select>
                     </div>
                     <!-- END form-section -->
+
+                    <!-- cart -->
+                    <div id="cart" class="form-section">
+                        <h4 class="form-section-header"><span class="badge">·</span>{% trans "Donation cart" %}</h4>
+                        <ul></ul>
+                    </div>
+                    <!-- END cart -->
                 </form>
                 <!-- END form -->
 
             </div>
             <div class="modal-footer">
-                <span id="donations" class="badge"></span>
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
-                <button type="button" class="btn btn-primary" onclick="modalAccept()">{% trans "Accept" %}</button>
-                <button type="button" class="btn btn-primary" onclick="modalAcceptNext()">{% trans "Accept and donate other" %}</button>
+                <button type="button" class="btn btn-primary" onclick="add()">{% trans "Add" %}</button>
+                <button type="button" class="btn btn-primary" onclick="finish()">{% trans "Donate" %}</button>
             </div>
         </div>
         <!-- END modal-content form -->
@@ -94,19 +100,22 @@
 <!-- END modal_donation -->
 
 <script type="text/javascript">
-    var donations = 0;
-    function createDonation(close) {
-        var select_id = document.getElementById("object_id");
-        var obj_id = select_id.options[select_id.selectedIndex].value;
-        if (obj_id == '')
-            return false;
-        var obj_quantity = document.getElementById("object_quantity").value;
-        if (obj_quantity == '')
-            return false;
-        var select_ship = document.getElementById("ship");
-        var ship = select_ship.options[select_ship.selectedIndex].value;
-        if (ship == '')
-            return false;
+    $("#modal_donation").on('shown', refresh());
+
+    function donation(add, close) {
+        if(add || close) {
+            var select_id = document.getElementById("object_id");
+            var obj_id = select_id.options[select_id.selectedIndex].value;
+            if (obj_id == '')
+                return false;
+            var obj_quantity = document.getElementById("object_quantity").value;
+            if (obj_quantity == '')
+                return false;
+            var select_ship = document.getElementById("ship");
+            var ship = select_ship.options[select_ship.selectedIndex].value;
+            if (ship == '')
+                return false;
+        }
 
         var project_slug = "{{ project.slug }}";
         var priv = document.getElementById("priv").checked;
@@ -124,13 +133,13 @@
                 'info': obj_info,
                 'priv': priv,
                 'ship': ship,
+                'add': add,
                 'close': close,
             },
             success: function(json) {
                 if(!json.error) {
                     if (!close) {
-                        donations += 1;
-                        $('#donations').text('Donation:' + donations);
+                        refresh_cart(json['ship']);
                     } else {
                         formModalSuccess();
                     }
@@ -139,11 +148,41 @@
         });
     };
 
-    function modalAccept() {
-        createDonation(true);
+    function removeDonation(id) {
+        $.ajax({
+            type: 'GET',
+            url: '/project/donate/remove/' + id + '/',
+            data: {},
+            success: function(json) {
+                if(!json.error) {
+                    refresh_cart(json['ship']);
+                }
+            }
+        });
     };
 
-    function modalAcceptNext() {
-        createDonation(false);
+    function refresh() {
+        donation(false, false);
+    }
+
+    function finish() {
+        donation(false, true);
     };
+
+    function add() {
+        donation(true, false);
+    };
+
+    function refresh_cart(ship) {
+        $("#cart ul li").remove();
+        for (don in ship.donations) {
+            var name = ship.donations[don].thing.name;
+            var quantity = ship.donations[don].quantity;
+            var don_id = ship.donations[don].id;
+            $("#cart ul").append(
+                '<li>' + name + ' x ' + quantity +
+                '<a href="#" clickable="true" onclick=removeDonation(' + don_id + ')> Remove</a></li>'
+            );
+        }
+    }
 </script>

@@ -143,6 +143,12 @@ class Thing(models.Model):
     def __unicode__(self):
         return self.name
 
+    def serialize(self):
+        d = {
+            'name': self.name,
+        }
+        return d
+
 
 class Direction(models.Model):
     project = models.ForeignKey(Project, related_name='directions')
@@ -173,11 +179,19 @@ class Shipping(models.Model):
     comment = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     direction = models.ForeignKey(Direction, null=True, related_name='shipping')
-    status = models.CharField(choices=STATUS, max_length=10, default="sent")
+    status = models.CharField(choices=STATUS, max_length=10, default="creating")
     delivery = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return str(self.id)
+
+    def serialize(self):
+        d = {
+            'id': self.id,
+            'donations': [i.serialize() for i in self.donations.all()],
+            'created': self.created.isoformat(),
+        }
+        return d
 
 
 class Donation(models.Model):
@@ -202,6 +216,14 @@ class Donation(models.Model):
 
     def __unicode__(self):
         return self.thing.name
+
+    def serialize(self):
+        d = {
+            'id': self.id,
+            'thing': self.thing.serialize(),
+            'quantity': self.quantity,
+        }
+        return d
 
 
 class ShippingCompany(models.Model):

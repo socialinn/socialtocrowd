@@ -298,7 +298,6 @@ def donate(request, projectslug):
     if not request.POST:
         return
 
-    ctx = {}
     # Create/edit shipping for donate
     project = get_object_or_404(Project, slug=projectslug)
     ships_project = Shipping.objects.filter(project=project, user=request.user,
@@ -306,28 +305,36 @@ def donate(request, projectslug):
     if ships_project:
         ship_project = ships_project[0]
     else:
-        ship_project = Shipping(project=project, user=request.user, status='creating')
+        ship_project = Shipping(project=project, user=request.user)
         ship_project.save()
 
     # Add donate
-    thing = get_object_or_404(Thing, id=request.POST.get('thing_id'))
-    info = request.POST.get('info')
-    quantity = request.POST.get('quantity')
-    img = request.POST.get('img')
-    show = True if request.POST.get('priv') == 'true' else False
-    donation = Donation(thing=thing, shipping=ship_project, info=info,
-            quantity=quantity, img=img, show=show)
-    donation.save()
+    if (request.POST.get('add') == 'true'):
+        thing = get_object_or_404(Thing, id=request.POST.get('thing_id'))
+        info = request.POST.get('info')
+        quantity = request.POST.get('quantity')
+        img = request.POST.get('img')
+        show = True if request.POST.get('priv') == 'false' else False
+        donation = Donation(thing=thing, shipping=ship_project, info=info,
+                quantity=quantity, img=img, show=show)
+        donation.save()
 
     # Close shipping
-    if (request.POST.get('close')):
+    if (request.POST.get('close') == 'true'):
         ship_project.status = 'sent'
-        ctx['close'] = True
         ship_project.save()
 
-    ctx['project'] = project
-    ctx['ship'] = ship_project
-    return redirect(request.META.get('HTTP_REFERER'))
+    jsondata = json.dumps({ 'ship': ship_project.serialize() })
+    return HttpResponse(jsondata, content_type='application/json')
+
+
+@login_required
+def donate_remove(request, pk):
+    donation = get_object_or_404(Donation, id=pk)
+    ship_project = donation.shipping
+    donation.delete()
+    jsondata = json.dumps({ 'ship': ship_project.serialize() })
+    return HttpResponse(jsondata, content_type='application/json')
 
 
 def addr_to_url(addr):
