@@ -37,6 +37,7 @@
 
             <!-- need item ... class="done" when object is donated-->
             {% for shipping in project.shipping.all %}
+                {% if shipping.status != 'creating' %}
                 {% for donation in shipping.donations.all %}
                     {% if donation.show %}
                         <div class="col-md-3 col-sm-6">
@@ -55,6 +56,7 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+                {% endif %}
             {% endfor %}
             <!-- END need item -->
 		</div>

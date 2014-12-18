@@ -131,14 +131,18 @@ class Thing(models.Model):
         total = 0
         sent = 0
         received = 0
+        creating = 0
         for donation in self.donations.all():
-            if donation.status == 'sent':
+            if donation.shipping.status == 'sent':
                 sent += donation.quantity
-            elif donation.status == 'received':
-                sent += donation.quantity
+            elif donation.shipping.status == 'received':
+                received += donation.quantity
+            elif donation.shipping.status == 'creating':
+                creating += donation.quantity
+                total -= donation.quantity
             total += donation.quantity
-        return {'received': received, 'sent': sent, 'total': total,
-                'nodonate': self.quantity - total }
+        return {'received': received, 'sent': sent, 'creating': creating,
+                'total': total, 'nodonate': self.quantity - total }
 
     def __unicode__(self):
         return self.name
