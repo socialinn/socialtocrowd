@@ -55,7 +55,7 @@
                                 <tr>
                                     <td><a href="{% url 'detail' project.getslug %}">{{ project.name }}</a></td>
                                     <td>{{ project.created.date }}</td>
-                                    <td><progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress></td>
+                                    <td><progress class="achieved" value="{{ project.percent_donate|floatformat:2 }}" max="100"></progress></td>
                                     {% if ong.user == user %}
                                         <td><a href="{% url 'edit_project' project.getslug %}">{% trans "EDIT" %}</a></td>
                                     {% endif %}

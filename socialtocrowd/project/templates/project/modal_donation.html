@@ -17,10 +17,11 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
                         <div class="well text-center">
-                            <i class="icon-camera i-64"></i>
+                            <i id="show_img" class="icon-camera i-64"></i>
                             <p>
-                                <input type="file" id="img" class="file_upload" accept="image/*"/>
-                                <!-- a href="#" id="btn_img" class="black">{% trans "Add image" %}</a -->
+                                <input type="file" id="img" name="img" class="file_upload"
+                                        accept="image/*" style="display:none" onchange="readURL(this);" />
+                                <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
                             </p>
 
                         </div>
@@ -101,6 +102,24 @@
 <!-- END modal_donation -->
 
 <script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#show_img').replaceWith($('<img id="show_img"></img>'));
+                $('#show_img')
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(150);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function select_img() {
+        $("#img").trigger('click');
+    };
+
     $("#modal_donation").on('shown', refresh());
 
     function donation(add, close) {
@@ -116,6 +135,7 @@
             var ship = select_ship.options[select_ship.selectedIndex].value;
             if (ship == '')
                 return false;
+            $('#show_img').replaceWith($('<i id="show_img" class="icon-camera i-64"></i>'));
         }
 
         var project_slug = "{{ project.slug }}";

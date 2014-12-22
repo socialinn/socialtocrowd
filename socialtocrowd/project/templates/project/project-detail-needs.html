@@ -12,7 +12,8 @@
                 {% trans "Neccesary things" %}: {{ project.remain_things }}
 				<div class="progress grey pull-right">
                 {% localize off %}
-					<div class="progress-bar progress-bar-grey" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+					<div class="progress-bar progress-bar-grey" role="progressbar"
+                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate|floatformat:2 }}%</div>
                 {% endlocalize %}
 				</div>
 			</div>

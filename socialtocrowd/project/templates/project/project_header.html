@@ -17,7 +17,11 @@
                             <h2>{{ project.name|truncatechars:40 }}</h2>
                             <div class="progress white">
                             {% localize off %}
-                                <div class="progress-bar progress-bar-white" role="progressbar" aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ project.percent_donate }}%;">{{ project.percent_donate }}%</div>
+                                <div class="progress-bar progress-bar-white" role="progressbar"
+                                    aria-valuenow="{{ project.percent_donate }}" aria-valuemin="0"
+                                    aria-valuemax="100" style="width: {{ project.percent_donate }}%;">
+                                    {{ project.percent_donate|floatformat:2 }}%
+                                </div>
                             {% endlocalize %}
                             </div>
                         </div>

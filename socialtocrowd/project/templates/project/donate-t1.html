@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h3 class="center">{% trans "Achieved" %}</h3>
-                <progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress>
+                <progress class="achieved" value="{{ project.percent_donate|floatformat:2 }}" max="100"></progress>
                 <h3>{% trans "Shipping number" %}: {{ ship.id }}</h3>
                 <form class="donate" action="{% url 'shipping' ship.id %}" method="POST">
                     {% csrf_token %}
@@ -102,7 +102,7 @@
     </div>
     {% else %}
         <h3 class="center">{% trans "Project completed: you can donate in other projects" %}</h3>
-        <progress class="achieved" value="{{ project.percent_donate }}" max="100"></progress>
+        <progress class="achieved" value="{{ project.percent_donate|floatformat:2 }}" max="100"></progress>
     {% endif %}
 
 {% endblock %}
