@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load thumbnail %}
 
 <!-- #detail_info -->
 <section id="detail_info">
@@ -7,7 +8,7 @@
 			<!-- description -->
 			<div class="col-md-6 description">
 				<h3>{% trans "Description" %}</h3>
-				<p><img class="img-responsive" src="{{ MEDIA_URL }}{{ project.img }}"></p>
+				<p><img class="img-responsive" src="{% thumbnail project.img|default:'defaultp.png' 34x34 crop %}"></p>
                 <p>{{ project.description }}</p>
 			</div>
 			<!-- END description -->
