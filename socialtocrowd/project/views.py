@@ -314,7 +314,7 @@ def donate(request, projectslug):
         info = request.POST.get('info')
         quantity = request.POST.get('quantity')
         img = request.POST.get('img')
-        show = True if request.POST.get('priv') == 'false' else False
+        show = False if request.POST.get('priv') == 'on' else True
         donation = Donation(thing=thing, shipping=ship_project, info=info,
                 quantity=quantity, img=img, show=show)
         donation.save()

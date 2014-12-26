@@ -12,7 +12,8 @@
             <div class="modal-body">
 
                 <!-- form -->
-                <form>
+                <form id="form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <!-- form-section -->
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
@@ -31,8 +32,8 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
                         <div class="form-group">
-                            <select class="form-control" id="object_id">
-                                <option>--- {% trans "Object name" %} ---</option>
+                            <select name="thing_id" class="form-control" id="object_id">
+                                <option value="a" >--- {% trans "Object name" %} ---</option>
                                 {% for thing in project.things.all %}
                                     {% if thing.ndonations.nodonate > 0 %}
                                         <option value="{{ thing.id }}">
@@ -43,23 +44,23 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input id="object_quantity" type="number" min="0" max="90"
+                            <input id="object_quantity" name="quantity" type="number" min="1"
                                 class="form-control" placeholder="{% trans "Object quantity" %}">
                             </input>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="objectDrescription">{% trans "Object description" %}</label>
-                            <textarea class="form-control" id="object_info" placeholder="{% trans "Object description" %}"></textarea>
+                            <textarea class="form-control" id="object_info" name="info" placeholder="{% trans "Object description" %}"></textarea>
                         </div>
                         <div class="checkbox">
-                            <label><input id="priv" type="checkbox">{% trans "Private donation" %}</label>
+                            <label><input id="priv" name="priv" type="checkbox">{% trans "Private donation" %}</label>
                         </div>
                     </div>
                     <!-- END form-section -->
                     <!-- form-section -->
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
-                        <select class="form-control" id="ship">
+                        <select class="form-control" name="ship" id="ship">
                             {% for dir in project.directions.all %}
                                 <option value="{{ dir.id }}">{{ dir }}</option>
                             {% endfor %}
@@ -73,6 +74,8 @@
                         <ul></ul>
                     </div>
                     <!-- END cart -->
+                    <input type='hidden' id='add' name='add' value='false' />
+                    <input type='hidden' id='close' name='close' value='false' />
                 </form>
                 <!-- END form -->
 
@@ -102,6 +105,30 @@
 <!-- END modal_donation -->
 
 <script type="text/javascript">
+    function validate() {
+        $('#form').validate({
+            rules: {
+                thing_id: {
+                    required: true,
+                    min: 0,
+                    number: true,
+                },
+                quantity: {
+                    required: true,
+                    min: 1,
+                    number: true,
+                },
+                info: {
+                    minlength: 4,
+                },
+                ship: {
+                    required: true,
+                    number: true,
+                },
+            }
+        });
+    };
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -124,39 +151,31 @@
 
     function donation(add, close) {
         if(add) {
-            var select_id = document.getElementById("object_id");
-            var obj_id = select_id.options[select_id.selectedIndex].value;
-            if (obj_id == '')
+            validate();
+            if(!$('#form').valid()) {
                 return false;
-            var obj_quantity = document.getElementById("object_quantity").value;
-            if (obj_quantity == '')
-                return false;
-            var select_ship = document.getElementById("ship");
-            var ship = select_ship.options[select_ship.selectedIndex].value;
-            if (ship == '')
-                return false;
+            }
             $('#show_img').replaceWith($('<i id="show_img" class="icon-camera i-64"></i>'));
+            $('#add').val('true');
+        } else {
+            $('#add').val('false');
         }
 
-        var project_slug = "{{ project.slug }}";
-        var priv = document.getElementById("priv").checked;
-        var img = document.getElementById("img").value;
-        var obj_info = document.getElementById("object_info").value;
+        if(close) {
+            var items = $("#cart ul li");
+            if (!add && items.length <= 0) {
+                // TODO: Add msg
+                return false;
+            }
+            $('#close').val('true');
+        } else {
+            $('#close').val('false');
+        }
 
         $.ajax({
             type: 'POST',
-            url: '/project/donate/' + project_slug + '/',
-            data: {
-                'csrfmiddlewaretoken': $.cookie('csrftoken'),
-                'img': img,
-                'thing_id': obj_id,
-                'quantity': obj_quantity,
-                'info': obj_info,
-                'priv': priv,
-                'ship': ship,
-                'add': add,
-                'close': close,
-            },
+            url: '/project/donate/' + '{{ project.slug }}' + '/',
+            data: $("#form").serialize(),
             success: function(json) {
                 if(!json.error) {
                     if (!close) {
