@@ -46,7 +46,7 @@
                                 <div class="box-container">
                                     <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
                                     <div>
-                                        <img class="img-circle" src="{% thumbnail donation.donor.profile.avatar|default:'defaultp.png' 34x34 %}">
+                                        <img class="img-circle" src="{% thumbnail donation.donor.profile.avatar|default:'defaultp.png' 34x34 crop %}">
                                         {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
                                     </div>
                                 </div>
