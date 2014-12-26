@@ -10,3 +10,5 @@ class AutocompleteThings(autocomplete_light.AutocompleteGenericBase):
     search_fields = (('name',),)
     model = Thing
     limit_choices = 5
+
+autocomplete_light.register(AutocompleteThings)

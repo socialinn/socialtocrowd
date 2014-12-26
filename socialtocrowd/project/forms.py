@@ -1,4 +1,4 @@
-from django.forms import Textarea
+from django.forms import CharField, Textarea
 from django.forms.models import inlineformset_factory
 from .models import Project
 from .models import Thing
@@ -18,3 +18,13 @@ DirectionFormSet = inlineformset_factory(Project, Direction, min_num=1,
         max_num=1, validate_min=True, extra=1, can_delete=False,
         fields=('description', 'pos', 'timetable', 'phone')
 )
+
+class ThingSearchForm(autocomplete_light.ModelForm):
+
+    # widget=autocomplete_light.TextWidget('AutocompleteUsers')
+    #thing = CharField(label=("Thing name"), max_length=200, required=False,  widget=autocomplete_light.TextWidget('AutocompleteThings'))
+    name = autocomplete_light.ModelChoiceField('AutocompleteThings')
+
+    class Meta:
+        model = Thing
+
