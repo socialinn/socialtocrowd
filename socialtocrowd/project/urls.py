@@ -2,6 +2,12 @@ from django.contrib.auth.decorators import login_required as lr
 from django.conf.urls import patterns, include, url
 from project import views
 
+import autocomplete_light
+autocomplete_light.autodiscover()
+
+from django.contrib import admin
+admin.autodiscover()
+
 urlpatterns = patterns('',
     url(r'^near/$', views.near, name="near"),
     url(r'^near/(?P<projectslug>[-\w]+)/$', views.nearproject, name="nearproject"),
@@ -22,4 +28,5 @@ urlpatterns = patterns('',
     url(r'^create/direction/(\d+)/$', lr(views.CreateDirection.as_view()), name="create_direction"),
     url(r'^edit/direction/(?P<pk>\d+)/$', lr(views.UpdateDirection.as_view()), name="update_direction"),
     url(r'^remove/direction/(?P<pk>\d+)/$', lr(views.RemoveDirection.as_view()), name="remove_direction"),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 )

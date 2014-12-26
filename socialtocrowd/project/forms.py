@@ -3,7 +3,7 @@ from django.forms.models import inlineformset_factory
 from .models import Project
 from .models import Thing
 from .models import Direction
-
+import autocomplete_light
 
 TOTAL_THINGS_NEW_PROJECT = 20
 
