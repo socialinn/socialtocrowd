@@ -132,6 +132,11 @@ class Detail(TemplateView):
         ctx = super(Detail, self).get_context_data(*args, **kwargs)
         project = get_object_or_404(Project, slug=self.kwargs['projectslug'])
         ctx['project'] = project
+        # TODO: pagination
+        ctx['donations'] = Donation.objects \
+                .filter(shipping__project=project, show=True) \
+                .exclude(shipping__status="creating") \
+                .order_by('-shipping__created')[:20]
         return ctx
 detail = Detail.as_view()
 
