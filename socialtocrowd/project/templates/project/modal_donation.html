@@ -10,7 +10,14 @@
                 <h3 class="modal-title" id="myModalLabel">{% trans "Donate thing" %}</h3>
             </div>
             <div class="modal-body">
-
+                {% if not user.is_authenticated %}
+                    <h1>
+                        <a href="{% url 'account_signup' %}">{% trans "REGISTER" %}</a>
+                        <span> {% trans "or" %} </span>
+                        <a href="{% url 'account_login' %}">{% trans "LOGIN" %}</a>
+                        <span> {% trans "for donate" %}</span>
+                    </h1>
+                {% else %}
                 <!-- form -->
                 <form id="form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -24,10 +31,10 @@
                                         accept="image/*" style="display:none" onchange="readURL(this);" />
                                 <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
                             </p>
-
                         </div>
                     </div>
                     <!-- END form-section -->
+
                     <!-- form-section -->
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
@@ -57,6 +64,7 @@
                         </div>
                     </div>
                     <!-- END form-section -->
+
                     <!-- form-section -->
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
@@ -74,20 +82,26 @@
                         <ul></ul>
                     </div>
                     <!-- END cart -->
+
                     <input type='hidden' id='add' name='add' value='false' />
                     <input type='hidden' id='close' name='close' value='false' />
                 </form>
+                {% endif %}
                 <!-- END form -->
 
             </div>
+
+            {% if user.is_authenticated %}
             <div class="modal-footer">
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
                 <button type="button" class="btn btn-primary" onclick="add()">{% trans "Add" %}</button>
                 <button type="button" class="btn btn-primary" onclick="addFinish()">{% trans "Add and donate" %}</button>
                 <button type="button" class="btn btn-primary" onclick="finish()">{% trans "Donate" %}</button>
             </div>
+            {% endif %}
         </div>
         <!-- END modal-content form -->
+
         <!-- modal-content success -->
         <div class="modal-content success">
             <div class="modal-header">
