@@ -186,20 +186,46 @@
             $('#close').val('false');
         }
 
-        $.ajax({
-            type: 'POST',
-            url: '/project/donate/' + '{{ project.slug }}' + '/',
-            data: $("#form").serialize(),
-            success: function(json) {
-                if(!json.error) {
-                    if (!close) {
-                        refresh_cart(json['ship']);
-                    } else {
-                        formModalSuccess();
+        var data = $("#form").serialize();
+        var img = document.getElementById("img").files[0];
+        if (img && add) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                data = data + "&fname=" + JSON.stringify(img.name) + "&file=" + JSON.stringify(e.target.result).replace(';', ',');
+                $.ajax({
+                    type: 'POST',
+                    url: '/project/donate/' + '{{ project.slug }}' + '/',
+                    data: data,
+                    dataType: 'json',
+                    success: function(json) {
+                        if(!json.error) {
+                            if (!close) {
+                                refresh_cart(json['ship']);
+                            } else {
+                                formModalSuccess();
+                            }
+                        }
+                    }
+                });
+            };
+            reader.readAsDataURL(img);
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/project/donate/' + '{{ project.slug }}' + '/',
+                data: data,
+                dataType: 'json',
+                success: function(json) {
+                    if(!json.error) {
+                        if (!close) {
+                            refresh_cart(json['ship']);
+                        } else {
+                            formModalSuccess();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     };
 
     function removeDonation(id) {

@@ -1,5 +1,7 @@
+from base64 import b64decode
 from django.db import models
 from django.db.models import Q
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.views.generic.base import View, TemplateView
@@ -313,7 +315,12 @@ def donate(request, projectslug):
         thing = get_object_or_404(Thing, id=request.POST.get('thing_id'))
         info = request.POST.get('info')
         quantity = request.POST.get('quantity')
-        img = request.POST.get('img')
+        img = request.POST.get('file', None)
+        if img:
+            b64_text = img.split(',')[-1]
+            image_data = b64decode(b64_text)
+            name = request.POST.get('fname', None)
+            img = ContentFile(image_data, name)
         show = False if request.POST.get('priv') == 'on' else True
         donation = Donation(thing=thing, shipping=ship_project, info=info,
                 quantity=quantity, img=img, show=show)
