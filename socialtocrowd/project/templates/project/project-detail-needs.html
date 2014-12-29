@@ -28,6 +28,7 @@
 		<!-- END section-title -->
 
 		<div class="row needs">
+            <!-- need item -->
             {% for thing in project.things.all %}
                 {% if thing.ndonations.nodonate > 0 %}
                     <div class="col-md-3 col-sm-6">
@@ -43,12 +44,33 @@
             {% endfor %}
             <!-- END need item -->
 
-            <!-- need item ... class="done" when object is donated-->
+            <!-- need coop -->
+            {% for coop in project.cooperations.all %}
+                {% if coop.remain > 0 %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="item box need">
+                            <div class="box-container">
+                                <h3>{{ coop.name }}: {{ coop.remain }} {% trans "remaining" %}</h3>
+                                <div class="text-right">
+                                    <a href="#" class="btn btn-primary inverse" data-toggle="modal" data-target="#modal_cooperation"><i class="icon-user i-16"></i> {% trans "Cooperar" %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <!-- END need coop -->
+
+            <!-- item or coop done -->
             {% for donation in donations %}
                 <div class="col-md-3 col-sm-6">
                     <div class="item box need done">
                         <div class="box-container">
-                            <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
+                            {% if donation.type_donation == 'C' %}
+                            <h3>{% trans "helping" %} {{ donation.cooperation.name }}</h3>
+                            {% else %}
+                                <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
+                            {% endif %}
                             <div>
                                 <img class="img-circle" src="{% thumbnail donation.donor.profile.avatar|default:'defaultp.png' 34x34 crop %}">
                                 {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
@@ -61,7 +83,9 @@
                     </div>
                 </div>
             {% endfor %}
-            <!-- END need item -->
+            <!-- END item or coop done -->
+		</div>
+
 		</div>
 
 		<!-- control-buttons -->

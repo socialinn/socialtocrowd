@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.gis.db import models
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
@@ -171,6 +173,21 @@ class Direction(models.Model):
         return self.description + timetable + phone
 
 
+class Cooperation(models.Model):
+    name = models.CharField(max_length=255)
+    what = models.TextField()
+    where = models.ForeignKey(Direction, related_name='cooperations')
+    when = models.DateTimeField()
+    project = models.ForeignKey(Project, related_name='cooperations')
+    quantity = models.IntegerField(default=1)
+
+    def remain(self):
+        return self.quantity - self.cooperations.all().count()
+
+    def __unicode__(self):
+        return self.name
+
+
 class Shipping(models.Model):
     STATUS = (
         ('sent', 'sent'),
@@ -198,8 +215,15 @@ class Shipping(models.Model):
         return d
 
 
+DONATION_TYPE = (
+        ('C', 'Cooperation'),
+        ('T', 'Thing'),
+    )
+
 class Donation(models.Model):
-    thing = models.ForeignKey(Thing, related_name='donations')
+    thing = models.ForeignKey(Thing, related_name='donations', blank=True, null=True)
+    cooperation = models.ForeignKey(Cooperation, related_name='cooperations', blank=True, null=True)
+    type_donation = models.CharField(max_length=1, choices=DONATION_TYPE, default='T')
     shipping = models.ForeignKey(Shipping, related_name='donations')
     info = models.TextField(blank=True)
     quantity = models.IntegerField(default=1)
