@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
 
     # custom apps
+    'widget_tweaks',
     'main',
     'landing',
     'project',
