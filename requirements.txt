@@ -9,4 +9,5 @@ easy-thumbnails
 feedparser
 django-suit
 django-autocomplete-light==2.0.0a18
+django-widget-tweaks
 django-analytical

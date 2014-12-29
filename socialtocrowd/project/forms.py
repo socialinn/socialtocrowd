@@ -21,10 +21,17 @@ DirectionFormSet = inlineformset_factory(Project, Direction, min_num=1,
 
 class ThingSearchForm(autocomplete_light.ModelForm):
 
+    #fields = ['name']
+    #widgets = { 'name' : autocomplete_light.TextWidget('AutocompleteThings') }
     # widget=autocomplete_light.TextWidget('AutocompleteUsers')
-    #thing = CharField(label=("Thing name"), max_length=200, required=False,  widget=autocomplete_light.TextWidget('AutocompleteThings'))
-    name = autocomplete_light.ModelChoiceField('AutocompleteThings')
+    name = CharField(label=("Thing name"), max_length=200, required=False, widget=autocomplete_light.TextWidget('AutocompleteThings') )
+    #name = autocomplete_light.GenericModelChoiceField('AutocompleteThings')
+    #name = autocomplete_light.ModelChoiceField('AutocompleteThings')
+    #name = CharField(label=("Cooperativa"), max_length=200, required=False, widget=autocomplete_light.TextWidget('AutocompleteThings'))
+
+    model = Thing
 
     class Meta:
         model = Thing
+        #fields = [ 'name' ]
 
