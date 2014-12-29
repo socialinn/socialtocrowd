@@ -323,6 +323,7 @@ def donate(request, projectslug):
         img = request.POST.get('file', None)
         if img:
             b64_text = img.split(',')[-1]
+            b64_text = b64_text.replace(' ', '+')[:-1]
             image_data = b64decode(b64_text)
             name = request.POST.get('fname', None)
             img = ContentFile(image_data, name)
