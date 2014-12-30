@@ -1,5 +1,7 @@
+from base64 import b64decode
 from django.db import models
 from django.db.models import Q
+from django.core.files.base import ContentFile
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.views.generic.base import View, TemplateView
@@ -16,7 +18,7 @@ from django.contrib.gis.geos import Point
 from .forms import ThingSearchForm, ThingFormSet, DirectionFormSet
 from .models import Project
 from .models import Organization
-from .models import Thing, Shipping, Donation
+from .models import Thing, Shipping, Donation, Cooperation
 from .models import ShippingCompany
 from .models import Direction
 
@@ -135,6 +137,11 @@ class Detail(TemplateView):
         ctx = super(Detail, self).get_context_data(*args, **kwargs)
         project = get_object_or_404(Project, slug=self.kwargs['projectslug'])
         ctx['project'] = project
+        # TODO: pagination
+        ctx['donations'] = Donation.objects \
+                .filter(shipping__project=project, show=True) \
+                .exclude(shipping__status="creating") \
+                .order_by('-shipping__created')[:20]
         return ctx
 detail = Detail.as_view()
 
@@ -318,8 +325,14 @@ def donate(request, projectslug):
         thing = get_object_or_404(Thing, id=request.POST.get('thing_id'))
         info = request.POST.get('info')
         quantity = request.POST.get('quantity')
-        img = request.POST.get('img')
-        show = True if request.POST.get('priv') == 'false' else False
+        img = request.POST.get('file', None)
+        if img:
+            b64_text = img.split(',')[-1]
+            b64_text = b64_text.replace(' ', '+')[:-1]
+            image_data = b64decode(b64_text)
+            name = request.POST.get('fname', None)
+            img = ContentFile(image_data, name)
+        show = False if request.POST.get('priv') == 'on' else True
         donation = Donation(thing=thing, shipping=ship_project, info=info,
                 quantity=quantity, img=img, show=show)
         donation.save()
@@ -338,6 +351,27 @@ def donate_remove(request, pk):
     donation = get_object_or_404(Donation, id=pk)
     ship_project = donation.shipping
     donation.delete()
+    jsondata = json.dumps({ 'ship': ship_project.serialize() })
+    return HttpResponse(jsondata, content_type='application/json')
+
+
+@login_required
+def cooperate(request, projectslug):
+    if not request.POST:
+        return
+
+    # Createt shipping for cooperate
+    project = get_object_or_404(Project, slug=projectslug)
+    ship_project = Shipping(project=project, user=request.user, status='sent')
+    ship_project.save()
+
+    # Add cooperate
+    cooperation = get_object_or_404(Cooperation, id=request.POST.get('coop_id'))
+    show = False if request.POST.get('priv') == 'on' else True
+    donation = Donation(cooperation=cooperation, shipping=ship_project,
+            type_donation='C', show=show)
+    donation.save()
+
     jsondata = json.dumps({ 'ship': ship_project.serialize() })
     return HttpResponse(jsondata, content_type='application/json')
 
