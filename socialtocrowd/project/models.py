@@ -187,6 +187,12 @@ class Cooperation(models.Model):
     def __unicode__(self):
         return self.name
 
+    def serialize(self):
+        d = {
+            'name': self.name,
+        }
+        return d
+
 
 class Shipping(models.Model):
     STATUS = (
@@ -248,9 +254,12 @@ class Donation(models.Model):
     def serialize(self):
         d = {
             'id': self.id,
-            'thing': self.thing.serialize(),
             'quantity': self.quantity,
         }
+        if self.thing:
+            d['thing'] = self.thing.serialize()
+        elif self.cooperation:
+            d['cooperation'] = self.cooperation.serialize()
         return d
 
 

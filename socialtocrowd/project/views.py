@@ -18,7 +18,7 @@ from django.contrib.gis.geos import Point
 from .forms import ThingFormSet, DirectionFormSet
 from .models import Project
 from .models import Organization
-from .models import Thing, Shipping, Donation
+from .models import Thing, Shipping, Donation, Cooperation
 from .models import ShippingCompany
 from .models import Direction
 
@@ -346,6 +346,27 @@ def donate_remove(request, pk):
     donation = get_object_or_404(Donation, id=pk)
     ship_project = donation.shipping
     donation.delete()
+    jsondata = json.dumps({ 'ship': ship_project.serialize() })
+    return HttpResponse(jsondata, content_type='application/json')
+
+
+@login_required
+def cooperate(request, projectslug):
+    if not request.POST:
+        return
+
+    # Createt shipping for cooperate
+    project = get_object_or_404(Project, slug=projectslug)
+    ship_project = Shipping(project=project, user=request.user, status='sent')
+    ship_project.save()
+
+    # Add cooperate
+    cooperation = get_object_or_404(Cooperation, id=request.POST.get('coop_id'))
+    show = False if request.POST.get('priv') == 'on' else True
+    donation = Donation(cooperation=cooperation, shipping=ship_project,
+            type_donation='C', show=show)
+    donation.save()
+
     jsondata = json.dumps({ 'ship': ship_project.serialize() })
     return HttpResponse(jsondata, content_type='application/json')
 
