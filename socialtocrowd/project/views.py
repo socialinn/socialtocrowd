@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.views.generic.base import View, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext as _
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
@@ -13,7 +13,7 @@ import urllib2
 import json
 from django.contrib.gis.geos import Point
 
-from .forms import ThingFormSet, DirectionFormSet
+from .forms import ThingSearchForm, ThingFormSet, DirectionFormSet
 from .models import Project
 from .models import Organization
 from .models import Thing, Shipping, Donation
@@ -25,10 +25,14 @@ class Near(TemplateView):
     template_name = 'project/near.html'
 near = Near.as_view()
 
-
-class Things(TemplateView):
+class Things(FormView):
     template_name = 'project/search.html'
+    form_class = ThingSearchForm
 
+    #def get(self, request, *args, **kwargs):
+    #    return HttpResponse()
+
+'''
     def get_context_data(self, *args, **kwargs):
         ctx = super(Things, self).get_context_data(*args, **kwargs)
         ctx['title'] = _('Donate')
@@ -52,6 +56,7 @@ class Things(TemplateView):
         ctx['projects'] = query
         ctx['listtemplate'] = 'project/projects.html'
         return ctx
+        '''
 things = Things.as_view()
 
 
