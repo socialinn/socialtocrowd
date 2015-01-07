@@ -2,6 +2,13 @@
 {% load thumbnail %}
 {% load l10n %}
 
+<script type="text/javascript">
+    var pag = 20;
+    function loadMore() {
+        pag += 20;
+    };
+</script>
+
 <!-- #detail_needs -->
 <section id="detail_needs">
 	<div class="container">
@@ -21,6 +28,7 @@
 		<!-- END section-title -->
 
 		<div class="row needs">
+            <!-- need item -->
             {% for thing in project.things.all %}
                 {% if thing.ndonations.nodonate > 0 %}
                     <div class="col-md-3 col-sm-6">
@@ -36,35 +44,57 @@
             {% endfor %}
             <!-- END need item -->
 
-            <!-- need item ... class="done" when object is donated-->
-            {% for shipping in project.shipping.all %}
-                {% if shipping.status != 'creating' %}
-                {% for donation in shipping.donations.all %}
-                    {% if donation.show %}
-                        <div class="col-md-3 col-sm-6">
-                            <div class="item box need done">
-                                <div class="box-container">
-                                    <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
-                                    <div>
-                                        <img class="img-circle" src="{% thumbnail donation.donor.profile.avatar|default:'defaultp.png' 34x34 %}">
-                                        {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
-                                    </div>
+            <!-- need coop -->
+            {% for coop in project.cooperations.all %}
+                {% if coop.remain > 0 %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="item box need">
+                            <div class="box-container">
+                                <h3>{{ coop.name }}: {{ coop.remain }} {% trans "remaining" %}</h3>
+                                <div class="text-right">
+                                    <a href="#" id="modal_coop" class="btn btn-primary inverse"
+                                            data-toggle="modal" data-target="#modal_cooperation" 
+                                            data-where="{{coop.where.pos}}" data-when="{{coop.when}}"
+                                            data-what="{{coop.what}}" data-id="{{coop.id}}">
+                                            <i class="icon-user i-16"></i> {% trans "Cooperar" %}
+                                    </a>
                                 </div>
-                                <!-- if is a object... the image of object donated -->
-                                {% if donation.img %}
-                                    <img src="{% thumbnail donation.img 400x400 crop %}" />
-                                {% endif %}
                             </div>
                         </div>
-                    {% endif %}
-                {% endfor %}
+                    </div>
                 {% endif %}
             {% endfor %}
-            <!-- END need item -->
+            <!-- END need coop -->
+
+            <!-- item or coop done -->
+            {% for donation in donations %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="item box need done">
+                        <div class="box-container">
+                            {% if donation.type_donation == 'C' %}
+                            <h3>{% trans "helping" %} {{ donation.cooperation.name }}</h3>
+                            {% else %}
+                                <h3>{{ donation.thing.name }} x {{ donation.quantity }}</h3>
+                            {% endif %}
+                            <div>
+                                <img class="img-circle" src="{% thumbnail donation.donor.profile.avatar|default:'defaultp.png' 34x34 crop %}">
+                                {% trans "Thanks" %} <strong>{{ donation.donor }}</strong>!
+                            </div>
+                        </div>
+                        <!-- if is a object... the image of object donated -->
+                        {% if donation.img %}
+                            <img src="{% thumbnail donation.img 300x300 crop %}" />
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- END item or coop done -->
+		</div>
+
 		</div>
 
 		<!-- control-buttons -->
-		<div class="control-buttons text-center"><a href="#" id="load_more" class="btn btn-default btn-lg">{% trans "Load more" %}</a></div>
+		<div class="control-buttons text-center"><a href="javascript:loadMore()" id="load_more" class="btn btn-default btn-lg">{% trans "Load more" %}</a></div>
 		<!-- END control-buttons -->
 
 	</div>

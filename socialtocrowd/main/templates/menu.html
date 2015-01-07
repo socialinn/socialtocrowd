@@ -9,7 +9,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main_navigation_links">
                     <i class="icon-menu2 i-24"></i>
                 </button>
-                <a class="navbar-brand" href="{% url 'landing_index' %}"><img alt="SocialToCrowd" height="40" src="{{ STATIC_URL }}theme/img/logo.png"></a>
+                <a class="navbar-brand" href="{% url 'landing_index' %}"><img alt="SocialToCrowd" height="40" src="{{ STATIC_URL }}theme/img/logo.png"> <span class="beta">version beta</span></a>
         </div>
         <!-- END brand and toggle-button -->
         <!-- #main_navigation_links -->
@@ -26,9 +26,9 @@
                 <li><a href="#">{% trans "Needs" %}</a></li>
                 <li><a href="/pages/how/">{% trans "How it works?" %}</a></li>
                 <li><a href="http://blog.socialtocrowd.org">{% trans "Blog" %}</a></li>
-            </ul>
-            <!-- END links -->
-            <!-- user links -->
+        	</ul>
+	    <!-- END links -->
+	    <!-- user links -->
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

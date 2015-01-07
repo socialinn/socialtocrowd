@@ -15,4 +15,12 @@ padding: 8px 14px !important;
 background-color: #f39200 !important;
 
 }
-        
+
+.navbar-brand img {
+	height: 32px !important;
+}
+.beta {
+ font-size: 0.8em;
+float: right;
+color: #f39200;
+} 

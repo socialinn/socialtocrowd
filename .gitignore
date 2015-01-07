@@ -3,3 +3,5 @@ socialtocrowd/socialtocrowd/settings.py
 *.sqlite3
 *.swp
 socialtocrowd/static/media/*
+*.swo
+*.swn
