@@ -65,6 +65,12 @@ float: left;
 font-size: 25px !important;
 border-radius: 25px !important;
 padding: 8px 14px !important;
-backuground-color: #f39200 !important;
+background-color: #f39200 !important;
 
+}
+
+.betainfo {
+float: left;
+margin-left: 20px;
+width: 400px;
 }
