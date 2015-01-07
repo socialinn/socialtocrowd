@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-14 18:48+0100\n"
+"POT-Creation-Date: 2015-01-07 18:16+0000\n"
 "PO-Revision-Date: 2014-12-14 18:49+0100\n"
 "Last-Translator: Daniel García <danigm@wadobo.com>\n"
 "Language-Team: Español; Castellano <>\n"
@@ -43,21 +43,22 @@ msgstr "Bienvenido"
 msgid "Needs"
 msgstr "Necesidades"
 
-#: landing/templates/landing/needs.html:23
-#: project/templates/project/project-detail-needs.html:27
-#: project/templates/project/project.html:22 project/views.py:30
+#: landing/templates/landing/needs.html:26
+#: project/templates/project/modal_donation.html:99
+#: project/templates/project/project-detail-needs.html:39
+#: project/templates/project/project.html:56 project/views.py:36
 msgid "Donate"
 msgstr "Donar"
 
-#: landing/templates/landing/needs.html:28
+#: landing/templates/landing/needs.html:31
 msgid "No needs yet"
 msgstr "Ninguna necesidad aún"
 
-#: landing/templates/landing/needs.html:34
+#: landing/templates/landing/needs.html:37
 msgid "Latest donnors"
 msgstr "Últimos colaboradores"
 
-#: landing/templates/landing/needs.html:44
+#: landing/templates/landing/needs.html:47
 #, python-format
 msgid ""
 "\n"
@@ -68,16 +69,15 @@ msgstr ""
 "                        Donó  %(tn)s x %(tq)s a\n"
 "                        "
 
-#: landing/templates/landing/needs.html:53
+#: landing/templates/landing/needs.html:56
 msgid "No donations yet"
 msgstr "Ninguna colaboración aún"
 
-#: landing/templates/landing/needs.html:59
+#: landing/templates/landing/needs.html:62
 msgid "View all needs and donate"
 msgstr "Ver todas las necesidades y los colaboradores"
 
 #: landing/templates/landing/recent.html:6
-#| msgid "Latest projects"
 msgid "Recent projects"
 msgstr "Últimos proyectos"
 
@@ -89,45 +89,45 @@ msgstr "Ver todos los proyectos"
 msgid "Account"
 msgstr "Cuenta"
 
-#: main/templates/account/email.html:9
+#: main/templates/account/email.html:13
 msgid "E-mail Addresses"
 msgstr "Dirección de email"
 
-#: main/templates/account/email.html:11
+#: main/templates/account/email.html:15
 msgid "The following e-mail addresses are associated with your account:"
 msgstr "Las siguientes direcciones de email están asociadas con tu cuenta:"
 
-#: main/templates/account/email.html:25
+#: main/templates/account/email.html:29
 msgid "Verified"
 msgstr "Verificar"
 
-#: main/templates/account/email.html:27
+#: main/templates/account/email.html:31
 msgid "Unverified"
 msgstr "No verificada"
 
-#: main/templates/account/email.html:29
+#: main/templates/account/email.html:33
 msgid "Primary"
 msgstr "Principal"
 
-#: main/templates/account/email.html:35
+#: main/templates/account/email.html:39
 msgid "Make Primary"
 msgstr "Hacer Principal"
 
-#: main/templates/account/email.html:36
+#: main/templates/account/email.html:40
 msgid "Re-send Verification"
 msgstr "Reenviar Verificación"
 
-#: main/templates/account/email.html:37
+#: main/templates/account/email.html:41
 #: project/templates/project/project_form.html:38
 #: project/templates/project/project_form.html:55
 msgid "Remove"
 msgstr "Borrar"
 
-#: main/templates/account/email.html:44
+#: main/templates/account/email.html:48
 msgid "Warning:"
 msgstr "Aviso:"
 
-#: main/templates/account/email.html:44
+#: main/templates/account/email.html:48
 msgid ""
 "You currently do not have any e-mail address set up. You should really add "
 "an e-mail address so you can receive notifications, reset your password, etc."
@@ -136,24 +136,24 @@ msgstr ""
 "un coreo electrónico para poder recibir notificaciones, cambiar tu "
 "contraseña, etc."
 
-#: main/templates/account/email.html:49
+#: main/templates/account/email.html:53
 msgid "Add E-mail Address"
 msgstr "Añadir dirección E-mail"
 
-#: main/templates/account/email.html:54
+#: main/templates/account/email.html:58
 msgid "Add E-mail"
 msgstr "Añadir E-mail"
 
-#: main/templates/account/email.html:63
+#: main/templates/account/email.html:70
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Estás seguro de que quieres eleminar el E-mail seleccionado?"
 
-#: main/templates/account/login.html:7 main/templates/account/login.html:15
-#: main/templates/account/login.html:47
+#: main/templates/account/login.html:7 main/templates/account/login.html:17
+#: main/templates/account/login.html:49
 msgid "Sign In"
 msgstr "Entrar"
 
-#: main/templates/account/login.html:18
+#: main/templates/account/login.html:20
 #, python-format
 msgid ""
 "Please sign in with one\n"
@@ -166,11 +166,12 @@ msgstr ""
 "\">Regístrate</a>\n"
 "para una cuenta de %(site_name)s y accede debajo:"
 
-#: main/templates/account/login.html:28
+#: main/templates/account/login.html:30
+#: project/templates/project/modal_donation.html:16
 msgid "or"
 msgstr "o"
 
-#: main/templates/account/login.html:35
+#: main/templates/account/login.html:37
 #, python-format
 msgid ""
 "If you have not created an account yet, then please\n"
@@ -179,40 +180,40 @@ msgstr ""
 "Si no has creado una cuenta todavía, por favor\n"
 "<a href=\"%(signup_url)s\">registrate</a> primero."
 
-#: main/templates/account/login.html:37 main/templates/account/signup.html:12
+#: main/templates/account/login.html:39 main/templates/account/signup.html:16
 msgid ""
 "If you are an organization. Create an account and after request your "
 "Organization."
 msgstr ""
 "Si eres una organización. Crea una cuenta y después solicita tu Organización."
 
-#: main/templates/account/login.html:46
+#: main/templates/account/login.html:48
 msgid "Forgot Password?"
 msgstr "Contraseña olvidada"
 
-#: main/templates/account/logout.html:6 main/templates/account/logout.html:9
-#: main/templates/account/logout.html:18
+#: main/templates/account/logout.html:6 main/templates/account/logout.html:12
+#: main/templates/account/logout.html:21
 msgid "Sign Out"
 msgstr "Salir"
 
-#: main/templates/account/logout.html:11
+#: main/templates/account/logout.html:14
 msgid "Are you sure you want to sign out?"
 msgstr "¿Estas seguro que quieres salir?"
 
 #: main/templates/account/password_change.html:6
-#: main/templates/account/password_change.html:9
-#: main/templates/account/password_change.html:14
+#: main/templates/account/password_change.html:12
+#: main/templates/account/password_change.html:17
 #: main/templates/account/password_reset_from_key.html:5
-#: main/templates/account/password_reset_from_key.html:8
+#: main/templates/account/password_reset_from_key.html:11
 msgid "Change Password"
 msgstr "Cambiar contraseña"
 
 #: main/templates/account/password_reset.html:7
-#: main/templates/account/password_reset.html:11
+#: main/templates/account/password_reset.html:14
 msgid "Password Reset"
 msgstr "Recordar contraseña"
 
-#: main/templates/account/password_reset.html:16
+#: main/templates/account/password_reset.html:19
 msgid ""
 "Forgotten your password? Enter your e-mail address below, and we'll send you "
 "an e-mail allowing you to reset it."
@@ -220,21 +221,21 @@ msgstr ""
 "¿Olvidaste tu contraseña? Introduce tu dirección de E-mail y te enviaremos "
 "un E-mail permitiendote cambiarla."
 
-#: main/templates/account/password_reset.html:21
+#: main/templates/account/password_reset.html:24
 msgid "Reset My Password"
 msgstr "Recordar mi contraseña"
 
-#: main/templates/account/password_reset.html:24
+#: main/templates/account/password_reset.html:27
 msgid "Please contact us if you have any trouble resetting your password."
 msgstr ""
 "Por favor, contacta con nosotros si tieneas algún problema cambiando tu "
 "contraseña."
 
-#: main/templates/account/password_reset_from_key.html:8
+#: main/templates/account/password_reset_from_key.html:11
 msgid "Bad Token"
 msgstr "Token incorrecto"
 
-#: main/templates/account/password_reset_from_key.html:12
+#: main/templates/account/password_reset_from_key.html:15
 #, python-format
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
@@ -245,18 +246,18 @@ msgstr ""
 "antes. Por favor, solicita un <a href=\"%(passwd_reset_url)s\">nuevo cambio "
 "de contraseña</a>."
 
-#: main/templates/account/password_reset_from_key.html:18
+#: main/templates/account/password_reset_from_key.html:21
 #: userprofile/templates/userprofile/profile.html:40
 msgid "change password"
 msgstr "cambiar contraseña"
 
-#: main/templates/account/password_reset_from_key.html:21
+#: main/templates/account/password_reset_from_key.html:24
 msgid "Your password is now changed."
 msgstr "Has cambiado tu contraseña."
 
 #: main/templates/account/password_set.html:6
-#: main/templates/account/password_set.html:9
-#: main/templates/account/password_set.html:14
+#: main/templates/account/password_set.html:12
+#: main/templates/account/password_set.html:17
 msgid "Set Password"
 msgstr "Contraseña"
 
@@ -264,11 +265,11 @@ msgstr "Contraseña"
 msgid "Signup"
 msgstr "Registro"
 
-#: main/templates/account/signup.html:9 main/templates/account/signup.html:20
+#: main/templates/account/signup.html:13 main/templates/account/signup.html:24
 msgid "Sign Up"
 msgstr "Registrate"
 
-#: main/templates/account/signup.html:11
+#: main/templates/account/signup.html:15
 #, python-format
 msgid ""
 "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
@@ -317,7 +318,6 @@ msgid "Contact"
 msgstr "Contacto"
 
 #: main/templates/layout.html:15
-#| msgid "Sign Out"
 msgid "Sign up today"
 msgstr "Registrate hoy"
 
@@ -337,22 +337,37 @@ msgstr "Projectos destacados"
 msgid "How it works?"
 msgstr "¿Cómo funciona?"
 
-#: main/templates/menu.html:42
+#: main/templates/menu.html:28
+msgid "Blog"
+msgstr ""
+
+#: main/templates/menu.html:43
 #, python-format
 msgid "%(user)s profile"
 msgstr "%(user)s perfil"
 
-#: main/templates/menu.html:52
+#: main/templates/menu.html:53
 msgid "Logout"
 msgstr "Salir"
 
-#: main/templates/menu.html:54
+#: main/templates/menu.html:55
 msgid "Login / Register"
 msgstr "Entrar / Registro"
 
-#: main/templates/menu.html:62
+#: main/templates/menu.html:63
 msgid "Search"
 msgstr "Buscar"
+
+#: main/templates/modal_alert.html:9
+#: project/templates/project/modal_cooperation.html:57
+#: project/templates/project/modal_donation.html:9
+#: project/templates/project/modal_donation.html:108
+msgid "Close"
+msgstr "Cerrar"
+
+#: main/templates/modal_alert.html:10
+msgid "Information"
+msgstr ""
 
 #: project/admin.py:8
 msgid "Mark selected ongs as active"
@@ -363,14 +378,14 @@ msgstr "Marcar las ongs seleccionar como activas"
 msgid "Are you sure you want to delete"
 msgstr "¿Estas seguro que quieres borrar?"
 
-#: project/templates/project/direction_form.html:11
+#: project/templates/project/direction_form.html:89
 #: project/templates/project/organization_form.html:10
 #: project/templates/project/project_form.html:72
 #: project/templates/project/thing_form.html:9
 msgid "Update"
 msgstr "Actualizar"
 
-#: project/templates/project/direction_form.html:13
+#: project/templates/project/direction_form.html:91
 #: project/templates/project/organization_form.html:12
 #: project/templates/project/project_form.html:74
 #: project/templates/project/thing_form.html:11
@@ -378,7 +393,6 @@ msgid "Create"
 msgstr "Crear"
 
 #: project/templates/project/donate-t1.html:24
-#: project/templates/project/project.html:15
 #, python-format
 msgid "%(time)s ago"
 msgstr "hace %(time)s"
@@ -397,7 +411,7 @@ msgid "Items"
 msgstr "Unidades"
 
 #: project/templates/project/donate-t1.html:46
-#: project/templates/project/project-detail-info.html:9
+#: project/templates/project/project-detail-info.html:10
 msgid "Description"
 msgstr "Descripción"
 
@@ -431,7 +445,6 @@ msgid "Show in donate page"
 msgstr "Mostrar en la página de colaboradores"
 
 #: project/templates/project/donate-t1.html:98
-#: project/templates/project/modal_donation.html:57
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -443,39 +456,40 @@ msgstr "Proyecto completado: puedes colaborar en otros proyectos"
 msgid "Collaborate with your help"
 msgstr "Coopera con tu ayuda"
 
-#: project/templates/project/modal_cooperation.html:17
+#: project/templates/project/modal_cooperation.html:18
 msgid "What we need from you?"
 msgstr "¿Qué necesitamos de ti?"
 
-#: project/templates/project/modal_cooperation.html:23
+#: project/templates/project/modal_cooperation.html:24
 msgid "Where?"
 msgstr "¿Dónde?"
 
-#: project/templates/project/modal_cooperation.html:29
+#: project/templates/project/modal_cooperation.html:32
 msgid "When?"
 msgstr "¿Cuándo?"
 
-#: project/templates/project/modal_cooperation.html:37
-#: project/templates/project/modal_donation.html:56
-#: userprofile/templates/userprofile/edit.html:15
+#: project/templates/project/modal_cooperation.html:41
+#, fuzzy
+#| msgid "Private donation"
+msgid "Private cooperation"
+msgstr "Donación privada"
+
+#: project/templates/project/modal_cooperation.html:49
+#: project/templates/project/modal_donation.html:96
+#: userprofile/templates/userprofile/edit.html:16
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: project/templates/project/modal_cooperation.html:38
+#: project/templates/project/modal_cooperation.html:50
 msgid "Participate"
 msgstr "Participar"
 
-#: project/templates/project/modal_cooperation.html:45
-#: project/templates/project/modal_donation.html:64
-msgid "Close"
-msgstr "Cerrar"
-
-#: project/templates/project/modal_cooperation.html:49
-#: project/templates/project/modal_donation.html:68
+#: project/templates/project/modal_cooperation.html:61
+#: project/templates/project/modal_donation.html:112
 msgid "Done!"
 msgstr "Hecho!"
 
-#: project/templates/project/modal_cooperation.html:50
+#: project/templates/project/modal_cooperation.html:62
 msgid "Thank you for your collaboration"
 msgstr "Gracias por tu colaboración"
 
@@ -483,35 +497,88 @@ msgstr "Gracias por tu colaboración"
 msgid "Donate thing"
 msgstr "Donar cosas"
 
+#: project/templates/project/modal_donation.html:15
+msgid "REGISTER"
+msgstr ""
+
 #: project/templates/project/modal_donation.html:17
+msgid "LOGIN"
+msgstr ""
+
+#: project/templates/project/modal_donation.html:18
+#, fuzzy
+#| msgid "Donate"
+msgid "for donate"
+msgstr "Donar"
+
+#: project/templates/project/modal_donation.html:26
 msgid "Have you a object photo? Upload it!"
 msgstr "¿Tienes una foto del objeto? Subela! "
 
-#: project/templates/project/modal_donation.html:20
+#: project/templates/project/modal_donation.html:32
 msgid "Add image"
 msgstr "Añadir imagen"
 
-#: project/templates/project/modal_donation.html:26
+#: project/templates/project/modal_donation.html:40
 msgid "Add name and description of the object"
 msgstr "Añadir descripción del objeto"
 
-#: project/templates/project/modal_donation.html:36
+#: project/templates/project/modal_donation.html:43
+msgid "Object name"
+msgstr ""
+
+#: project/templates/project/modal_donation.html:47
+#: project/templates/project/project-detail-needs.html:37
+#: project/templates/project/project-detail-needs.html:53
+msgid "remaining"
+msgstr "restantes"
+
+#: project/templates/project/modal_donation.html:55
+#, fuzzy
+#| msgid "Quantity"
+msgid "Object quantity"
+msgstr "Cantidad"
+
+#: project/templates/project/modal_donation.html:59
+#: project/templates/project/modal_donation.html:60
+#, fuzzy
+#| msgid "Description"
+msgid "Object description"
+msgstr "Descripción"
+
+#: project/templates/project/modal_donation.html:63
 msgid "Private donation"
 msgstr "Donación privada"
 
-#: project/templates/project/modal_donation.html:42
+#: project/templates/project/modal_donation.html:70
 msgid "Select shipping"
 msgstr "Seleccionar envío"
 
-#: project/templates/project/modal_donation.html:69
+#: project/templates/project/modal_donation.html:81
+#, fuzzy
+#| msgid "No donations yet"
+msgid "Donation cart"
+msgstr "Ninguna colaboración aún"
+
+#: project/templates/project/modal_donation.html:97
+msgid "Add"
+msgstr ""
+
+#: project/templates/project/modal_donation.html:98
+#, fuzzy
+#| msgid "View all needs and donate"
+msgid "Add and donate"
+msgstr "Ver todas las necesidades y los colaboradores"
+
+#: project/templates/project/modal_donation.html:113
 msgid "Thank for you collaboration"
 msgstr "Gracias por tu colaboración"
 
-#: project/templates/project/near.html:20
+#: project/templates/project/near.html:85
 msgid "Search your location"
 msgstr "Busca por tu direción"
 
-#: project/templates/project/near.html:22
+#: project/templates/project/near.html:87
 #: project/templates/project/search.html:15
 msgid "Go"
 msgstr "Ir"
@@ -554,7 +621,7 @@ msgid "Our projects"
 msgstr "Nuestros proyectos"
 
 #: project/templates/project/ong.html:22
-#: project/templates/project/project.html:28
+#: project/templates/project/project.html:62
 msgid "And more..."
 msgstr "Y más"
 
@@ -562,31 +629,35 @@ msgstr "Y más"
 msgid "Progress in images ..."
 msgstr "Progresos en imágenes"
 
-#: project/templates/project/project-detail-info.html:24
+#: project/templates/project/project-detail-info.html:26
 msgid "Categories"
 msgstr "Categorías"
 
-#: project/templates/project/project-detail-info.html:29
+#: project/templates/project/project-detail-info.html:34
 msgid "Collaborators"
 msgstr "Colaboradores"
 
-#: project/templates/project/project-detail-needs.html:9
+#: project/templates/project/project-detail-needs.html:17
 msgid "We need ..."
 msgstr "Necesitamos ..."
 
-#: project/templates/project/project-detail-needs.html:11
+#: project/templates/project/project-detail-needs.html:19
 msgid "Neccesary things"
 msgstr "Cosas necesarias"
 
-#: project/templates/project/project-detail-needs.html:25
-msgid "remaining"
-msgstr "restantes"
+#: project/templates/project/project-detail-needs.html:59
+msgid "Cooperar"
+msgstr ""
 
-#: project/templates/project/project-detail-needs.html:42
+#: project/templates/project/project-detail-needs.html:75
+msgid "helping"
+msgstr ""
+
+#: project/templates/project/project-detail-needs.html:81
 msgid "Thanks"
 msgstr "Gracias"
 
-#: project/templates/project/project-detail-needs.html:57
+#: project/templates/project/project-detail-needs.html:97
 msgid "Load more"
 msgstr "Cargar más"
 
@@ -594,7 +665,7 @@ msgstr "Cargar más"
 msgid "explanatory video"
 msgstr "Vídeo"
 
-#: project/templates/project/project.html:21
+#: project/templates/project/project.html:55
 msgid "What do we need?"
 msgstr "¿Qué necesitamos?"
 
@@ -633,15 +704,15 @@ msgstr "Cosas:"
 msgid "Add things"
 msgstr "Añadir cosas"
 
-#: project/templates/project/project_header.html:24
+#: project/templates/project/project_header.html:31
 msgid "More info"
 msgstr "Más información"
 
-#: project/templates/project/project_header.html:30
+#: project/templates/project/project_header.html:37
 msgid "Share it"
 msgstr "Compártelo"
 
-#: project/templates/project/projects_grid.html:25
+#: project/templates/project/projects_grid.html:32
 msgid "Start your project from here"
 msgstr "Empieza tu proyecto desde aquí"
 
@@ -689,15 +760,15 @@ msgstr "Público"
 msgid "Private"
 msgstr "Privado"
 
-#: project/views.py:31
+#: project/views.py:37
 msgid "Search things to donate"
 msgstr "Buscar cosas para colaborar"
 
-#: project/views.py:59
+#: project/views.py:65
 msgid "ONGs"
 msgstr "ONGs"
 
-#: project/views.py:60
+#: project/views.py:66
 msgid "Search ONG to donate"
 msgstr "Busca una ONG con la que colaborar"
 
@@ -721,7 +792,7 @@ msgstr "Web"
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: userprofile/templates/userprofile/edit.html:14
+#: userprofile/templates/userprofile/edit.html:15
 msgid "Save"
 msgstr "Gaurdar"
 
