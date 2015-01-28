@@ -16,7 +16,7 @@ import json
 from django.contrib.gis.geos import Point
 
 from .forms import ThingFormSet, DirectionFormSet
-from .models import Project
+from .models import Project, ProjectObjective
 from .models import Organization
 from .models import Thing, Shipping, Donation, Cooperation
 from .models import ShippingCompany
@@ -299,6 +299,59 @@ class RemoveDirection(DeleteView):
         context = self.get_context_data()
         return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
+# PROJECT OBJECTIVE ####################################################
+class CreateProjectObjective(CreateView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateProjectObjective, self).get_context_data(*args, **kwargs)
+        project = get_object_or_404(Project, pk=self.args[0])
+        if (self.request.user != project.ong.user):
+            messages.add_message(self.request, messages.ERROR,
+                'Insufficient permissions')
+        context['project'] = project
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        obj = form.save(commit=False)
+        obj.project = context['project']
+        obj.save()
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug(), })
+
+
+class UpdateProjectObjective(UpdateView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateProjectObjective, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['projectobjective'].project.getslug(), })
+
+
+class RemoveProjectObjective(DeleteView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RemoveProjectObjective, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['projectobjective'].project.getslug(), })
+#################################################################
 
 @login_required
 def donate(request, projectslug):
