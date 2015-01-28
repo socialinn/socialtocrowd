@@ -14,12 +14,10 @@
 			<!-- END description -->
 			<!-- donations -->
 			<div class="col-md-4 col-md-offset-2 sidebar">
-				<h2>Objetivos</h2>
+				<h2>{% trans "Objectives" %}</h2>
 				<ul class="nav nav-pills nav-stacked">
-                    {% for thing in project.things.all %}
-                        {% if thing.ndonations.nodonate > 0 %}
-                            <li><span><i class="icon-checkmark i-16 primary"></i>{{ thing.name }}</span></li>
-                        {% endif %}
+                    {% for obj in objectives %}
+						<li><span><i class="icon-checkmark i-16 primary"></i>{{ obj.manifest }}</span></li>
                     {% endfor %}
 				</ul>
                 {% if project.categories.all %}
