@@ -137,6 +137,8 @@ class Detail(TemplateView):
                 .filter(shipping__project=project, show=True) \
                 .exclude(shipping__status="creating") \
                 .order_by('-shipping__created')[:20]
+        ctx['objectives'] = ProjectObjective.objects \
+                .filter(project=project)
         return ctx
 detail = Detail.as_view()
 
