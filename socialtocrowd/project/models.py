@@ -122,6 +122,10 @@ def post_add_project(sender, instance, created, *args, **kwargs ):
 
 post_save.connect(post_add_project, sender=Project)
 
+class ProjectObjective(models.Model):
+    project = models.ForeignKey(Project, related_name='objectives')
+    manifest = models.CharField(max_length=255)
+
 
 class Thing(models.Model):
     name = models.CharField(max_length=255)
