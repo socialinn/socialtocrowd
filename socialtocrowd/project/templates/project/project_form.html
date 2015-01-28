@@ -41,6 +41,17 @@
                     <a href="/project/create/direction/{{ project.id }}/">{% trans "New" %}</a>
                 {% endif %}
                 </div>
+                <div class="well">
+                    <h2>{% trans "Objectives:" %}</h2>
+                    {% for obj in project.objectives.all %}
+                    <ul>
+						{{ obj.manifest }}
+                        <a href="/project/edit/objective/{{ obj.pk }}/">{% trans "Edit" %}</a>
+                        <a href="/project/remove/objective/{{ obj.pk }}/">{% trans "Remove" %}</a>
+                    </ul>
+                    {% endfor %}
+                    <a href="/project/create/objective/{{ project.id }}/">{% trans "New" %}</a>
+                </div>
             </div>
         </div>
 
