@@ -2,6 +2,41 @@
 {% load thumbnail %}
 {% load l10n %}
 
+{% block extrabody %}
+
+<script type="text/javascript">
+	$(function() {
+		$.ajaxSetup({
+			data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+		});
+	});
+
+	function showDonateModal(selectedThingPK) {
+
+		$.ajax({
+			type: 'POST',
+			url: '/project/thing/description/',
+			data: {
+				"thingpk": selectedThingPK
+			},
+			dataType: 'json',
+			success: function(response) {
+				if(!response.error) {
+					console.log(response['description']);
+					console.log("viva");
+					$("#thing-description").html(response['description']);
+					$('#object_id').val(selectedThingPK);
+					$('#modal_donation').modal('show');
+					console.log(selectedThingPK);
+				}
+			}
+		});
+
+	}
+
+</script>
+
+{% endblock %}
 <script type="text/javascript">
     var pag = 20;
     function loadMore() {
@@ -35,8 +70,11 @@
 						<div id="popover" data-trigger="hover" data-content="olaqase" class="item box need">
                             <div class="box-container">
                                 <h3>{{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}</h3>
+								<div class="text-right"><a href="#" class="btn btn-primary inverse" onclick="showDonateModal({{ thing.id }})" class="icon-object i-16">{% trans "Donate" %}</a></div>
+                                <!--
                                 <div class="text-right"><a href="#" class="btn btn-primary inverse"
                                         data-toggle="modal" data-target="#modal_donation"><i class="icon-object i-16"></i>{% trans "Donate" %}</a></div>
+								-->
                             </div>
                         </div>
                     </div>

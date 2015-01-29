@@ -470,12 +470,15 @@ class DoNearView(View):
 donear = DoNearView.as_view()
 
 @login_required
-def donate_modal(request, thingpk):
-    if not request.POST:
-        return
+def thing_description(request):
+	print("asdf")
+	if not request.POST:
+		return
+	print("qwer")
 
-    thing = get_object_or_404(Thing, pk=thingpk)
+	thingpk = request.POST.get('thingpk')
+	thing = get_object_or_404(Thing, pk=thingpk)
 
-    jsondata = json.dumps({ '': thing.serialize() })
-    return HttpResponse(jsondata, content_type='application/json')
+	jsondata = json.dumps({ 'description': thing.description })
+	return HttpResponse(jsondata, content_type='application/json')
 

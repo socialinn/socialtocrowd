@@ -30,7 +30,7 @@
                                 <option value="a" >--- {% trans "Object name" %} ---</option>
                                 {% for thing in project.things.all %}
                                     {% if thing.ndonations.nodonate > 0 %}
-                                        <option value="{{ thing.id }}">
+										<option value="{{ thing.id }}">
                                         {{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}
                                         </option>
                                     {% endif %}
