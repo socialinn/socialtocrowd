@@ -468,3 +468,14 @@ class DoNearView(View):
         return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 donear = DoNearView.as_view()
+
+@login_required
+def donate_modal(request, thingpk):
+    if not request.POST:
+        return
+
+    thing = get_object_or_404(Thing, pk=thingpk)
+
+    jsondata = json.dumps({ '': thing.serialize() })
+    return HttpResponse(jsondata, content_type='application/json')
+

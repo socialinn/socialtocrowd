@@ -26,4 +26,8 @@ urlpatterns = patterns('',
     url(r'^create/objective/(\d+)/$', lr(views.CreateProjectObjective.as_view()), name="create_objective"),
     url(r'^edit/objective/(?P<pk>\d+)/$', lr(views.UpdateProjectObjective.as_view()), name="update_objective"),
     url(r'^remove/objective/(?P<pk>\d+)/$', lr(views.RemoveProjectObjective.as_view()), name="remove_objective"),
+
+    # AJAX
+    url(r'^donatemodal/(?P<thingpk>[-\w]+)$', views.donate_modal, name="donate_modal"),
+
 )
