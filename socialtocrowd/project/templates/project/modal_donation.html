@@ -21,23 +21,10 @@
                 <!-- form -->
                 <form id="form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <!-- form-section -->
-                    <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
-                        <div class="well text-center">
-                            <i id="show_img" class="icon-camera i-64"></i>
-                            <p>
-                                <input type="file" id="img" name="img" class="file_upload"
-                                        accept="image/*" style="display:none" onchange="readURL(this);" />
-                                <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
-                            </p>
-                        </div>
-                    </div>
-                    <!-- END form-section -->
 
-                    <!-- form-section -->
+                    <!-- NAME & DESC -->
                     <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
+                        <h4 class="form-section-header"><span class="badge">1</span>{% trans "What are you going to donate?" %}</h4>
                         <div class="form-group">
                             <select name="thing_id" class="form-control" id="object_id">
                                 <option value="a" >--- {% trans "Object name" %} ---</option>
@@ -50,6 +37,15 @@
                                 {% endfor %}
                             </select>
                         </div>
+						<div id="thing-description">
+							<p>This is the object description</p>
+						</div>
+                    </div>
+                    <!-- END NAME & DESC -->
+
+                    <!-- form-section -->
+                    <div class="form-section">
+                        <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
                         <div class="form-group">
                             <input id="object_quantity" name="quantity" type="number" min="1"
                                 class="form-control" placeholder="{% trans "Object quantity" %}">
@@ -67,12 +63,15 @@
 
                     <!-- form-section -->
                     <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
-                        <select class="form-control" name="ship" id="ship">
-                            {% for dir in project.directions.all %}
-                                <option value="{{ dir.id }}">{{ dir }}</option>
-                            {% endfor %}
-                        </select>
+                        <h4 class="form-section-header"><span class="badge">3</span>{% trans "Have you a object photo? Upload it!" %}</h4>
+                        <div class="well text-center">
+                            <i id="show_img" class="icon-camera i-64"></i>
+                            <p>
+                                <input type="file" id="img" name="img" class="file_upload"
+                                        accept="image/*" style="display:none" onchange="readURL(this);" />
+                                <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
+                            </p>
+                        </div>
                     </div>
                     <!-- END form-section -->
 
