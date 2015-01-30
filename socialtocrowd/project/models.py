@@ -61,6 +61,7 @@ class Project(models.Model):
     twitter = models.CharField(max_length=150, default="https://twitter.com/")
     googleplus = models.CharField(max_length=255, default="https://plus.google.com/", verbose_name="Google+")
     facebook = models.CharField(max_length=255, default="https://www.facebook.com/")
+    website = models.URLField(blank=True, null=True)
 
     def fillslug(self):
         self.slug = slugify(self.name)

@@ -184,7 +184,7 @@ class CreateProject(CreateView):
 
 class UpdateProject(UpdateView):
     model = Project
-    fields = ['name', 'description', 'img', 'twitter', 'googleplus', 'facebook' ]
+    fields = ['name', 'description', 'website', 'img', 'twitter', 'googleplus', 'facebook' ]
     success_url = '/'
 
     def get_object(self):
