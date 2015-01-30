@@ -1,5 +1,7 @@
 {% load i18n %}
 
+
+
 <!-- modal_donation -->
 <div class="modal fade" id="modal_donation" tabindex="-1" role="dialog" aria-labelledby="modal_donationLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -21,43 +23,39 @@
                 <!-- form -->
                 <form id="form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <!-- form-section -->
-                    <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">1</span>{% trans "Have you a object photo? Upload it!" %}</h4>
-                        <div class="well text-center">
-                            <i id="show_img" class="icon-camera i-64"></i>
-                            <p>
-                                <input type="file" id="img" name="img" class="file_upload"
-                                        accept="image/*" style="display:none" onchange="readURL(this);" />
-                                <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
-                            </p>
-                        </div>
-                    </div>
-                    <!-- END form-section -->
 
-                    <!-- form-section -->
+                    <!-- NAME & DESC -->
                     <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">2</span>{% trans "Add name and description of the object" %}</h4>
+                        <h4 class="form-section-header"><span class="badge">1</span>{% trans "What are you going to donate?" %}</h4>
                         <div class="form-group">
                             <select name="thing_id" class="form-control" id="object_id">
                                 <option value="a" >--- {% trans "Object name" %} ---</option>
                                 {% for thing in project.things.all %}
                                     {% if thing.ndonations.nodonate > 0 %}
-                                        <option value="{{ thing.id }}">
+										<option value="{{ thing.id }}">
                                         {{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}
                                         </option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
+						<div id="thing-description">
+							<p>This is the object description</p>
+						</div>
+                    </div>
+                    <!-- END NAME & DESC -->
+
+                    <!-- form-section -->
+                    <div class="form-section">
+                        <h4 class="form-section-header"><span class="badge">2</span>{% trans "How many? Any comments?" %}</h4>
                         <div class="form-group">
                             <input id="object_quantity" name="quantity" type="number" min="1"
                                 class="form-control" placeholder="{% trans "Object quantity" %}">
                             </input>
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="objectDrescription">{% trans "Object description" %}</label>
-                            <textarea class="form-control" id="object_info" name="info" placeholder="{% trans "Object description" %}"></textarea>
+                            <label class="sr-only" for="objectDrescription">{% trans "Object comments" %}</label>
+                            <textarea class="form-control" id="object_info" name="info" placeholder="{% trans "Object comments" %}"></textarea>
                         </div>
                         <div class="checkbox">
                             <label><input id="priv" name="priv" type="checkbox">{% trans "Private donation" %}</label>
@@ -67,12 +65,15 @@
 
                     <!-- form-section -->
                     <div class="form-section">
-                        <h4 class="form-section-header"><span class="badge">3</span>{% trans "Select shipping" %}</h4>
-                        <select class="form-control" name="ship" id="ship">
-                            {% for dir in project.directions.all %}
-                                <option value="{{ dir.id }}">{{ dir }}</option>
-                            {% endfor %}
-                        </select>
+                        <h4 class="form-section-header"><span class="badge">3</span>{% trans "Do you have a photo? Upload it!" %}</h4>
+                        <div class="well text-center">
+                            <i id="show_img" class="icon-camera i-64"></i>
+                            <p>
+                                <input type="file" id="img" name="img" class="file_upload"
+                                        accept="image/*" style="display:none" onchange="readURL(this);" />
+                                <a href="#" class="black" clickable="true" onclick="select_img()">{% trans "Add image" %}</a -->
+                            </p>
+                        </div>
                     </div>
                     <!-- END form-section -->
 
@@ -268,5 +269,30 @@
                 '<a href="#" clickable="true" onclick=removeDonation(' + don_id + ')> Remove</a></li>'
             );
         }
-    }
+	}
+
+	$("#object_id").change( function() {
+		changeDescriptionAccordingToThing($("#object_id").val());
+	} );
+
+	function changeDescriptionAccordingToThing(selectedThingPK) {
+
+		$("#thing-description").html('<button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>');
+		$.ajax({
+			type: 'POST',
+			url: '/project/thing/description/',
+			data: {
+				"thingpk": selectedThingPK
+			},
+			dataType: 'json',
+			success: function(response) {
+				if(!response.error) {
+					console.log(response['description']);
+					console.log("viva");
+					$("#thing-description").html(response['description']);
+				}
+			}
+		});
+
+	}
 </script>

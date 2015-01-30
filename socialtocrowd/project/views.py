@@ -16,7 +16,7 @@ import json
 from django.contrib.gis.geos import Point
 
 from .forms import ThingFormSet, DirectionFormSet
-from .models import Project
+from .models import Project, ProjectObjective
 from .models import Organization
 from .models import Thing, Shipping, Donation, Cooperation
 from .models import ShippingCompany
@@ -137,6 +137,8 @@ class Detail(TemplateView):
                 .filter(shipping__project=project, show=True) \
                 .exclude(shipping__status="creating") \
                 .order_by('-shipping__created')[:20]
+        ctx['objectives'] = ProjectObjective.objects \
+                .filter(project=project)
         return ctx
 detail = Detail.as_view()
 
@@ -182,7 +184,7 @@ class CreateProject(CreateView):
 
 class UpdateProject(UpdateView):
     model = Project
-    fields = ['name', 'description', 'img', 'twitter', 'googleplus', 'facebook' ]
+    fields = ['name', 'description', 'website', 'img', 'twitter', 'googleplus', 'facebook' ]
     success_url = '/'
 
     def get_object(self):
@@ -299,6 +301,59 @@ class RemoveDirection(DeleteView):
         context = self.get_context_data()
         return reverse('edit_project', kwargs={ 'projectslug' : context['direction'].project.getslug(), })
 
+# PROJECT OBJECTIVE ####################################################
+class CreateProjectObjective(CreateView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateProjectObjective, self).get_context_data(*args, **kwargs)
+        project = get_object_or_404(Project, pk=self.args[0])
+        if (self.request.user != project.ong.user):
+            messages.add_message(self.request, messages.ERROR,
+                'Insufficient permissions')
+        context['project'] = project
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        obj = form.save(commit=False)
+        obj.project = context['project']
+        obj.save()
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['project'].getslug(), })
+
+
+class UpdateProjectObjective(UpdateView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(UpdateProjectObjective, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['projectobjective'].project.getslug(), })
+
+
+class RemoveProjectObjective(DeleteView):
+    model = ProjectObjective
+    fields = ['manifest']
+
+    def get_context_data(self, **kwargs):
+        ctx = super(RemoveProjectObjective, self).get_context_data(**kwargs)
+        ctx['edit'] = True
+        return ctx
+
+    def get_success_url(self):
+        context = self.get_context_data()
+        return reverse('edit_project', kwargs={ 'projectslug' : context['projectobjective'].project.getslug(), })
+#################################################################
 
 @login_required
 def donate(request, projectslug):
@@ -413,3 +468,17 @@ class DoNearView(View):
         return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 donear = DoNearView.as_view()
+
+@login_required
+def thing_description(request):
+	print("asdf")
+	if not request.POST:
+		return
+	print("qwer")
+
+	thingpk = request.POST.get('thingpk')
+	thing = get_object_or_404(Thing, pk=thingpk)
+
+	jsondata = json.dumps({ 'description': thing.description })
+	return HttpResponse(jsondata, content_type='application/json')
+

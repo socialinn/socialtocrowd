@@ -23,4 +23,11 @@ urlpatterns = patterns('',
     url(r'^create/direction/(\d+)/$', lr(views.CreateDirection.as_view()), name="create_direction"),
     url(r'^edit/direction/(?P<pk>\d+)/$', lr(views.UpdateDirection.as_view()), name="update_direction"),
     url(r'^remove/direction/(?P<pk>\d+)/$', lr(views.RemoveDirection.as_view()), name="remove_direction"),
+    url(r'^create/objective/(\d+)/$', lr(views.CreateProjectObjective.as_view()), name="create_objective"),
+    url(r'^edit/objective/(?P<pk>\d+)/$', lr(views.UpdateProjectObjective.as_view()), name="update_objective"),
+    url(r'^remove/objective/(?P<pk>\d+)/$', lr(views.RemoveProjectObjective.as_view()), name="remove_objective"),
+
+    # AJAX
+    url(r'^thing/description/$', views.thing_description, name="thing_description"),
+
 )

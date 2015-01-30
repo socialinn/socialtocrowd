@@ -367,7 +367,7 @@ msgstr "Cerrar"
 
 #: main/templates/modal_alert.html:10
 msgid "Information"
-msgstr ""
+msgstr "Información"
 
 #: project/admin.py:8
 msgid "Mark selected ongs as active"
@@ -499,11 +499,11 @@ msgstr "Donar cosas"
 
 #: project/templates/project/modal_donation.html:15
 msgid "REGISTER"
-msgstr ""
+msgstr "REGISTRO"
 
 #: project/templates/project/modal_donation.html:17
 msgid "LOGIN"
-msgstr ""
+msgstr "LOGIN"
 
 #: project/templates/project/modal_donation.html:18
 #, fuzzy
@@ -562,7 +562,7 @@ msgstr "Ninguna colaboración aún"
 
 #: project/templates/project/modal_donation.html:97
 msgid "Add"
-msgstr ""
+msgstr "Añadir"
 
 #: project/templates/project/modal_donation.html:98
 #, fuzzy
@@ -647,11 +647,11 @@ msgstr "Cosas necesarias"
 
 #: project/templates/project/project-detail-needs.html:59
 msgid "Cooperar"
-msgstr ""
+msgstr "Cooperar"
 
 #: project/templates/project/project-detail-needs.html:75
 msgid "helping"
-msgstr ""
+msgstr "ayudando"
 
 #: project/templates/project/project-detail-needs.html:81
 msgid "Thanks"
@@ -778,7 +778,7 @@ msgstr "Español"
 
 #: socialtocrowd/settings.py:105
 msgid "English"
-msgstr "Ingĺes"
+msgstr "Inglés"
 
 #: userprofile/models.py:13 userprofile/templates/userprofile/profile.html:34
 msgid "Avatar"
@@ -794,7 +794,7 @@ msgstr "Editar perfil"
 
 #: userprofile/templates/userprofile/edit.html:15
 msgid "Save"
-msgstr "Gaurdar"
+msgstr "Guardar"
 
 #: userprofile/templates/userprofile/profile.html:6
 msgid "Profile"

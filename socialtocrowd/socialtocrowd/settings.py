@@ -83,9 +83,9 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'stc',
         'USER': 'stc',
-        'PASSWORD': 'stc',
+        'PASSWORD': '%433Htv_Res82',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 

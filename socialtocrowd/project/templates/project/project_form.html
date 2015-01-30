@@ -41,11 +41,20 @@
                     <a href="/project/create/direction/{{ project.id }}/">{% trans "New" %}</a>
                 {% endif %}
                 </div>
+                <div class="well">
+                    <h2>{% trans "Objectives:" %}</h2>
+                    {% for obj in project.objectives.all %}
+                    <ul>
+						{{ obj.manifest }}
+                        <a href="/project/edit/objective/{{ obj.pk }}/">{% trans "Edit" %}</a>
+                        <a href="/project/remove/objective/{{ obj.pk }}/">{% trans "Remove" %}</a>
+                    </ul>
+                    {% endfor %}
+                    <a href="/project/create/objective/{{ project.id }}/">{% trans "New" %}</a>
+                </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="well">
                 {% if edit %}
                     <h2>{% trans "Things:" %}</h2>
                     {% for thing in project.things.all %}
@@ -63,6 +72,7 @@
                         <div class="thingform">{{form|bootstrap_horizontal}}</div>
                     {% endfor %}
                 {% endif %}
+				</div>
             </div>
         </div>
 
