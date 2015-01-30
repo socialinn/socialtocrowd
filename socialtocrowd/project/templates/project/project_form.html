@@ -53,10 +53,8 @@
                     <a href="/project/create/objective/{{ project.id }}/">{% trans "New" %}</a>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
+                <div class="well">
                 {% if edit %}
                     <h2>{% trans "Things:" %}</h2>
                     {% for thing in project.things.all %}
@@ -74,6 +72,7 @@
                         <div class="thingform">{{form|bootstrap_horizontal}}</div>
                     {% endfor %}
                 {% endif %}
+				</div>
             </div>
         </div>
 
