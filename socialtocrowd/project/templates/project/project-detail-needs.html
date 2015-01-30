@@ -90,7 +90,7 @@
                             <div class="box-container">
                                 <h3>{{ coop.name }}: {{ coop.remain }} {% trans "remaining" %}</h3>
                                 <div class="text-right">
-                                    <a href="#" id="modal_coop" class="btn btn-primary inverse"
+                                    <a href="#" class="modal_coop btn btn-primary inverse"
                                             data-toggle="modal" data-target="#modal_cooperation" 
 											{% if coop.where %} data-where="{{ coop.where.pos }}" {% endif %}
 											{% if coop.when %} data-when="{{ coop.when }}" {% endif %}
