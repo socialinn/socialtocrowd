@@ -92,7 +92,8 @@
                                 <div class="text-right">
                                     <a href="#" id="modal_coop" class="btn btn-primary inverse"
                                             data-toggle="modal" data-target="#modal_cooperation" 
-                                            data-where="{{coop.where.pos}}" data-when="{{coop.when}}"
+											{% if coop.where %} data-where="{{ coop.where.pos }}" {% endif %}
+											{% if coop.when %} data-when="{{ coop.when }}" {% endif %}
                                             data-what="{{coop.what}}" data-id="{{coop.id}}">
                                             <i class="icon-user i-16"></i> {% trans "Cooperar" %}
                                     </a>

@@ -181,8 +181,8 @@ class Direction(models.Model):
 class Cooperation(models.Model):
     name = models.CharField(max_length=255)
     what = models.TextField()
-    where = models.ForeignKey(Direction, related_name='cooperations')
-    when = models.DateTimeField()
+    where = models.ForeignKey(Direction, related_name='cooperations', blank=True, null=True)
+    when = models.DateTimeField(blank=True, null=True)
     project = models.ForeignKey(Project, related_name='cooperations')
     quantity = models.IntegerField(default=1)
 
