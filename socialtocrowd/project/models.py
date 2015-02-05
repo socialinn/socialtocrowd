@@ -97,16 +97,20 @@ class Project(models.Model):
         return total
 
     def percent_donate(self):
-        total = 0
-        donate = 0
+        total_things_needed = 0
+        total_things_donated = 0
+        percentage_donated = 0
         for thing in self.things.all():
-            total += thing.quantity
-            donate += thing.ndonations().get('total')
-        if total <= 0:
-            res = 0
+            total_things_needed += thing.quantity
+            thing_donations = min(thing.quantity, thing.ndonations().get('total'))
+            total_things_donated += thing_donations
+        if total_things_donated <= 0:
+            percentage_donated = 0
         else:
-            res = donate * 100.0 / total
-        return res
+            percentage_donated = total_things_donated * 100.0 / total_things_needed
+        print(total_things_needed)
+        print(total_things_donated)
+        return min(percentage_donated, 100)
 
     def get_objetives(self):
         if self.objetives is None:
