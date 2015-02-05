@@ -110,7 +110,7 @@ class Project(models.Model):
             percentage_donated = total_things_donated * 100.0 / total_things_needed
         print(total_things_needed)
         print(total_things_donated)
-        return percentage_donated
+        return min(percentage_donated, 100)
 
     def get_objetives(self):
         if self.objetives is None:
