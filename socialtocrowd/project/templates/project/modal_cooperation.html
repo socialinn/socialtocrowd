@@ -34,8 +34,8 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span> {% trans "Where?" %}</h4>
                         <!-- TODO map here -->
-						<span id="where_wrapper">
-						</span>
+						<div id="where_wrapper">
+						</div>
                     </div>
                     <!-- END form-section -->
                     <!-- form-section -->
@@ -117,7 +117,7 @@ var vectorLayer = new ol.layer.Vector({
 
 // OSM LAYER
 var osmLayer = new ol.layer.Tile({
-	source: new ol.source.OSM()
+	source: new ol.source.OSM({ visible: true })
 });
 
 var mapView = new ol.View({
@@ -151,6 +151,8 @@ $(document).ready(function() {
 			$("#where_wrapper").html('<div id="map-div"></div>');
 			//$("#where").text($(this).data('where'));
 			map.setTarget("map-div");
+			map.addLayer(osmLayer);
+			map.addLayer(vectorLayer);
 		}
 		else
 		{
