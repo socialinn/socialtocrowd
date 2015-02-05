@@ -1,7 +1,5 @@
 {% load i18n %}
 
-
-
 <!-- modal_donation -->
 <div class="modal fade" id="modal_donation" tabindex="-1" role="dialog" aria-labelledby="modal_donationLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -120,6 +118,7 @@
 <!-- END modal_donation -->
 
 <script type="text/javascript">
+
     function validate() {
         $('#form').validate({
             rules: {
@@ -287,8 +286,6 @@
 			dataType: 'json',
 			success: function(response) {
 				if(!response.error) {
-					console.log(response['description']);
-					console.log("viva");
 					$("#thing-description").html(response['description']);
 				}
 			}
