@@ -60,6 +60,7 @@
             {% for thing in project.things.all %}
                 {% if thing.ndonations.nodonate > 0 %}
                     <div class="col-md-3 col-sm-6">
+						<div class="item box need">
                             <div class="box-container">
                                 <h3>{{ thing.name }}: {{ thing.ndonations.nodonate }} {% trans "remaining" %}</h3>
 								<div class="text-right"><a href="#" class="btn btn-primary inverse"
@@ -67,6 +68,7 @@
 									<i class="icon-object i-16"></i>{% trans "Donate" %}
 								</a></div>
                             </div>
+                        </div>
                     </div>
                 {% endif %}
             {% endfor %}
