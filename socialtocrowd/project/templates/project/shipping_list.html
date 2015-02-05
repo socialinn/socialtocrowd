@@ -12,7 +12,7 @@
                 <span>{{ shipping.status }}</span>
             </div>
             <div class="col-sm-5">
-                <a href="{% url 'detail' shipping.project.id %}"><h3>{{ shipping.project.name }}</h3></a>
+                <a href="{% url 'detail' shipping.project.slug %}"><h3>{{ shipping.project.name }}</h3></a>
                 <p>{{ shipping.project.description|truncatewords:40 }}</p>
                 <span class="pull-right">
                     {{shipping.created }}
