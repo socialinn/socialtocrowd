@@ -1,4 +1,15 @@
 {% load i18n %}
+{% load bootstrap %}
+
+<html>
+
+<head>
+<!-- OpenLayer -->
+<link rel="stylesheet" href="{{ STATIC_URL }}css/ol.css" type="text/css">
+</head>
+
+<body>
+
 
 <!-- modal_donation -->
 <div class="modal fade" id="modal_cooperation" tabindex="-1" role="dialog" aria-labelledby="modal_cooperationLabel" aria-hidden="true">
@@ -10,6 +21,14 @@
                 <h3 class="modal-title" id="myModalLabel">{% trans "Collaborate with your help" %}</h3>
             </div>
             <div class="modal-body">
+                {% if not user.is_authenticated %}
+                    <h1>
+                        <a href="{% url 'account_signup' %}">{% trans "REGISTER" %}</a>
+                        <span> {% trans "or" %} </span>
+                        <a href="{% url 'account_login' %}">{% trans "LOGIN" %}</a>
+                        <span> {% trans "to cooperate" %}</span>
+                    </h1>
+                {% else %}
                 <!-- form -->
                 <form id="form_coop" method="POST">
                     {% csrf_token %}
@@ -23,8 +42,8 @@
                     <div class="form-section">
                         <h4 class="form-section-header"><span class="badge">2</span> {% trans "Where?" %}</h4>
                         <!-- TODO map here -->
-						<span id="where_wrapper">
-						</span>
+						<div id="where_wrapper">
+						</div>
                     </div>
                     <!-- END form-section -->
                     <!-- form-section -->
@@ -41,10 +60,13 @@
 
                 </form>
                 <!-- END form -->
+				{% endif %}
             </div>
             <div class="modal-footer">
+                {% if user.is_authenticated %}
                 <button type="button" class="btn btn-link" data-dismiss="modal">{% trans "Cancel" %}</button>
                 <button type="button" class="btn btn-primary" onclick="cooperate();">{% trans "Participate" %}</button>
+				{% endif %}
             </div>
         </div>
         <!-- END modal-content form -->
@@ -64,47 +86,116 @@
 </div>
 <!-- END modal_donation -->
 
+
+<!-- jQuery -->
+<script src="{{ STATIC_URL }}js/jquery.js"></script>
+<!-- jQuery cookie -->
+<script src="{{ STATIC_URL }}js/jquery.cookie.js"></script>
+<!-- OpenLayer -->
+<script src="{{ STATIC_URL }}js/ol.js" type="text/javascript"></script>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".modal_coop").click(function() {
-            $("#coop_id").val($(this).data('id'));
-            $("#what").text($(this).data('what'));
-            $("#when").text($(this).data('when'));
+var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
 
-			if($(this).data('where') !== undefined)
-			{
-				$("#where_wrapper").html(' <span id="where"></span><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12680.354432952685!2d-5.983567620068355!3d37.38773672749435!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0d126c10f5053695%3A0x27f575e9f2f615b0!2sPlaza+Nueva!5e0!3m2!1ses!2ses!4v1416567996758" width="100%" height="200" frameborder="0" style="border:0"></iframe>');
-				$("#where").text($(this).data('where'));
-			}
-			else
-			{
-				$("#where_wrapper").html('{% trans "No info" %}');
-			}
+var iconGeometry = new ol.geom.Point([637125.42195, 8172199.19090669]);
+var iconFeature = new ol.Feature({
+	geometry: iconGeometry,
+	name: 'Null Island',
+	population: 4000,
+	rainfall: 500
+});
 
-			if($(this).data('when') !== undefined)
-			{
-				$("#when_wrapper").html('<div class="well text-center"><i class="icon-calendar i-16"></i><span id="when"></span><i class="icon-clock i-16"></i></div>');
-				$("#when").text($(this).data('when'));
-			}
-			else
-			{
-				$("#when_wrapper").html('{% trans "No info" %}');
-			}
-        });
-    });
+var iconStyle = new ol.style.Style({
+  image: new ol.style.Icon( ({
+    anchor: [0.5, 46],
+    anchorXUnits: 'fraction',
+    anchorYUnits: 'pixels',
+    opacity: 0.75,
+    src: marker_image
+  }))
+});
 
-    function cooperate() {
-        var data = $("#form_coop").serialize();
-        $.ajax({
-            type: 'POST',
-            url: '/project/cooperate/' + '{{ project.slug }}' + '/',
-            data: data,
-            success: function(json) {
-                if(!json.error) {
-                        formModalSuccess();
-                }
-            }
-        });
-    };
+iconFeature.setStyle(iconStyle);
+
+// MARKER LAYER
+var vectorSource = new ol.source.Vector({
+  features: [iconFeature]
+});
+
+var vectorLayer = new ol.layer.Vector({
+  source: vectorSource
+});
+
+// OSM LAYER
+var osmLayer = new ol.layer.Tile({
+	source: new ol.source.OSM({ visible: true })
+});
+
+var mapView = new ol.View({
+	center: [0, 0],
+	zoom: 8
+});
+
+var map = new ol.Map({
+	layers: [osmLayer],
+	target: 'map-div',
+	controls: ol.control.defaults({
+		attributionOptions:  ({
+			collapsible: false
+		})
+	}),
+	view: mapView
+});
+
+function dataFieldOrNothing(data_field, htmldata) {
+
+}
+
+$(document).ready(function() {
+	$(".modal_coop").click(function() {
+		$("#coop_id").val($(this).data('id'));
+		$("#what").text($(this).data('what'));
+		$("#when").text($(this).data('when'));
+
+		if($(this).data('where') !== undefined)
+		{
+			$("#where_wrapper").html('<div id="map-div"></div>');
+			//$("#where").text($(this).data('where'));
+			map.setTarget("map-div");
+			map.addLayer(osmLayer);
+			map.addLayer(vectorLayer);
+		}
+		else
+		{
+			$("#where_wrapper").html('{% trans "No info" %}');
+		}
+
+		if($(this).data('when') !== undefined)
+		{
+			$("#when_wrapper").html('<div class="well text-center"><i class="icon-calendar i-16"></i><span id="when"></span><i class="icon-clock i-16"></i></div>');
+			$("#when").text($(this).data('when'));
+		}
+		else
+		{
+			$("#when_wrapper").html('{% trans "No info" %}');
+		}
+	});
+});
+
+function cooperate() {
+	var data = $("#form_coop").serialize();
+	$.ajax({
+		type: 'POST',
+		url: '/project/cooperate/' + '{{ project.slug }}' + '/',
+		data: data,
+		success: function(json) {
+			if(!json.error) {
+					formModalSuccess();
+			}
+		}
+	});
+};
 
 </script>
+</body>
+</html>
