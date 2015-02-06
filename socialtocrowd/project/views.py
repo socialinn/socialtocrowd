@@ -177,7 +177,7 @@ class CreateProject(CreateView):
             direction_form.save()
             messages.add_message(self.request, messages.INFO,
                 'Project created successful')
-            return redirect('detail', obj.id)
+            return redirect('detail', obj.slug)
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
