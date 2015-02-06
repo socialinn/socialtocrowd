@@ -164,12 +164,12 @@ class CreateProject(CreateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        obj = form.save(commit=False)
-        obj.ong = context['ong']
-        obj.save()
         thing_form = context['thing_form']
         direction_form = context['direction_form']
         if thing_form.is_valid() and direction_form.is_valid():
+            obj = form.save(commit=False)
+            obj.ong = context['ong']
+            obj.save()
             self.object = form.save()
             thing_form.instance = self.object
             thing_form.save()
