@@ -15,9 +15,15 @@ var selectMap = new SelectPlaceMap({
 	map_div_id: 'id_pos_map'
 });
 
+selectMap.onSelectPlace( function( map, coordinate ) {
+	var transform = ol.proj.getTransform('EPSG:3857', 'EPSG:4326');
+	var point = transform(coordinate);
+	$('#id_pos').val("POINT (" + point[0] + " " + point[1] + ")");
+});
+
 if ("{{ direction }}") { // Paint point and center
 	var lat = parseFloat("{{ direction.pos.0 }}");
-	var lng = parseFloat("{{ direction.pos.1 }}");
+	var lon = parseFloat("{{ direction.pos.1 }}");
 	selectMap.setMarkerPlaceLatLon( lat, lon );
 }
 

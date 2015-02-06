@@ -51,13 +51,21 @@ function SelectPlaceMap( args )
 	var that = this;
 	// that?
 	this.setMarkerPlaceLatLon = function( lat, lon ) {
-		var normalized_coords = ol.proj.transform([lat, lng], 'EPSG:4326', 'EPSG:3857');
+		var normalized_coords = ol.proj.transform([lat, lon], 'EPSG:4326', 'EPSG:3857');
 		that.iconGeometry.setCoordinates(normalized_coords);
 		that.mapView.setCenter(normalized_coords);
+	};
+
+	this.onSelectPlace = function( callback ) {
+		that.customSelectPlaceCallback = callback;
 	};
 
 	// that?
 	this.map.on('singleclick', function(evt) {
 		that.iconGeometry.setCoordinates(evt.coordinate);
+		if( that.customSelectPlaceCallback ) {
+			that.customSelectPlaceCallback( that.map, evt.coordinate );
+		}
 	});
 }
+
