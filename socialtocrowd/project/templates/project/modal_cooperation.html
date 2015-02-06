@@ -1,16 +1,6 @@
 {% load i18n %}
 {% load bootstrap %}
 
-<html>
-
-<head>
-<!-- OpenLayer -->
-<link rel="stylesheet" href="{{ STATIC_URL }}css/ol.css" type="text/css">
-</head>
-
-<body>
-
-
 <!-- modal_donation -->
 <div class="modal fade" id="modal_cooperation" tabindex="-1" role="dialog" aria-labelledby="modal_cooperationLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -128,7 +118,7 @@ var vectorLayer = new ol.layer.Vector({
 
 // OSM LAYER
 var osmLayer = new ol.layer.Tile({
-	source: new ol.source.OSM({ visible: true })
+	source: new ol.source.OSM()
 });
 
 var mapView = new ol.View({
@@ -159,11 +149,12 @@ $(document).ready(function() {
 
 		if($(this).data('where') !== undefined)
 		{
-			$("#where_wrapper").html('<div id="map-div"></div>');
+			$("#where_wrapper").append('<div id="map-div"></div>');
+			$("#map-div").ready( function() { map.updateSize(); } );
 			//$("#where").text($(this).data('where'));
 			map.setTarget("map-div");
-			map.addLayer(osmLayer);
-			map.addLayer(vectorLayer);
+			$('#map-div').height(300);
+			setInterval(function(){map.updateSize();}, 0);
 		}
 		else
 		{
@@ -197,5 +188,3 @@ function cooperate() {
 };
 
 </script>
-</body>
-</html>
