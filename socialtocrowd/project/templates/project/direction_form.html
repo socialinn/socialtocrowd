@@ -4,77 +4,29 @@
 
 {% block extrabody %}
 
+<script src="{{ STATIC_URL }}js/selectplacemap.js"></script>
+
 <script type="text/javascript">
 
-var marker_image = '{{ STATIC_URL }}media/mapmarker.png';
 
-var iconGeometry = new ol.geom.Point([637125.42195, 8172199.19090669]);
-var iconFeature = new ol.Feature({
-	geometry: iconGeometry,
-	name: 'Null Island',
-	population: 4000,
-	rainfall: 500
+var selectMap = new SelectPlaceMap({
+	marker_image: '{{ STATIC_URL }}media/mapmarker.png',
+	default_position: [637125.42195, 8172199.19090669],
+	map_div_id: 'id_pos_map'
 });
 
-var iconStyle = new ol.style.Style({
-  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-    anchor: [0.5, 46],
-    anchorXUnits: 'fraction',
-    anchorYUnits: 'pixels',
-    opacity: 0.75,
-    src: marker_image
-  }))
-});
-
-iconFeature.setStyle(iconStyle);
-
-// MARKER LAYER
-var vectorSource = new ol.source.Vector({
-  features: [iconFeature]
-});
-
-var vectorLayer = new ol.layer.Vector({
-  source: vectorSource
-});
-
-
-// OSM LAYER
-var osmLayer = new ol.layer.Tile({
-	source: new ol.source.OSM()
-});
-
-var mapView = new ol.View({
-	center: [0, 0],
-	zoom: 8
-});
-
-var map = new ol.Map({
-	layers: [osmLayer, vectorLayer],
-	target: 'id_pos_map',
-	controls: ol.control.defaults({
-		attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-			collapsible: false
-		})
-	}),
-	view: mapView
+selectMap.onSelectPlace( function( map, coordinate ) {
+	var transform = ol.proj.getTransform('EPSG:3857', 'EPSG:4326');
+	var point = transform(coordinate);
+	$('#id_pos').val("POINT (" + point[0] + " " + point[1] + ")");
 });
 
 if ("{{ direction }}") { // Paint point and center
 	var lat = parseFloat("{{ direction.pos.0 }}");
-	var lng = parseFloat("{{ direction.pos.1 }}");
-	var coor = ol.proj.transform([lat, lng], 'EPSG:4326', 'EPSG:3857');
-	console.log(coor);
-	iconGeometry.setCoordinates(coor);
-	mapView.setCenter(coor);
+	var lon = parseFloat("{{ direction.pos.1 }}");
+	selectMap.setMarkerPlaceLatLon( lat, lon );
 }
 
-
-map.on('singleclick', function(evt) {
-	iconGeometry.setCoordinates(evt.coordinate);
-	var transform = ol.proj.getTransform('EPSG:3857', 'EPSG:4326');
-	var point = transform(evt.coordinate);
-	$('#id_pos').val("POINT (" + point[0] + " " + point[1] + ")");
-});
 
 </script>
 
