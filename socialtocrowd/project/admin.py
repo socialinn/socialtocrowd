@@ -12,11 +12,17 @@ class OrgAdmin(admin.ModelAdmin):
     list_filter = ('status', )
     actions = [make_active, ]
 
+class ProjectObjectiveInline(admin.TabularInline):
+    model = models.ProjectObjective
+
+class ProjectAdmin(admin.ModelAdmin):
+    model = models.Project
+    inlines = [ ProjectObjectiveInline ]
 
 admin.site.register(models.Organization, OrgAdmin)
 
 admin.site.register(models.Donation)
-admin.site.register(models.Project)
+admin.site.register(models.Project, ProjectAdmin)
 admin.site.register(models.ProjectObjective)
 admin.site.register(models.Thing)
 admin.site.register(models.Direction)
