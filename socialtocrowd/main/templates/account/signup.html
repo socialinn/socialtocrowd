@@ -7,9 +7,10 @@
 
 
 {% block content %}
+<section>
 <div class="page-layout container">
 <div class="row">
-    <div class="well col-md-9">
+    <div class="well col-md-8 col-md-offset-2">
 <h1>{% trans "Sign Up" %}</h1>
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
@@ -26,5 +27,7 @@
 		</div>
 	</div>
 </div>
+</section>
+<br />
 {% endblock %}
 
