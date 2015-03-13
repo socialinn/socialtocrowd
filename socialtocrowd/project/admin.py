@@ -17,6 +17,7 @@ admin.site.register(models.Organization, OrgAdmin)
 
 admin.site.register(models.Donation)
 admin.site.register(models.Project)
+admin.site.register(models.ProjectObjective)
 admin.site.register(models.Thing)
 admin.site.register(models.Direction)
 admin.site.register(models.Cooperation)
