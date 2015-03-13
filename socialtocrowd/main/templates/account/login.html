@@ -8,49 +8,47 @@
 
 {% block content %}
 <div class="page-layout container">
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="well col-md-8 col-md-offset-2">
+					<h1>{% trans "Sign In" %}</h1>
 
+					{% if socialaccount.providers %}
+					<p>{% blocktrans with site.name as site_name %}Please sign in with one
+					of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+					for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
 
-<section>
-	<div class="container">
-		<div class="row">
-			<div class="well col-md-8 col-md-offset-2">
-<h1>{% trans "Sign In" %}</h1>
+					<div class="socialaccount_ballot">
 
-{% if socialaccount.providers %}
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{site_name}} account and sign in below:{% endblocktrans %}</p>
+						<ul class="socialaccount_providers">
+							{% include "socialaccount/snippets/provider_list.html" with process="login" %}
+						</ul>
 
-<div class="socialaccount_ballot">
+						<div class="login-or">{% trans 'or' %}</div>
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
+					</div>
 
-  <div class="login-or">{% trans 'or' %}</div>
+					{% include "socialaccount/snippets/login_extra.html" %}
 
-</div>
+					{% else %}
+					<p>{% blocktrans %}If you have not created an account yet, then please
+					<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+					<p>{% blocktrans %}If you are an organization. Create an account and after request your Organization.{% endblocktrans %}</p>
+					{% endif %}
 
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-<p>{% blocktrans %}If you are an organization. Create an account and after request your Organization.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}" role="form">
-  {% csrf_token %}
-  {{ form|bootstrap }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction btn" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+					<form class="login" method="POST" action="{% url 'account_login' %}" role="form">
+						{% csrf_token %}
+						{{ form|bootstrap }}
+						{% if redirect_field_value %}
+						<input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						{% endif %}
+						<a class="button secondaryAction btn" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+						<button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+					</form>
+				</div>
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
 </div>
 {% endblock %}
