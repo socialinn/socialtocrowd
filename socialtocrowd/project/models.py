@@ -54,7 +54,6 @@ class Project(models.Model):
     img = models.ImageField(upload_to="projects", blank=True, null=True)
     ong = models.ForeignKey(Organization, related_name='projects')
     hashtag = models.CharField(max_length=255, blank=True, null=True)
-    objetives = models.CharField(max_length=255)
     images = models.CharField(max_length=255, blank=True, null=True)
     video = models.CharField(max_length=255, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -111,11 +110,6 @@ class Project(models.Model):
         print(total_things_needed)
         print(total_things_donated)
         return min(percentage_donated, 100)
-
-    def get_objetives(self):
-        if self.objetives is None:
-            return ''
-        return self.objetives.split(',')
 
     def get_images(self):
         if self.images is None:
