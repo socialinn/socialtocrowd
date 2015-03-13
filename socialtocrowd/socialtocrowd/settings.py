@@ -102,11 +102,13 @@ from django.utils.translation import ugettext_lazy as _
 
 LANGUAGES = (
     ('es', _('Spanish')),
-    ('en', _('English')),
+    #('en', _('English')),
 )
 
+LANGUAGE_CODE = 'es'
+
 LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'conf', 'locale'),
+    os.path.join(BASE_DIR, '..', 'conf', 'locale'),
 )
 
 # Static files (CSS, JavaScript, Images)
