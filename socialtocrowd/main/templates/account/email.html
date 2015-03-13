@@ -7,9 +7,9 @@
 
 {% block content %}
 <div class="page-layout container">
-
+	<section>
 <div class="row">
-    <div class="well col-md-9">
+    <div class="well col-md-8 col-md-offset-2">
     <h1>{% trans "E-mail Addresses" %}</h1>
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
@@ -60,6 +60,7 @@
 
 </div>
 </div>
+	</section>
 </div>
 {% endblock %}
 
