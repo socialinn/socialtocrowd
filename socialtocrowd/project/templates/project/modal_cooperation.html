@@ -127,7 +127,7 @@ var mapView = new ol.View({
 });
 
 var map = new ol.Map({
-	layers: [osmLayer],
+	layers: [osmLayer, vectorLayer],
 	target: 'map-div',
 	controls: ol.control.defaults({
 		attributionOptions:  ({
@@ -141,6 +141,11 @@ function dataFieldOrNothing(data_field, htmldata) {
 
 }
 
+function toPixelCoords(dir)
+{
+	return ol.proj.transform(dir, 'EPSG:4326', 'EPSG:3857');
+}
+
 $(document).ready(function() {
 	$(".modal_coop").click(function() {
 		$("#coop_id").val($(this).data('id'));
@@ -149,6 +154,12 @@ $(document).ready(function() {
 
 		if($(this).data('where') !== undefined)
 		{
+			var center = $(this).data('where').split('POINT (')[1].split(')')[0].split(' ');
+			center = toPixelCoords([(parseFloat(center[0])), (parseFloat(center[1]))]);
+			console.log(center);
+			map.getView().setCenter(center);
+			iconFeature.setGeometry( new ol.geom.Point(center) );
+			$("#where_wrapper").html('');
 			$("#where_wrapper").append('<div id="map-div"></div>');
 			$("#map-div").ready( function() { map.updateSize(); } );
 			//$("#where").text($(this).data('where'));
