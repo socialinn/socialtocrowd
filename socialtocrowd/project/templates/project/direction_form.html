@@ -60,22 +60,35 @@ function ParseAddress()
 		<div class="well container col-md-8 col-md-offset-2">
     <form action="" method="post">
         {% csrf_token %}
-        {{ form|bootstrap }}
+        {{ form.description|bootstrap }}
+		<br />
+        {{ form.timetable|bootstrap }}
+		<br />
+        {{ form.phone|bootstrap }}
+		<br />
+		<label class="control-label  " for="id_phone">Pos</label>
+			<div class="input-group">
+				<input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
+				<span class="input-group-btn">
+					<input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="ParseAddress()">
+				</span>
+			</div>
+			<br />
+        {{ form.pos }}
+			<br />
         {% if edit %}
             <input type="submit" class="btn btn-block btn-success" value="{% trans "Update" %}" />
         {% else %}
             <input type="submit" class="btn btn-block btn-success" value="{% trans "Create" %}" />
         {% endif %}
     </form>
-    <div class="searchbar input-group">
-      <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
-      <span class="input-group-btn">
-        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="ParseAddress()">
-      </span>
-    </div>
 	</div>
 	</section>
 </div>
+
+<script>
+
+</script>
 
 {% endblock %}
 
