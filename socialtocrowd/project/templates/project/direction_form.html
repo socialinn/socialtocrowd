@@ -27,13 +27,37 @@ if ("{{ direction }}") { // Paint point and center
 	selectMap.setMarkerPlaceLatLon( lat, lon );
 }
 
+$(function() {
+	$.ajaxSetup({
+		data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+	});
+});
+
+
+function ParseAddress()
+{
+	$.ajax({
+		url: "{% url 'parseaddr' %}",
+		type: "POST",
+		data: {
+			"address": $("#address").val(),
+		},
+		success: function(response) {
+			console.log(response['geoaddr']);
+			selectMap.setMarkerPlaceLatLon(response['geoaddr'][0], response['geoaddr'][1]);
+		}
+	});
+}
+
 
 </script>
 
 
 {% endblock %}
 {% block content %}
-
+<div class="page-layout container">
+	<section>
+		<div class="well container col-md-8 col-md-offset-2">
     <form action="" method="post">
         {% csrf_token %}
         {{ form|bootstrap }}
@@ -43,8 +67,15 @@ if ("{{ direction }}") { // Paint point and center
             <input type="submit" class="btn btn-block btn-success" value="{% trans "Create" %}" />
         {% endif %}
     </form>
-    <div id="id_pos_map">
+    <div class="searchbar input-group">
+      <input type="text" class="form-control" id="address" placeholder="{% trans "Search your location" %}">
+      <span class="input-group-btn">
+        <input type="button" class="btn btn-primary" value="{% trans "Go" %}" onclick="ParseAddress()">
+      </span>
+    </div>
 	</div>
+	</section>
+</div>
 
 {% endblock %}
 

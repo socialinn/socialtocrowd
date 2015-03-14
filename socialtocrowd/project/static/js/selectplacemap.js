@@ -8,6 +8,7 @@ function SelectPlaceMap( args )
 	args.default_position = args.default_position || [0, 0];
 	args.map_div_id = args.map_div_id || 'default-map-div';
 
+	this.mapDivID = args.map_div_id;
 	this.markerImage= args.marker_image;
 	this.iconGeometry = new ol.geom.Point(args.default_position);
 	this.iconFeature = new ol.Feature({
@@ -37,9 +38,10 @@ function SelectPlaceMap( args )
 		zoom: 8
 	});
 
+	var that = this;
 	this.map = new ol.Map({
 		layers: [this.osmLayer, this.vectorLayer],
-		target: 'id_pos_map',
+		target: that.mapDivID,
 		controls: ol.control.defaults({
 			attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
 				collapsible: false
@@ -48,8 +50,6 @@ function SelectPlaceMap( args )
 		view: this.mapView
 	});
 
-	var that = this;
-	// that?
 	this.setMarkerPlaceLatLon = function( lat, lon ) {
 		var normalized_coords = ol.proj.transform([lat, lon], 'EPSG:4326', 'EPSG:3857');
 		that.iconGeometry.setCoordinates(normalized_coords);

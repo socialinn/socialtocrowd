@@ -469,6 +469,17 @@ class DoNearView(View):
 
 donear = DoNearView.as_view()
 
+class AddrToLatLonView(View):
+
+    def post(self, request):
+        addr = request.POST.get('address')
+        geoaddr = addr_to_geo(addr)
+        json_data = {}
+        json_data['geoaddr'] = [ float(geoaddr['lon']), float(geoaddr['lat']) ]
+        return HttpResponse(json.dumps(json_data), content_type="application/json")
+
+parseaddr = AddrToLatLonView.as_view()
+
 @login_required
 def thing_description(request):
 	print("asdf")
