@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load thumbnail %}
+
+<!-- #detail_info -->
+<section id="detail_collaborators">
+  <div class="container">
+    <div class="row">
+      <!-- description -->
+<!-- END #detail_info -->
+   {% if project.collaborators.all %}
+                    <h2>{% trans "Collaborators" %}</h2>
+                    <div class="row collaborators">
+                        {% for collaborator in project.collaborators.all %}
+                              <div class="col-xs-12 col-md-2">
+                                <a href="{{ collaborator.link }}" class="thumbnail collaborator">
+                                  <img src="/static/media/{{ collaborator.img }}" alt="">
+                                </a>
+                              </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+      </div>
+  </div>
+</section>

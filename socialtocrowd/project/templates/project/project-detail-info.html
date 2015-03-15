@@ -30,20 +30,7 @@
                 {% endif %}
             
 			</div>
-              {% if project.collaborators.all %}
-                    <h2>{% trans "Collaborators" %}</h2>
-                    <div class="row collaborators">
-                        {% for collaborator in project.collaborators.all %}
-                              <div class="col-xs-12 col-md-2">
-                                <a href="{{ collaborator.link }}" class="thumbnail collaborator">
-                                  <img src="/static/media/{{ collaborator.img }}" alt="">
-                                </a>
-                              </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
 			<!-- END donations -->
 		</div>
 	</div>
 </section>
-<!-- END #detail_info -->
