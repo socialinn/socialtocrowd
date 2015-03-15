@@ -34,7 +34,7 @@
                         {% for collaborator in project.collaborators.all %}
                               <div class="col-xs-12 col-md-6">
                                 <a href="{{ collaborator.link }}" class="thumbnail collaborator">
-                                  <img src="static/media/{{ collaborator.img }}" alt="">
+                                  <img src="/static/media/{{ collaborator.img }}" alt="">
                                 </a>
                               </div>
                         {% endfor %}
