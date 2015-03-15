@@ -723,6 +723,10 @@ h1, h2, h3, h4, h5, h6,
 	padding: 40px 0;
 }
 
+#detail_collaborators {
+  padding: 40px 0;
+}
+
 /* project-bar-fixed */
 .project-bar-fixed{
 	background: #fff;
