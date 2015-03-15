@@ -30,9 +30,13 @@
                 {% endif %}
                 {% if project.collaborators.all %}
                     <h2>{% trans "Collaborators" %}</h2>
-                    <div class="collaborators">
+                    <div class="row collaborators">
                         {% for collaborator in project.collaborators.all %}
-                            <a href="{{ collaborator.link }}" class="collaborator"><img src="/static/media/{{ collaborator.img }}"></a>
+                              <div class="col-xs-12 col-md-6">
+                                <a href="{{ collaborator.link }}" class="thumbnail collaborator">
+                                  <img src="static/media/{{ collaborator.img }}" alt="">
+                                </a>
+                              </div>
                         {% endfor %}
                     </div>
                 {% endif %}
