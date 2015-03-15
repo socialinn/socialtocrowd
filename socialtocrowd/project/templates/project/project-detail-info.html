@@ -32,7 +32,7 @@
                     <h2>{% trans "Collaborators" %}</h2>
                     <div class="collaborators">
                         {% for collaborator in project.collaborators.all %}
-                            <a href="{{ collaborator.link }}" class="collaborator"><img src="{{ collaborator.img }}"></a>
+                            <a href="/{{ collaborator.link }}" class="collaborator"><img src="{{ collaborator.img }}"></a>
                         {% endfor %}
                     </div>
                 {% endif %}
