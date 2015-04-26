@@ -5,3 +5,4 @@ socialtocrowd/socialtocrowd/settings.py
 socialtocrowd/static/media/*
 *.swo
 *.swn
+conf/locale/es/LC_MESSAGES/django.mo
